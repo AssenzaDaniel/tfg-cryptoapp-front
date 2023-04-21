@@ -43,7 +43,7 @@ class Owner extends HTMLElement {
 
     render() {
         this.innerHTML = `
-        <h2>Bienvenido, ${this.#name}.</h2>
+        <p>Bienvenido, ${this.#name}.<p>
         `
     }
 }

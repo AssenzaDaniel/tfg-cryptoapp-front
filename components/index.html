@@ -7,10 +7,21 @@
     <link rel="stylesheet" href="./owner.css">
     <script src="./owner.js"></script>
     <style>
+        html {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
         body {
             display: block;
             width: 70vw;
             margin: 5vh auto;
+        }
+
+        body > * {
+            margin-bottom: 20px;
+        }
+
+        user-greeting {
         }
     </style>
 </head>
@@ -20,8 +31,9 @@
 <script>
     document.addEventListener('click', () => {
 
-        const a = new Owner('Prueba')
+        const name = window.prompt('Ingresa un nombre')
+        const a = new Owner(name || '')
         document.body.appendChild(a)
-    }, false)
+    })
 </script>
 </html>
