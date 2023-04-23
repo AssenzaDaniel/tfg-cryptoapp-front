@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Component Test</title>
-    <link rel="stylesheet" href="./owner.css">
-    <script src="./owner.js"></script>
     <style>
         html {
             font-family: Verdana, Geneva, Tahoma, sans-serif;
+            color: rgb(70, 75, 95);
         }
 
         body {
@@ -27,12 +26,23 @@
 </head>
 <body>
     <user-greeting name="Daniel Assenza"></user-greeting>
+    <input-field></input-field>
 </body>
-<script>
-    document.addEventListener('click', () => {
+<script type="module">
+
+    import User from './owner.js'
+    import field from './field.js'
+
+    const userGreetings = document.querySelector('user-greeting');
+    const textField = document.querySelector('input-field');
+    textField.bindElement = userGreetings;
+
+    document.addEventListener('keydown', (event) => {
+
+        if (event.key !== 'n') return
 
         const name = window.prompt('Ingresa un nombre')
-        const a = new Owner(name || '')
+        const a = new User(name || '')
         document.body.appendChild(a)
     })
 </script>

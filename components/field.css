@@ -1,0 +1,25 @@
+input-field {
+    display: block;
+    height: 100%;
+    background-color: rgb(245, 245, 245);
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 10px 20px;
+    box-shadow: 0px 2px 10px lightgray;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: grey;
+}
+
+input {
+    width: 100%;
+    color: inherit;
+    background-color: transparent;
+    padding: 5px 0;
+    font-size: 1.2rem;
+    outline: 0;
+    border: 0;
+}

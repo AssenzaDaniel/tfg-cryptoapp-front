@@ -1,10 +1,10 @@
-class Owner extends HTMLElement {
+export default class extends HTMLElement {
 
+    componentName = 'owner'
     #name
 
     constructor(name = '') {
         super()
-
         this.#name = name
         this.addEventListener('click', this.#modifyName)
     }
@@ -43,9 +43,11 @@ class Owner extends HTMLElement {
 
     render() {
         this.innerHTML = `
+        <link rel="stylesheet" href="./${this.componentName}.css">
         <p>Bienvenido, ${this.#name}.<p>
         `
     }
 }
 
-customElements.define('user-greeting', Owner)
+import self from './owner.js'
+customElements.define('user-greeting', self)
