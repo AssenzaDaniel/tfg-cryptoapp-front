@@ -1,6 +1,6 @@
 export default class extends HTMLElement {
 
-    componentName = 'field'
+    #componentName = 'field'
     #bindedElement = null
     #data = ''
 
@@ -32,13 +32,13 @@ export default class extends HTMLElement {
         if (oldValue !== newValue) this[attribute] = newValue
     }
 
-    static get observedAttributes() { 
-        return ['data']; 
+    static get observedAttributes() {
+        return ['data'];
     }
 
     render() {
         this.innerHTML = `
-        <link rel="stylesheet" href="./${this.componentName}.css">
+        <link rel="stylesheet" href="./${this.#componentName}.css">
         <label for="data">Data</label>
         <input type="text" id="data">
         `
