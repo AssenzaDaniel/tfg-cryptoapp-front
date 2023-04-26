@@ -1,54 +1,50 @@
 export default class extends HTMLElement {
 
     #componentName = 'owner'
-    #name
+    #nameSpan = null
+    #name = ''
 
     constructor(name = '') {
         super()
         this.#name = name
-    }
 
+        this.render()
+        this.#nameSpan = this.querySelector('#name')
+    }
+    
     get name() {
         return this.#name
     }
-
+    
     set name(value) {
-
         if (value === this.#name) return
 
         this.#name = value
-        this.render()
+        this.#nameSpan.innerText = value
     }
 
-    #modifyName(event) {
-
+    #modifyName() {
         const newName = window.prompt('Ingresa nuevo nombre')
         this.name = newName || ''
-        event.stopPropagation()
-
     }
 
     // Window.onload
     connectedCallback() {
-        this.render()
         this.addEventListener('click', this.#modifyName)
     }
-
 
     static get observedAttributes() {
         return ['name'];
     }
 
     attributeChangedCallback(attribute, oldValue, newValue = '') {
-
         if (oldValue !== newValue) this[attribute] = newValue
     }
-
 
     render() {
         this.innerHTML = `
         <link rel="stylesheet" href="./${this.#componentName}.css">
-        <p>Bienvenido, ${this.#name}.<p>
+        <p>Bienvenido, <span id="name">${this.#name}</span>.<p>
         `
     }
 }

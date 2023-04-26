@@ -39,7 +39,7 @@ export default class extends HTMLElement {
     render() {
         this.innerHTML = `
         <link rel="stylesheet" href="./${this.#componentName}.css">
-        <label for="data">Data</label>
+        <label for="data">Nombre y Apellidos</label>
         <input type="text" id="data">
         `
     }

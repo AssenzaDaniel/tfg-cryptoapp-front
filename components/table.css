@@ -1,0 +1,49 @@
+#table {
+    width: fit-content;
+    min-width: 200px;
+    border-radius: 20px;
+    background-color: transparent;
+    padding: 15px;
+}
+
+h2 {
+    font-variant-caps: all-small-caps;
+}
+
+.fila {
+    display: flex;
+    gap: 0 50px;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 10px 10px -10px lightgray;
+    border-radius: 10px;
+    background-color: whitesmoke;
+    padding: 10px 20px;
+}
+
+#coin {
+    display: inline-flex;
+    gap: 0 20px;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+#coin img {
+    height: 30px;
+}
+
+#change {
+    word-spacing: 3px;
+}
+
+.fila:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.negative {
+    color: palevioletred;
+}
+
+.positive {
+    color: seagreen;
+}
