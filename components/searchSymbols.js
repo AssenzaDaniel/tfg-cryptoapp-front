@@ -24,7 +24,6 @@
 */
 
 // Obtener la instancia del objeto XMLHttpRequest.
-
 //const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 let peticion_http = new XMLHttpRequest()
 
@@ -35,58 +34,76 @@ const API_URL = "https://api.binance.com/api/v3/ticker/24hr";
 //onload = conexionAPI(API_URL);
 
 // Realiza la conexión con la API.
-export default function () {
+export default async function () {
     // Realizo petición HTTP.
-    peticion_http.open('GET', API_URL);
-    peticion_http.send();
-    
+    peticion_http.open('GET', API_URL, false);
+    peticion_http.send(null);
+
     //Obtención de datos al cargar la petición.
-    peticion_http.onload = () => {
+    //peticion_http.onload = peticionOnload;
 
-        // Petición con status 200.
-        if (peticion_http.status == 200) {
-    
-            // String de datos recibidos de la API.
-            let responseString = peticion_http.responseText;
-    
-            // Convierto String a JSON.
-            let obj = JSON.parse(responseString);
-    
-    
-            // Visualizo los valores que comiencen por el symbol dado por parámetro.
-            //objResult = searchStartsWithSymbol(obj, "USDT");
-    
-            // Visualizo los valores que contengan el symbol dado por parámetro.
-            //objResult = searchIncludesSymbol(obj, "USDT");
-    
-            // Visualizo los valores que terminen por el symbol dado por parámetro.
-            let objResult = searchEndsWithSymbol(obj, "USDT");
-    
-            // Simbolos ordenados por popularidad.
-            objResult = popularSymbols(objResult, 0, 10);               // (JSON), (0 mayor-menor, 1 menor-mayor), (Cantidad de symbolos a mostrar).
-    
-            // Visualizo JSON por consola.
-            console.log("\nVolumen de mercado Mayor-Menor: ")
-            visualizarConsola(objResult);
 
-            return objResult
-/*     
-    
-    
-            // Simbolos ordenados por popularidad.
-            objResult = highSymbols(objResult, 0, 10);               // (JSON), (0 mayor-menor, 1 menor-mayor), (Cantidad de symbolos a mostrar).
-    
-            // Visualizo JSON por consola.
-            console.log("\nPrecio Mayor-Menor: ")
-            visualizarConsola(objResult); */
-    
-        } else {
-            console.log(`Error: ${peticion_http.status}`);
-            return null
-        }
-    }
+
+
+
+    // String de datos recibidos de la API.
+    let responseString = peticion_http.responseText;
+
+    // Convierto String a JSON.
+    let obj = JSON.parse(responseString);
+
+    // Visualizo los valores que terminen por el symbol dado por parámetro.
+    let objResult = searchEndsWithSymbol(obj, "USDT");
+
+    // Simbolos ordenados por popularidad.
+    objResult = popularSymbols(objResult, 0, 10);
+
+    return objResult;
 }
 
+function peticionOnload() {
+    // Petición con status 200.
+    if (peticion_http.status == 200 && peticion_http.readyState == 4) {
+
+        // String de datos recibidos de la API.
+        let responseString = peticion_http.responseText;
+
+        // Convierto String a JSON.
+        let obj = JSON.parse(responseString);
+
+
+        // Visualizo los valores que comiencen por el symbol dado por parámetro.
+        //objResult = searchStartsWithSymbol(obj, "USDT");
+
+        // Visualizo los valores que contengan el symbol dado por parámetro.
+        //objResult = searchIncludesSymbol(obj, "USDT");
+
+        // Visualizo los valores que terminen por el symbol dado por parámetro.
+        let objResult = searchEndsWithSymbol(obj, "USDT");
+
+        // Simbolos ordenados por popularidad.
+        objResult = popularSymbols(objResult, 0, 10);               // (JSON), (0 mayor-menor, 1 menor-mayor), (Cantidad de symbolos a mostrar).
+
+        // Visualizo JSON por consola.
+        console.log("\nVolumen de mercado Mayor-Menor: ")
+        visualizarConsola(objResult);
+
+        return objResult
+/*
+
+
+        // Simbolos ordenados por popularidad.
+        objResult = highSymbols(objResult, 0, 10);               // (JSON), (0 mayor-menor, 1 menor-mayor), (Cantidad de symbolos a mostrar).
+
+        // Visualizo JSON por consola.
+        console.log("\nPrecio Mayor-Menor: ")
+        visualizarConsola(objResult); */
+
+    } else {
+        console.log(`Error: ${peticion_http.status}`);
+        return null
+    }
+}
 
 
 

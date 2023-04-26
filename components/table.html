@@ -62,35 +62,39 @@
     </div>
     <div id="table">
         <h2>Hottest</h2>
-        <div class="fila">
-            <div id="coin">
-                <img src="./btc.png" alt="coin">
-                <div id="coin">BTC</div>
-            </div>
-            <div id="price">17000 USDT</div>
-            <div id="change" class="negative">-1,25 %</div>
-        </div>
-        <div class="fila">
-            <div id="coin">
-                <img src="./btc.png" alt="coin">
-                <div id="coin">BTC</div>
-            </div>
-            <div id="price">17000 USDT</div>
-            <div id="change" class="positive">+0,75 %</div>
-        </div>
-        <div class="fila">
-            <div id="coin">
-                <img src="./btc.png" alt="coin">
-                <div id="coin">BTC</div>
-            </div>
-            <div id="price">17000 USDT</div>
-            <div id="change" class="negative">-3,29 %</div>
-        </div>
     </div>
 </body>
 <script type="module">
     import apiRequest from './searchSymbols.js'
 
-    apiRequest()
+    const res = await apiRequest();
+    console.log(res);
+
+    const table = document.getElementById("table");
+
+    res.forEach(symbol => {
+        const row = document.createElement("div");
+        row.className = "fila";
+        const coin = document.createElement("div");
+        coin.id = "coin";
+
+        coin.innerHTML = `
+            <img src="./btc.png" alt="coin">
+            <div id="coin">${symbol.symbol.replace("USDT", "")}</div>
+        `;
+        const price = document.createElement("div");
+        price.id = "price";
+        price.innerText = symbol.lastPrice;
+        const change = document.createElement("div");
+        change.id = "change";
+        change.className = symbol.priceChangePercent >= 0 ? 'positive' : 'negative';
+        change.innerText = symbol.priceChangePercent;
+
+        row.appendChild(coin);
+        row.appendChild(price);
+        row.appendChild(change);
+        table.appendChild(row);
+    });
+
 </script>
 </html>
