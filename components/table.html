@@ -106,7 +106,7 @@
         price.id = "price";
         const str = ""
         str.substring()
-        price.innerText = symbol.lastPrice.substring(0, symbol.lastPrice.indexOf(".") + 3);
+        price.innerText = '$ ' + symbol.lastPrice.substring(0, symbol.lastPrice.indexOf(".") + 5);
         const change = document.createElement("div");
         change.id = "change";
         change.className = symbol.priceChangePercent >= 0 ? 'positive' : 'negative';
