@@ -1,9 +1,9 @@
 #table {
     width: fit-content;
-    min-width: 200px;
     border-radius: 20px;
     background-color: transparent;
-    padding: 15px;
+    padding: 3vw;
+    box-sizing: border-box;
 }
 
 h2 {
@@ -12,18 +12,18 @@ h2 {
 
 .fila {
     display: flex;
-    gap: 0 50px;
+    gap: 0 6vw;
     justify-content: space-between;
     align-items: center;
     box-shadow: 0px 10px 10px -10px lightgray;
     border-radius: 10px;
     background-color: whitesmoke;
-    padding: 10px 20px;
+    padding: 10px 15px;
 }
 
 #coin {
     display: inline-flex;
-    gap: 0 20px;
+    gap: 0 10px;
     align-items: center;
     flex-shrink: 0;
 }
@@ -33,7 +33,7 @@ h2 {
 }
 
 #change {
-    word-spacing: 3px;
+    flex-shrink: 0;
 }
 
 .fila:not(:last-child) {
