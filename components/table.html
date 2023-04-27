@@ -86,27 +86,26 @@
     import apiRequest from './searchSymbols.js'
 
     const res = await apiRequest();
-    console.log(res);
+    //console.log(res);
 
     const table = document.getElementById("table");
 
     res.forEach(symbol => {
         const row = document.createElement("div");
         row.className = "fila";
+
         const coin = document.createElement("div");
         coin.id = "coin";
-
         const coinName = symbol.symbol.replace("USDT", "");
-
         coin.innerHTML = `
             <img src="${`./icons/color/${coinName.toLowerCase()}.svg`}">
             <div id="coin">${coinName}</div>
-        `
+        `;
+
         const price = document.createElement("div");
         price.id = "price";
-        const str = ""
-        str.substring()
         price.innerText = '$ ' + symbol.lastPrice.substring(0, symbol.lastPrice.indexOf(".") + 5);
+
         const change = document.createElement("div");
         change.id = "change";
         change.className = symbol.priceChangePercent >= 0 ? 'positive' : 'negative';
@@ -117,6 +116,5 @@
         row.appendChild(change);
         table.appendChild(row);
     });
-
 </script>
 </html>

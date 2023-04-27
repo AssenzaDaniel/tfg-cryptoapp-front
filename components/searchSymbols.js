@@ -24,14 +24,12 @@
 */
 
 // Obtener la instancia del objeto XMLHttpRequest.
-//const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-let peticion_http = new XMLHttpRequest()
+//const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;          // Node
+let peticion_http = new XMLHttpRequest();
 
-// https://api.binance.com/api/v3/ticker/price
+
 const API_URL = "https://api.binance.com/api/v3/ticker/24hr";
 
-//Conexión con la API al cargar la página.
-//onload = conexionAPI(API_URL);
 
 // Realiza la conexión con la API.
 export default async function () {
@@ -39,18 +37,10 @@ export default async function () {
     peticion_http.open('GET', API_URL, false);
     peticion_http.send(null);
 
-    //Obtención de datos al cargar la petición.
-    //peticion_http.onload = peticionOnload;
-
-
-
-
 
     // String de datos recibidos de la API.
-    let responseString = peticion_http.responseText;
-
     // Convierto String a JSON.
-    let obj = JSON.parse(responseString);
+    let obj = JSON.parse(peticion_http.responseText);
 
     // Visualizo los valores que terminen por el symbol dado por parámetro.
     let objResult = searchEndsWithSymbol(obj, "USDT");
@@ -59,50 +49,6 @@ export default async function () {
     objResult = popularSymbols(objResult, 0, 10);
 
     return objResult;
-}
-
-function peticionOnload() {
-    // Petición con status 200.
-    if (peticion_http.status == 200 && peticion_http.readyState == 4) {
-
-        // String de datos recibidos de la API.
-        let responseString = peticion_http.responseText;
-
-        // Convierto String a JSON.
-        let obj = JSON.parse(responseString);
-
-
-        // Visualizo los valores que comiencen por el symbol dado por parámetro.
-        //objResult = searchStartsWithSymbol(obj, "USDT");
-
-        // Visualizo los valores que contengan el symbol dado por parámetro.
-        //objResult = searchIncludesSymbol(obj, "USDT");
-
-        // Visualizo los valores que terminen por el symbol dado por parámetro.
-        let objResult = searchEndsWithSymbol(obj, "USDT");
-
-        // Simbolos ordenados por popularidad.
-        objResult = popularSymbols(objResult, 0, 10);               // (JSON), (0 mayor-menor, 1 menor-mayor), (Cantidad de symbolos a mostrar).
-
-        // Visualizo JSON por consola.
-        console.log("\nVolumen de mercado Mayor-Menor: ")
-        visualizarConsola(objResult);
-
-        return objResult
-/*
-
-
-        // Simbolos ordenados por popularidad.
-        objResult = highSymbols(objResult, 0, 10);               // (JSON), (0 mayor-menor, 1 menor-mayor), (Cantidad de symbolos a mostrar).
-
-        // Visualizo JSON por consola.
-        console.log("\nPrecio Mayor-Menor: ")
-        visualizarConsola(objResult); */
-
-    } else {
-        console.log(`Error: ${peticion_http.status}`);
-        return null
-    }
 }
 
 
@@ -123,20 +69,6 @@ function searchStartsWithSymbol(obj, symbol) {
     return result;
 }
 
-// Visualiza los valores que terminen por el symbol dado por parámetro.
-function searchEndsWithSymbol(obj, symbol) {
-    // Array de resultados.
-    let result = [];
-    for (const iterator of obj) {
-        // Que empiece por symbol.
-        if (iterator.symbol.endsWith(symbol)) {
-            result.push(iterator);
-        }
-    }
-
-    return result;
-}
-
 // Visualiza los valores que contengan el symbol dado por parámetro.
 function searchIncludesSymbol(obj, symbol) {
     // Array de resultados.
@@ -144,6 +76,20 @@ function searchIncludesSymbol(obj, symbol) {
     for (const iterator of obj) {
         // Que incluya symbol.
         if (iterator.symbol.includes(symbol)) {
+            result.push(iterator);
+        }
+    }
+
+    return result;
+}
+
+// Visualiza los valores que terminen por el symbol dado por parámetro.
+function searchEndsWithSymbol(obj, symbol) {
+    // Array de resultados.
+    let result = [];
+    for (const iterator of obj) {
+        // Que empiece por symbol.
+        if (iterator.symbol.endsWith(symbol)) {
             result.push(iterator);
         }
     }
@@ -175,17 +121,4 @@ function highSymbols(obj, action, quantity) {
     }
 
     return obj.slice(0, quantity);
-}
-
-
-
-
-
-// Visualiza JSON por consola.
-function visualizarConsola(obj) {
-    if (obj == undefined) {
-        console.log(`Error: ${obj}`);
-    } else {
-        console.log(obj);
-    }
 }
