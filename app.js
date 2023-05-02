@@ -13,4 +13,4 @@ app.get('/', (request, response) => {
     response.sendFile(`${__dirname}/src/table.html`)
 })
 
-console.info(`  server running at http://${hostname}:${port}/`)
+console.info(`\n>> server running at http://${hostname}:${port}/`)
