@@ -39,7 +39,7 @@ class AppBar extends HTMLElement {
 
         const profileBtn = this.querySelector('#login-btn')
         profileBtn.onClick = function() {
-            window.location.href = 'https://google.es'
+            window.open("login.html")
         }
     }
 
@@ -73,6 +73,12 @@ class AppBar extends HTMLElement {
                 align-items: center;
                 max-height: 100%;
             }
+            #login-btn {
+                filter: invert(0.55);
+            }
+            #login-btn img {
+                width: 25px;
+            }
             .app-bar > * {
                 height: 100%;
             }
@@ -85,7 +91,7 @@ class AppBar extends HTMLElement {
             <img src="${ this.#src }" alt="logo">
             <div class="float--right">                
                 <icon-button src="assets/search.png" id="search-btn" class="invert-color"></icon-button>
-                <icon-button src="assets/google.png" id="login-btn"></icon-button>
+                <icon-button src="assets/user.svg" id="login-btn"></icon-button>
             </div>
         </div>
         <search-bar id="search-bar"></search-bar>
