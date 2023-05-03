@@ -1,0 +1,31 @@
+body {
+    padding-top: 4.2rem;
+    padding-bottom: 4.2rem;
+    background: rgba(0, 0, 0, 0.76);
+}
+
+a {
+    text-decoration: none !important;
+}
+
+.login-box {
+    margin: auto;
+    width: 250px;
+}
+
+.mybtn {
+    border: 1px solid lightgrey;
+    border-radius: 50px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    -ms-border-radius: 50px;
+    -o-border-radius: 50px;
+    width: 100%;
+    height: 40px;
+}
+
+.social {
+    color: #666;
+    text-align: center;
+    outline: none;
+}

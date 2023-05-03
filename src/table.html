@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Index</title>
     <link rel="stylesheet" href="table.css">
     <script src="components/appbar.js" type="module"></script>
     <style>
@@ -53,7 +53,8 @@
 </body>
 <script type="module">
     //import appbar from './components/appbar/appbar.js'
-    import { get24Hrs, getPrice } from './searchSymbols.js'
+    import { get24Hrs, getPrice } from './getSymbols.js'
+    import { searchSymbols } from './searchSymbols.js'
 
     const table = document.getElementById("table");
     //const result = apiRequest();
@@ -86,32 +87,28 @@
         sessionStorage.setItem(key, obj[key])
     }
 
-    // get24Hrs()
-    //     .then(res => console.log(res))
-    //     .catch(error => console.error(error))
+    //get24Hrs()
+    //    .then(res => console.log(res))
+    //    .catch(error => console.error(error))
 
-/*     get24Hrs()
-        .then(res => console.log(res))
-        .catch(error => console.error(error))
-
-    getPrice()
-        .then(resa => console.log(resa))
-        .catch(error => console.error(error)) */
+    //searchSymbols('BTC', aux)
+    //    .then(res => console.log(res))
+    //    .catch(error => console.error(error))
 
     //console.log(res);
 
     processData(aux)
 
     function processData (res) {
-        
+
         res.forEach(symbol => {
             const row = document.createElement("div");
             row.className = "fila";
             const coin = document.createElement("div");
             coin.id = "coin";
-    
+
             const coinName = symbol.symbol.replace("USDT", "");
-    
+
             coin.innerHTML = `
                 <img src="${`assets/icons/color/${coinName.toLowerCase()}.svg`}">
                 <div id="coin">${coinName}</div>
@@ -125,13 +122,12 @@
             change.id = "change";
             change.className = symbol.priceChangePercent >= 0 ? 'positive' : 'negative';
             change.innerText = symbol.priceChangePercent.substring(0, symbol.priceChangePercent.indexOf(".") + 2) + ' %';
-    
+
             row.appendChild(coin);
             row.appendChild(price);
             row.appendChild(change);
             table.appendChild(row);
         });
     }
-
 </script>
 </html>
