@@ -61,11 +61,11 @@ class AppBar extends HTMLElement {
                 left: 2.5vw;
                 width: 95vw;
                 height: 70px;
-                background-color: white;
+                background-color: var(--primary-color);
                 box-sizing: border-box;
                 border-radius: 50px;
                 padding: 10px 15px;
-                box-shadow: 0px 2px 10px gainsboro;
+                box-shadow: 0px 1px 10px -2px var(--shadow-color);
                 //box-shadow: 0px 1px 10px -2px lightsteelblue;
                 z-index: 100;
             }
@@ -76,16 +76,15 @@ class AppBar extends HTMLElement {
             .app-bar > * {
                 height: 100%;
             }
-            .float--left {
+            .float--right {
                 display: flex;
-                gap: 10px;
                 margin-left: auto;
             }
         </style>
         <div class="app-bar">
             <img src="${ this.#src }" alt="logo">
-            <div class="float--left">                
-                <icon-button src="assets/search.png" id="search-btn"></icon-button>
+            <div class="float--right">                
+                <icon-button src="assets/search.png" id="search-btn" class="invert-color"></icon-button>
                 <icon-button src="assets/google.png" id="login-btn"></icon-button>
             </div>
         </div>
