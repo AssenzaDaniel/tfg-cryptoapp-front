@@ -65,10 +65,8 @@ class IconButton extends HTMLElement {
                 position: relative;
                 height: 50px;
                 width: 50px;
-                margin: 0 auto;
-                background-color: white;
                 border-radius: 100px;
-                box-shadow: 0px 0px 15px -5px lightgray;
+                margin: 0 auto;
             }
 
             icon-button:active {
@@ -81,9 +79,17 @@ class IconButton extends HTMLElement {
                 height: inherit;
                 justify-content: center;
             }
+
+            .rounded {
+                box-shadow: 0px 0px 15px -5px lightgray;
+            }
             
             icon-button img {
                 width: 30px;
+            }
+
+            .invert-color {
+                filter: invert(0.5);
             }
         </style>
         <div class="icon-btn">

@@ -31,13 +31,13 @@ class SearchBar extends HTMLElement {
                 left: 0;
                 width: 100vw;
                 height: 100vh;
-                background-color: gainsboro;
+                background-color: gray;
                 opacity: 0;
                 z-index: 0;
-                transition: 0.4s ease-in-out;
+                transition: 0.5s ease-out;
             }
             #app-background.active {
-                opacity: 0.3;
+                opacity: 0.2;
                 z-index: 39;
             }
         </style>
@@ -49,41 +49,59 @@ class SearchBar extends HTMLElement {
             search-bar {
                 position: fixed;
                 display: block;
-                background-color: white;
-                width: 90%;
-                left: 5%;
+                background-color: var(--primary-color);
+                width: 85%;
+                left: 7.5%;
                 border-radius: 15px;
-                box-shadow: 0px 5px 15px -6px gainsboro;
+                box-shadow: 0px 5px 15px -6px var(--shadow-color);
                 box-sizing: border-box;
                 z-index: 40;
                 padding: 15px;
                 transition: 0.7s cubic-bezier(0.08, 1.14, 0.68, 0.98), opacity 0.2s;
                 opacity: 0;
-                color: gray;
             }
 
             search-bar.active {
-                transform: translateY(90px);
+                transform: translateY(88px);
                 opacity: 1;
             }
 
-            input[type="text"] {
-                padding: 0;
+            search-bar div {
+                display: flex;
+                gap: 15px;
+            }
+
+            search-bar div img {
+                height: 25px;
+            }
+
+            search-bar div input {
                 width: 100%;
-                height: fit-content;
+                margin-left: 10rpx;
+            }
+
+            input[type="text"] {
+                background-color: inherit;
+                color: inherit;
+                height: inherit;
+                font-family: inherit;
+                padding: 0;
                 box-sizing: border-box;
                 outline: none;
                 border: none;
-                font-size: 1rem;
-                letter-spacing: 0.3px;
+                font-size: 1.1rem;
             }
 
             input[type="text"]::placeholder {
-                color: gray;
+                color: lightgrey;
+                font-family: inherit;
                 opacity: 0.6;
             }
         </style>
-        <input type="text" placeholder="Buscar ...">
+        <div>
+            <img src="assets/search.png" class="invert-color">
+            <input type="text" placeholder="Buscar ...">
+        </div>
         `
     }
 }
