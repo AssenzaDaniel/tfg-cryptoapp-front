@@ -7,61 +7,31 @@
     <meta name="google-signin-client_id" content="536732107609-ao5ctcrmu38rhl807tte37gmpiq0mn88.apps.googleusercontent.com">
 
     <title>Login</title>
-    <script src="./login.js"></script>
-    <link rel="stylesheet" type="text/css" href="./login.css">
-
-    <!-- Bootstrap CSS -->
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <!-- Google -->
     <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 
     <!-- Icons -->
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
-        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
+
+    <script src="login.js"></script>
+
+    <link rel="stylesheet" href="login.css">
     <link rel="stylesheet" href="app.css">
 
+    <script src="components/buttons/loginbtn.js" type="module"></script>
+    <script src="components/login.js" type="module"></script>
+
 </head>
-<body>
-    <div class="container">
-        <div class="login-box">
+<body id="body">
 
-            <div class="row">
-                <div class="col-md-12 mb-1">
-                    <p class="text-center">
-                        <button type="button" class="btn btn-default mybtn">
-                            <a href="#" class="social"><i class="fa fa-google-plus"></i>
-                                Signup using Google </a>
-                        </button>
-                    </p>
-                </div>
-            </div>
+    <user-login></user-login>
 
-            <div class="row">
-                <div class="col-md-12 mb-1">
-                    <p class="text-center">
-                        <button type="button" class="btn btn-default mybtn">
-                            <a href="#" class="social"><i class="fa fa-github"></i>
-                                Signup using GitHub </a>
-                        </button>
-                    </p>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12 mb-1">
-                    <p class="text-center">
-                        <button type="button" class="btn btn-default mybtn">
-                            <a href="#" class="social"><i class="fa fa-facebook"></i>
-                                Signup using Facebook </a>
-                        </button>
-                    </p>
-                </div>
-            </div>
-
-        </div>
-    </div>
+    <!-- <div class="container">
+        <login-button src="assets/google.svg" alt="Google"></login-button>
+        <login-button src="assets/github.svg" alt="GitHub"></login-button>
+        <login-button src="assets/facebook.svg" alt="Facebook"></login-button>
+    </div> -->
 </body>

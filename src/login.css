@@ -1,36 +1,41 @@
-body {
-    padding-top: 4.2rem;
-    padding-bottom: 4.2rem;
+#body {
+    padding: 10vw;
     background-color: var(--background-color) !important;
 }
-
-a {
-    text-decoration: none !important;
+.container{
+    position: fixed;
+    display: block;
+    width: 80vw;
 }
-
-.login-box {
-    margin: auto;
-    width: 250px;
+.row {
+    padding-bottom: 20px;
+    width: 80vw;
+    left: 10vw;
 }
-
 .mybtn {
-    border: 1px solid lightgrey;
-    border-radius: 50px;
-    -webkit-border-radius: 50px;
-    -moz-border-radius: 50px;
-    -ms-border-radius: 50px;
-    -o-border-radius: 50px;
-    width: 100%;
+    border: 1px solid var(--main-font-color);
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    width: 80vw;
     height: 40px;
     background-color: var(--primary-color);
-}
 
+    padding: 15px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
 .mybtn * {
     color: var(--main-font-color);
 }
-
-.social {
-    color: #666;
-    text-align: center;
-    outline: none;
+a {
+    width: 70vw;
+    text-decoration: none;
+}
+.mybtn img {
+    width: 25px;
+    filter: invert(0.55);
 }
