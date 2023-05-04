@@ -1,3 +1,4 @@
+import Button from '/components/buttons/loginbtn.js'
 class Login extends HTMLElement {
 
     #alreadyRendered = false
@@ -35,11 +36,9 @@ class Login extends HTMLElement {
     render() {
 
         this.innerHTML = `
-        <div class="container">
-            <login-button src="assets/google.svg" alt="Google"></login-button>
-            <login-button src="assets/github.svg" alt="GitHub"></login-button>
-            <login-button src="assets/facebook.svg" alt="Facebook"></login-button>
-        </div>
+        <login-button src="assets/google.svg" alt="Google"></login-button>
+        <login-button src="assets/github.svg" alt="GitHub"></login-button>
+        <login-button src="assets/facebook.svg" alt="Facebook"></login-button>
         `
     }
 }

@@ -74,16 +74,16 @@ class AppBar extends HTMLElement {
                 max-height: 100%;
             }
             #login-btn {
-                filter: invert(0.55);
             }
             #login-btn img {
-                width: 25px;
+                width: 23px;
             }
             .app-bar > * {
                 height: 100%;
             }
             .float--right {
                 display: flex;
+                gap: 10px;
                 margin-left: auto;
             }
         </style>
@@ -91,7 +91,7 @@ class AppBar extends HTMLElement {
             <img src="${ this.#src }" alt="logo">
             <div class="float--right">                
                 <icon-button src="assets/search.png" id="search-btn" class="invert-color"></icon-button>
-                <icon-button src="assets/user.svg" id="login-btn"></icon-button>
+                <icon-button src="assets/user.svg" id="login-btn" class="invert-color rounded"></icon-button>
             </div>
         </div>
         <search-bar id="search-bar"></search-bar>

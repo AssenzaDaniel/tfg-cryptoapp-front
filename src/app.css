@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Rubik&display=swap');
         
 :root {
     --background-color: white;
@@ -16,11 +16,16 @@
     }
 }
 
+* {
+    user-select: none;
+    scroll-behavior: smooth;
+}
+
 html {
     background-color: var(--background-color);
     width: 100vw;
     color: var(--main-font-color);
-    font-family: 'Lato', sans-serif;    
+    font-family: 'Rubik', 'Lato', sans-serif;    
     letter-spacing: 0.8px;    
 }
 
@@ -50,4 +55,12 @@ body {
 
 #table {
     margin: 0 auto;
+}
+
+user-login {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }

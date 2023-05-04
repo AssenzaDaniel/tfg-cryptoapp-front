@@ -1,40 +1,28 @@
-#body {
-    padding: 10vw;
-    background-color: var(--background-color) !important;
+login-button {
+    width: 100%;
 }
-.container{
-    position: fixed;
-    display: block;
-    width: 80vw;
-}
-.row {
-    padding-bottom: 20px;
-    width: 80vw;
-    left: 10vw;
-}
+
 .mybtn {
     border: 1px solid var(--main-font-color);
     border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
-    width: 80vw;
-    height: 40px;
+    width: 100%;
     background-color: var(--primary-color);
-
-    padding: 15px;
+    padding: 10px 20px;
     display: flex;
-    gap: 15px;
+    gap: 30px;
     align-items: center;
+    justify-content: center;
 }
+
 .mybtn * {
     color: var(--main-font-color);
 }
-a {
-    width: 70vw;
+
+.mybtn a {
     text-decoration: none;
+    font-size: 1rem;
 }
+
 .mybtn img {
     width: 25px;
     filter: invert(0.55);

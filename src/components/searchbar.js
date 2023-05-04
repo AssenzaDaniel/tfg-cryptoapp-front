@@ -1,6 +1,7 @@
 class SearchBar extends HTMLElement {
 
     #alreadyRendered = false
+    isActive = false
 
     constructor() {
         super()
@@ -16,6 +17,14 @@ class SearchBar extends HTMLElement {
         document.getElementById('app-background').className = this.isActive ? '' : 'active'
         
         this.isActive = !this.isActive
+
+        if (this.isActive)
+            document.onclick = (event) => {
+                if (this.contains(event.target)) return
+                
+                this.animate()
+                document.onclick = null
+            }
     }
 
     render() {
@@ -31,13 +40,13 @@ class SearchBar extends HTMLElement {
                 left: 0;
                 width: 100vw;
                 height: 100vh;
-                background-color: gray;
+                background-color: #0f0f0f;
                 opacity: 0;
                 z-index: 0;
                 transition: 0.5s ease-out;
             }
             #app-background.active {
-                opacity: 0.2;
+                opacity: 0.8;
                 z-index: 39;
             }
         </style>
@@ -62,7 +71,7 @@ class SearchBar extends HTMLElement {
             }
 
             search-bar.active {
-                transform: translateY(88px);
+                transform: translateY(90px);
                 opacity: 1;
             }
 
@@ -93,14 +102,14 @@ class SearchBar extends HTMLElement {
             }
 
             input[type="text"]::placeholder {
-                color: lightgrey;
+                color: dimgray;
                 font-family: inherit;
                 opacity: 0.6;
             }
         </style>
         <div>
             <img src="assets/search.png" class="invert-color">
-            <input type="text" placeholder="Buscar ...">
+            <input type="text" placeholder="Buscar">
         </div>
         `
     }

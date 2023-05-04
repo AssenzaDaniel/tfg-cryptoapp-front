@@ -36,7 +36,10 @@ class IconButton extends HTMLElement {
         this.#bindedElement = element
         this.#onEvent = action.bind(element)
 
-        this.addEventListener(event, this.#onEvent)
+        this.addEventListener(event, (event) => {
+            this.#onEvent()
+            event.stopPropagation()
+        })
     }
 
     static get observedAttributes() {

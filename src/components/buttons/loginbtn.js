@@ -62,13 +62,10 @@ class LoginButton extends HTMLElement {
     render() {
 
         this.innerHTML = `
-        <div class="row">
-            <button type="button" class="mybtn">
-                <img src="${ this.#src }" alt="${ this.#socialName }">
-                <a href="#">
-                    Signup using ${ this.#socialName }</a>
-            </button>
-        </div>
+        <button type="button" class="mybtn">
+            <img src="${ this.#src }" alt="${ this.#socialName }">
+            <a href="#">Signup using ${ this.#socialName }</a>
+        </button>
         `
     }
 }
