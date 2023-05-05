@@ -19,11 +19,11 @@ login-button {
 }
 
 .mybtn a {
+    width: 180px;
     text-decoration: none;
     font-size: 1rem;
 }
 
 .mybtn img {
     width: 25px;
-    filter: invert(0.55);
 }

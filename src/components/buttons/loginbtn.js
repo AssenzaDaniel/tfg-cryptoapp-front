@@ -1,6 +1,7 @@
-class LoginButton extends HTMLElement {
+class Button extends HTMLElement {
 
     #src = ''
+    #href = ''
     #socialName = ''
     #__img__ = null
     #alreadyRendered = false
@@ -47,6 +48,7 @@ class LoginButton extends HTMLElement {
     connectedCallback() {
         this.#src = this.getAttribute('src')
         this.#socialName = this.getAttribute('alt')
+        this.#href = this.getAttribute('href')
 
         this.render()
         this.#__img__ = this.querySelector('img')
@@ -64,11 +66,11 @@ class LoginButton extends HTMLElement {
         this.innerHTML = `
         <button type="button" class="mybtn">
             <img src="${ this.#src }" alt="${ this.#socialName }">
-            <a href="#">Signup using ${ this.#socialName }</a>
+            <a href="${ this.#href }">Signup using ${ this.#socialName }</a>
         </button>
         `
     }
 }
 
-window.customElements.define('login-button', LoginButton)
-export default LoginButton
+window.customElements.define('login-button', Button)
+export default Button

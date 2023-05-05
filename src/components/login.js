@@ -36,9 +36,9 @@ class Login extends HTMLElement {
     render() {
 
         this.innerHTML = `
-        <login-button src="assets/google.svg" alt="Google"></login-button>
-        <login-button src="assets/github.svg" alt="GitHub"></login-button>
-        <login-button src="assets/facebook.svg" alt="Facebook"></login-button>
+        <login-button src="assets/google-color.svg" alt="Google" href="https://www.google.com"></login-button>
+        <login-button src="assets/github-color.svg" alt="GitHub" href="https://www.github.com"></login-button>
+        <login-button src="assets/facebook-color.svg" alt="Facebook" href="https://www.facebook.com"></login-button>
         `
     }
 }

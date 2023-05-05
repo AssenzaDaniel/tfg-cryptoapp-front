@@ -26,7 +26,7 @@ class AppBar extends HTMLElement {
 
     connectedCallback() {
         this.#src = this.getAttribute('src')
-        
+
         this.render()
 
         this.#__img__ = this.querySelector('img')
@@ -39,13 +39,14 @@ class AppBar extends HTMLElement {
 
         const profileBtn = this.querySelector('#login-btn')
         profileBtn.onClick = function() {
-            window.open("login.html")
+            const modal = document.getElementById("modal")
+            modal.className = "active"
         }
     }
 
     attributeChangedCallback(attribute, oldValue, newValue = '') {
 
-        if (this.#alreadyRendered && newValue !== oldValue) 
+        if (this.#alreadyRendered && newValue !== oldValue)
             this[attribute] = newValue
     }
 
