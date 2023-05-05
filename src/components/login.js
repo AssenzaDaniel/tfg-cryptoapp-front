@@ -1,4 +1,5 @@
 import Button from '/components/buttons/loginbtn.js'
+
 class Login extends HTMLElement {
 
     #alreadyRendered = false
@@ -25,6 +26,16 @@ class Login extends HTMLElement {
 
         this.render()
         this.#alreadyRendered = true
+        const google = this.querySelector("#google")
+
+        google.onClick = () => {
+
+            const petition_http = new XMLHttpRequest()
+            petition_http.open("GET", "/login/google", false)
+            petition_http.setRequestHeader("Access-Control-Allow-Origin", '*')
+            petition_http.send()
+            console.log(petition_http.response)
+        }
     }
 
     attributeChangedCallback(attribute, oldValue, newValue) {
@@ -36,9 +47,9 @@ class Login extends HTMLElement {
     render() {
 
         this.innerHTML = `
-        <login-button src="assets/google-color.svg" alt="Google" href="https://www.google.com"></login-button>
-        <login-button src="assets/github-color.svg" alt="GitHub" href="https://www.github.com"></login-button>
-        <login-button src="assets/facebook-color.svg" alt="Facebook" href="https://www.facebook.com"></login-button>
+        <login-button src="assets/google-color.svg" alt="Google" id="google"></login-button>
+        <login-button src="assets/github-color.svg" alt="GitHub"></login-button>
+        <login-button src="assets/facebook-color.svg" alt="Facebook"></login-button>
         `
     }
 }

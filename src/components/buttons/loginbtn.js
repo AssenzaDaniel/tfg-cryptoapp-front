@@ -66,7 +66,7 @@ class Button extends HTMLElement {
         this.innerHTML = `
         <button type="button" class="mybtn">
             <img src="${ this.#src }" alt="${ this.#socialName }">
-            <a href="${ this.#href }">Signup using ${ this.#socialName }</a>
+            <a>Signup using ${ this.#socialName }</a>
         </button>
         `
     }
