@@ -5,6 +5,7 @@ class AppBar extends HTMLElement {
 
     #src = ''
     #__img__ = null
+    #__searchBar__ = null
     #alreadyRendered = false
 
     constructor() {
@@ -21,7 +22,7 @@ class AppBar extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['src'];
+        return ['src']
     }
 
     connectedCallback() {
@@ -31,16 +32,16 @@ class AppBar extends HTMLElement {
 
         this.#__img__ = this.querySelector('img')
         this.#alreadyRendered = true
+        
+        this.#__searchBar__ = new SearchBar()
+        this.#__searchBar__.id = 'search-bar'
+        this.appendChild(this.#__searchBar__)
 
         const searchBtn = this.querySelector('#search-btn')
-        const searchBar = this.querySelector('#search-bar')
-
-        searchBtn.bind('click', searchBar, searchBar.animate)
-
         const profileBtn = this.querySelector('#login-btn')
-        profileBtn.onClick = function() {
-            window.open("login.html")
-        }
+        
+        searchBtn.bind('click', this.#__searchBar__, this.#__searchBar__.animate)
+        profileBtn.onEvent('click', () => window.open('login.html'))
     }
 
     attributeChangedCallback(attribute, oldValue, newValue = '') {
@@ -94,7 +95,6 @@ class AppBar extends HTMLElement {
                 <icon-button src="assets/user.svg" id="login-btn" class="invert-color rounded"></icon-button>
             </div>
         </div>
-        <search-bar id="search-bar"></search-bar>
         `
     }
 }

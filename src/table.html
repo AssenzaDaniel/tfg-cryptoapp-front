@@ -6,11 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index</title>
     <link rel="stylesheet" href="table.css">
+    
     <script src="components/appbar.js" type="module"></script>
     <link rel="stylesheet" href="app.css">
 
     <script src="components/login.js" type="module"></script>
     <link rel="stylesheet" href="login.css">
+
+    <script src="components/table.js" type="module"></script>
 
     <style>
         #modal {
@@ -60,7 +63,33 @@
         .modal--window h1 {
             text-align: center;
         }
+
+        #app-wrapper {
+            position: relative;
+            top: 90px;
+            height: 100vh;
+            margin: 0 auto;
+            overflow-y: scroll;
+        }
     </style>
+    <script type="module">
+        import DataTable from '/components/table.js'
+        import wrapper from '/modules/appwrapper.js'
+
+        const table = new DataTable()
+
+        console.log(wrapper)
+        //wrapper.modifyContent(table)
+        wrapper.content = table
+
+        const aux = document.createElement('p')
+        aux.innerText = 'Esto es una prueba...'
+
+        //setTimeout(() => wrapper.modifyContent(aux), 2000)
+        setTimeout(() => wrapper.content = aux, 2000)
+        setTimeout(() => wrapper.content = table, 4000)
+
+    </script>
 </head>
 <body>
     <app-bar src="assets/logo.png"></app-bar>
@@ -69,90 +98,9 @@
         <div class="modal--window floating">
             <div id="modal--content">
                 <user-login></user-login>
+                <icon-button src="assets/google.png"></icon-button>
             </div>
         </div>
     </div>
-    <div id="table">
-        <h2>Hottest</h2>
-    </div>
 </body>
-<script type="module">
-    //import appbar from './components/appbar/appbar.js'
-    import { get24Hrs, getPrice } from './getSymbols.js'
-    import { searchSymbols } from './searchSymbols.js'
-
-    const table = document.getElementById("table");
-    //const result = apiRequest();
-
-    const aux = [
-        {
-        symbol : 'BTC',
-        lastPrice : '30200.17',
-        priceChangePercent: '13.2'
-        },
-        {
-        symbol : 'ETH',
-        lastPrice : '300.1700',
-        priceChangePercent: '-0.2'
-        }
-    ]
-
-    const obj = {
-        nombre: 'Daniel',
-        usuario: 'assenza.exe',
-        password: '123456'
-    }
-
-    if (sessionStorage.getItem('usuario')) {
-
-        console.log(sessionStorage.getItem('usuario'));
-    }
-
-    for (const key in obj) {
-        sessionStorage.setItem(key, obj[key])
-    }
-
-    //get24Hrs()
-    //    .then(res => console.log(res))
-    //    .catch(error => console.error(error))
-
-    //searchSymbols('BTC', aux)
-    //    .then(res => console.log(res))
-    //    .catch(error => console.error(error))
-
-    //console.log(res);
-
-    processData(aux)
-
-    function processData (res) {
-
-        res.forEach(symbol => {
-            const row = document.createElement("div");
-            row.className = "fila";
-            const coin = document.createElement("div");
-            coin.id = "coin";
-
-            const coinName = symbol.symbol.replace("USDT", "");
-
-            coin.innerHTML = `
-                <img src="${`assets/icons/color/${coinName.toLowerCase()}.svg`}">
-                <div id="coin">${coinName}</div>
-            `
-            const price = document.createElement("div");
-            price.id = "price";
-            const str = ""
-            str.substring()
-            price.innerText = '$ ' + symbol.lastPrice.substring(0, 8);
-            const change = document.createElement("div");
-            change.id = "change";
-            change.className = symbol.priceChangePercent >= 0 ? 'positive' : 'negative';
-            change.innerText = symbol.priceChangePercent.substring(0, symbol.priceChangePercent.indexOf(".") + 2) + ' %';
-
-            row.appendChild(coin);
-            row.appendChild(price);
-            row.appendChild(change);
-            table.appendChild(row);
-        });
-    }
-</script>
 </html>

@@ -1,11 +1,11 @@
-class LoginButton extends HTMLElement {
+import { BindableHTMLElement } from "../bindable-element.js"
+
+class LoginButton extends BindableHTMLElement {
 
     #src = ''
     #socialName = ''
     #__img__ = null
     #alreadyRendered = false
-    #bindedElement = null
-    #onEvent = null
 
     constructor(iconSrc) {
         super()
@@ -22,26 +22,8 @@ class LoginButton extends HTMLElement {
         this.#__img__.src = value
     }
 
-    set onClick(action) {
-
-        this.#onEvent = action
-        this.addEventListener('click', this.#onEvent)
-    }
-
-    /**
-     * @param { String } event Event to add listener
-     * @param { HTMLElement } element Element to bind action
-     * @param { Function } action Action to bind
-     */
-    bind(event, element, action) {
-        this.#bindedElement = element
-        this.#onEvent = action.bind(element)
-
-        this.addEventListener(event, this.#onEvent)
-    }
-
     static get observedAttributes() {
-        return ['src'];
+        return ['src']
     }
 
     connectedCallback() {

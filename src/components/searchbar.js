@@ -1,6 +1,8 @@
-class SearchBar extends HTMLElement {
+import { BindableHTMLElement } from "./bindable-element.js"
+class SearchBar extends BindableHTMLElement {
 
     #alreadyRendered = false
+    #background = null
     isActive = false
 
     constructor() {
@@ -10,30 +12,50 @@ class SearchBar extends HTMLElement {
     connectedCallback() {        
         this.render()
         this.#alreadyRendered = true
+        this.#background = document.querySelector('#background')
     }
 
     animate() {
-        this.className = this.isActive ? '' : 'active'
-        document.getElementById('app-background').className = this.isActive ? '' : 'active'
+        if (this.isActive) {
+
+            this.className = ''
+            this.#background.className = ''
+            document.onclick = null
+        } 
+        else {
+            
+            this.className = 'active'
+            this.#background.className = 'active'
+            this.#waitForhideSearchBar()
+        }
         
         this.isActive = !this.isActive
+    }
 
-        if (this.isActive)
-            document.onclick = (event) => {
-                if (this.contains(event.target)) return
-                
-                this.animate()
-                document.onclick = null
-            }
+    muto() {
+        this.style.backgroundColor = 'white'
+    }
+
+    #waitForhideSearchBar() {
+        document.onclick = (event) => {
+            if (this.contains(event.target)) return
+            
+            this.animate()
+            document.onclick = null
+        }
+    }
+
+    get content() {
+        return this.querySelector('input').value
     }
 
     render() {
 
         const div = document.createElement('div')
-        div.id = 'app-background'
+        div.id = 'background'
         div.innerHTML = `
         <style>
-            #app-background {
+            #background {
                 display: block;
                 position: fixed;
                 top: 0;
@@ -45,7 +67,7 @@ class SearchBar extends HTMLElement {
                 z-index: 0;
                 transition: 0.5s ease-out;
             }
-            #app-background.active {
+            #background.active {
                 opacity: 0.8;
                 z-index: 39;
             }

@@ -1,14 +1,13 @@
-class IconButton extends HTMLElement {
+import { BindableHTMLElement } from "../bindable-element.js"
+
+class IconButton extends BindableHTMLElement {
 
     #src = ''
     #__img__ = null
     #alreadyRendered = false
-    #bindedElement = null
-    #onEvent = null
 
     constructor(iconSrc) {
         super()
-
         this.#src = iconSrc
     }
 
@@ -19,27 +18,6 @@ class IconButton extends HTMLElement {
     set src(value) {
         this.#src = value
         this.#__img__.src = value
-    }
-
-    set onClick(action) {
-
-        this.#onEvent = action
-        this.addEventListener('click', this.#onEvent)
-    }
-
-    /**
-     * @param { String } event Event to add listener
-     * @param { HTMLElement } element Element to bind action
-     * @param { Function } action Action to bind
-     */
-    bind(event, element, action) {
-        this.#bindedElement = element
-        this.#onEvent = action.bind(element)
-
-        this.addEventListener(event, (event) => {
-            this.#onEvent()
-            event.stopPropagation()
-        })
     }
 
     static get observedAttributes() {
@@ -58,6 +36,10 @@ class IconButton extends HTMLElement {
 
         if (this.#alreadyRendered && newValue !== oldValue) 
             this[attribute] = newValue
+    }
+
+    test() {
+        this.style.backgroundColor = 'white'
     }
 
     render() {
@@ -89,6 +71,7 @@ class IconButton extends HTMLElement {
             
             icon-button img {
                 width: 30px;
+                height: 30px;
             }
 
             .invert-color {
