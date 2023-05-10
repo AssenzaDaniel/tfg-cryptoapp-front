@@ -1,8 +1,9 @@
 import { BindableHTMLElement } from "../bindable-element.js"
 
-class LoginButton extends BindableHTMLElement {
+class Button extends BindableHTMLElement {
 
     #src = ''
+    #href = ''
     #socialName = ''
     #__img__ = null
     #alreadyRendered = false
@@ -29,6 +30,7 @@ class LoginButton extends BindableHTMLElement {
     connectedCallback() {
         this.#src = this.getAttribute('src')
         this.#socialName = this.getAttribute('alt')
+        this.#href = this.getAttribute('href')
 
         this.render()
         this.#__img__ = this.querySelector('img')
@@ -46,11 +48,11 @@ class LoginButton extends BindableHTMLElement {
         this.innerHTML = `
         <button type="button" class="mybtn">
             <img src="${ this.#src }" alt="${ this.#socialName }">
-            <a href="#">Signup using ${ this.#socialName }</a>
+            <a>Signup using ${ this.#socialName }</a>
         </button>
         `
     }
 }
 
-window.customElements.define('login-button', LoginButton)
-export default LoginButton
+window.customElements.define('input-button', Button)
+export default Button

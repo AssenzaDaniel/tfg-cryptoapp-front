@@ -1,4 +1,4 @@
-login-button {
+input-button {
     width: 100%;
 }
 
@@ -26,5 +26,4 @@ login-button {
 
 .mybtn img {
     width: 25px;
-    filter: invert(0.55);
 }

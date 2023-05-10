@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="login.css">
 
     <script src="components/table.js" type="module"></script>
+    <script src="components/modalbox.js" type="module"></script>
+    <link rel="stylesheet" href="modalbox.css">
 
     <style>
         #modal {
@@ -93,14 +95,6 @@
 </head>
 <body>
     <app-bar src="assets/logo.png"></app-bar>
-    <div id="modal">
-        <div id="bckg"></div>
-        <div class="modal--window floating">
-            <div id="modal--content">
-                <user-login></user-login>
-                <icon-button src="assets/google.png"></icon-button>
-            </div>
-        </div>
-    </div>
+    <modal-box id="modal"></modal-box>
 </body>
 </html>
