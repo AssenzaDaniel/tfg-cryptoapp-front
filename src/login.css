@@ -1,0 +1,29 @@
+input-button {
+    width: 100%;
+}
+
+.mybtn {
+    border: 1px solid var(--main-font-color);
+    border-radius: 10px;
+    width: 100%;
+    background-color: var(--primary-color);
+    padding: 10px 20px;
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+}
+
+.mybtn * {
+    color: var(--main-font-color);
+}
+
+.mybtn a {
+    width: 180px;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.mybtn img {
+    width: 25px;
+}

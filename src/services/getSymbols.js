@@ -23,14 +23,8 @@
 * GET /api/v3/uiKlines
 */
 
-// Obtener la instancia del objeto XMLHttpRequest.
-//const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-
 // https://api.binance.com/api/v3/ticker/price
-const API_URL = "https://api.binance.com/api/v3";
-
-//Conexión con la API al cargar la página.
-//onload = conexionAPI(API_URL);
+const API_URL = "https://api.binance.com/api/v3"
 
 // Realiza la conexión con la API.
 async function consumeBinanceApi (option, callback) {
@@ -39,8 +33,8 @@ async function consumeBinanceApi (option, callback) {
 
     return new Promise((resolve, reject) => {
 
-        peticion_http.open('GET', `${API_URL}${option}`);
-        peticion_http.send(null);
+        peticion_http.open('GET', `${API_URL}${option}`)
+        peticion_http.send(null)
         peticion_http.onreadystatechange = () => {
 
             if (peticion_http.readyState == 4 && peticion_http.status == 200) {
@@ -67,25 +61,16 @@ export async function getPrice() {
 function getData(responseString) {
 
     // Convierto String a JSON.
-    let obj = JSON.parse(responseString);
+    let obj = JSON.parse(responseString)
 
-    // Visualizo los valores que comiencen por el symbol dado por parámetro.
-    //objResult = searchStartsWithSymbol(obj, "USDT");
-
-    // Visualizo los valores que contengan el symbol dado por parámetro.
-    //objResult = searchIncludesSymbol(obj, "USDT");
-
-    // Visualizo los valores que terminen por el symbol dado por parámetro.
-    let objResult = searchEndsWithSymbol(obj, "USDT");
+    // Valores que terminen por el symbol dado por parámetro.
+    let objResult = searchEndsWithSymbol(obj, "USDT")
 
     // Simbolos ordenados por popularidad.
-    objResult = popularSymbols(objResult, 0, 10);               // (JSON), (0 mayor-menor, 1 menor-mayor), (Cantidad de symbolos a mostrar).
+    objResult = popularSymbols(objResult, 0, 10)                        // (JSON), (0 mayor-menor, 1 menor-mayor), (Cantidad de symbolos a mostrar).
 
     const pairs = objResult.map(pair => pair.symbol.replace('USDT', ''))
     let euroPrice = obj.find(pair => pair.symbol.startsWith('EURUSDT')).lastPrice
-
-    console.log(pairs);
-    console.log(euroPrice);
 
     objResult.forEach(pair => console.log(`${pair.symbol} - € ${pair.lastPrice / euroPrice} $ ${pair.lastPrice}`))
 
@@ -95,43 +80,43 @@ function getData(responseString) {
 // Visualiza los valores que empiezen por el symbol dado por parámetro.
 function searchStartsWithSymbol(obj, symbol) {
     // Array de resultados.
-    let result = [];
+    let result = []
     for (const iterator of obj) {
         // Que empiece por symbol.
         if (iterator.symbol.startsWith(symbol)) {
-            result.push(iterator);
+            result.push(iterator)
         }
     }
 
-    return result;
+    return result
 }
 
 // Visualiza los valores que terminen por el symbol dado por parámetro.
 function searchEndsWithSymbol(obj, symbol) {
     // Array de resultados.
-    let result = [];
+    let result = []
     for (const iterator of obj) {
         // Que empiece por symbol.
         if (iterator.symbol.endsWith(symbol)) {
-            result.push(iterator);
+            result.push(iterator)
         }
     }
 
-    return result;
+    return result
 }
 
 // Visualiza los valores que contengan el symbol dado por parámetro.
 function searchIncludesSymbol(obj, symbol) {
     // Array de resultados.
-    let result = [];
+    let result = []
     for (const iterator of obj) {
         // Que incluya symbol.
         if (iterator.symbol.includes(symbol)) {
-            result.push(iterator);
+            result.push(iterator)
         }
     }
 
-    return result;
+    return result
 }
 
 
@@ -141,34 +126,21 @@ function searchIncludesSymbol(obj, symbol) {
 // Ordena el Array dado por parámetro (SOLO NÚMEROS).
 function popularSymbols(obj, action, quantity) {
     if (action == 1) {
-        obj = obj.sort((a, b) => a.quoteVolume - b.quoteVolume);
+        obj = obj.sort((a, b) => a.quoteVolume - b.quoteVolume)
     } else {
-        obj = obj.sort((a, b) => b.quoteVolume - a.quoteVolume);
+        obj = obj.sort((a, b) => b.quoteVolume - a.quoteVolume)
     }
 
-    return obj.slice(0, quantity);
+    return obj.slice(0, quantity)
 }
 
 // Ordena el Array dado por parámetro (SOLO NÚMEROS).
 function highSymbols(obj, action, quantity) {
     if (action == 1) {
-        obj = obj.sort((a, b) => a.lastPrice - b.lastPrice);
+        obj = obj.sort((a, b) => a.lastPrice - b.lastPrice)
     } else {
-        obj = obj.sort((a, b) => b.lastPrice - a.lastPrice);
+        obj = obj.sort((a, b) => b.lastPrice - a.lastPrice)
     }
 
-    return obj.slice(0, quantity);
-}
-
-
-
-
-
-// Visualiza JSON por consola.
-function visualizarConsola(obj) {
-    if (obj == undefined) {
-        console.log(`Error: ${obj}`);
-    } else {
-        console.log(obj);
-    }
+    return obj.slice(0, quantity)
 }

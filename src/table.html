@@ -4,154 +4,39 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Index</title>
     <link rel="stylesheet" href="table.css">
+    
     <script src="components/appbar.js" type="module"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
-        
-        :root {
-            --background-color: white;
-            --primary-color: whitesmoke;
-            --shadow: gainsboro;
-            --main-font-color: rgb(70 75 95);
-        }
+    <link rel="stylesheet" href="app.css">
 
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --background-color: rgb(16 17 21);
-                --primary-color: rgb(29 31 38);
-                --shadow-color: none;
-                --main-font-color: rgb(139 143 155);
-            }
-        }
-        
-        html {
-            background-color: var(--background-color);
-            width: 100vw;
-            color: var(--main-font-color);
-            font-family: 'Lato', sans-serif;    
-            letter-spacing: 0.8px;    
-        }
+    <script src="components/login.js" type="module"></script>
+    <link rel="stylesheet" href="login.css">
 
-        body {
-            position: relative;
-            width: 100%;
-            height: 150vh;
-            margin: 0 auto;
-            margin-top: 0px;
-        }
+    <script src="components/table.js" type="module"></script>
 
-        #table {
-            position: absolute;
-            width: 100%;
-            top: 70px;
-        }
+    <script src="components/modalbox.js" type="module"></script>
+    <link rel="stylesheet" href="modalbox.css">
+    
+    <script type="module">
+        import DataTable from '/components/table.js'
+        import wrapper from '/modules/appwrapper.js'
 
-        #blankspace {
-            position: fixed;
-            width: 100vw;
-            height: 40px;
-            background-color: var(--background-color);
-            top: 0;
-            left: 0;
-            z-index: 10;
-        }
+        const table = new DataTable()
 
-        #table {
-            margin: 0 auto;
-        }
-    </style>
+        wrapper.content = table
+
+        const aux = document.createElement('p')
+        aux.innerText = 'Esto es una prueba...'
+
+        //setTimeout(() => wrapper.modifyContent(aux), 2000)
+        //setTimeout(() => wrapper.content = aux, 2000)
+        //setTimeout(() => wrapper.content = table, 4000)
+
+    </script>
 </head>
 <body>
     <app-bar src="assets/logo.png"></app-bar>
-    <div id="blankspace">
-    </div>
-    <div id="table">
-        <h2>Hottest</h2>
-    </div>
+    <modal-box id="modal"></modal-box>
 </body>
-<script type="module">
-    //import appbar from './components/appbar/appbar.js'
-    import { get24Hrs, getPrice } from './searchSymbols.js'
-
-    const table = document.getElementById("table");
-    //const result = apiRequest();
-
-    const aux = [
-        {
-        symbol : 'BTC',
-        lastPrice : '30200.17',
-        priceChangePercent: '13.2'
-        },
-        {
-        symbol : 'ETH',
-        lastPrice : '300.1700',
-        priceChangePercent: '-0.2'
-        }
-    ]
-
-    const obj = {
-        nombre: 'Daniel',
-        usuario: 'assenza.exe',
-        password: '123456'
-    }
-
-    if (sessionStorage.getItem('usuario')) {
-
-        console.log(sessionStorage.getItem('usuario'));
-    }
-
-    for (const key in obj) {
-        sessionStorage.setItem(key, obj[key])
-    }
-
-    // get24Hrs()
-    //     .then(res => console.log(res))
-    //     .catch(error => console.error(error))
-
-/*     get24Hrs()
-        .then(res => console.log(res))
-        .catch(error => console.error(error))
-
-    getPrice()
-        .then(resa => console.log(resa))
-        .catch(error => console.error(error)) */
-
-    //console.log(res);
-
-    processData(aux)
-
-    function processData (res) {
-        
-        res.forEach(symbol => {
-            const row = document.createElement("div");
-            row.className = "fila";
-            const coin = document.createElement("div");
-            coin.id = "coin";
-    
-            const coinName = symbol.symbol.replace("USDT", "");
-    
-            coin.innerHTML = `
-                <img src="${`assets/icons/color/${coinName.toLowerCase()}.svg`}">
-                <div id="coin">${coinName}</div>
-            `
-            const price = document.createElement("div");
-            price.id = "price";
-            const str = ""
-            str.substring()
-            price.innerText = '$ ' + symbol.lastPrice.substring(0, 8);
-            const change = document.createElement("div");
-            change.id = "change";
-            change.className = symbol.priceChangePercent >= 0 ? 'positive' : 'negative';
-            change.innerText = symbol.priceChangePercent.substring(0, symbol.priceChangePercent.indexOf(".") + 2) + ' %';
-    
-            row.appendChild(coin);
-            row.appendChild(price);
-            row.appendChild(change);
-            table.appendChild(row);
-        });
-    }
-
-</script>
 </html>

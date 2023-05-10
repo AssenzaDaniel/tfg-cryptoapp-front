@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Rubik&display=swap');
+        
+:root {
+    --background-color: white;
+    --primary-color: whitesmoke;
+    --shadow: gainsboro;
+    --main-font-color: rgb(70 75 95);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: rgb(16 17 21);
+        --primary-color: rgb(29 31 38);
+        --shadow-color: none;
+        --main-font-color: rgb(139 143 155);
+    }
+}
+
+* {
+    user-select: none;
+    scroll-behavior: smooth;
+}
+
+html {
+    background-color: var(--background-color);
+    width: 100vw;
+    color: var(--main-font-color);
+    font-family: 'Rubik', 'Lato', sans-serif;    
+    letter-spacing: 0.8px;    
+}
+
+body {
+    position: relative;
+    margin: 0 auto;
+    margin-top: 0px;
+    overflow: hidden;
+}
+
+#app-wrapper {
+    position: relative;
+    top: 90px;
+    height: 100vh;
+    margin: 0 auto;
+    overflow-y: scroll;
+}
+
+data-table {
+    display: block;
+    width: 90%;
+    margin: 0 auto;
+}
+
+#blankspace {
+    position: fixed;
+    width: 100vw;
+    height: 40px;
+    background-color: var(--background-color);
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+user-login {
+    width: 100%;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* ---------------------------------------------------
+* icon-button
+* ----------------------------------------------------
+*/
+
+icon-button {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    height: 50px;
+    width: 50px;
+    border-radius: 100px;
+    margin: 0 auto;
+}
+
+icon-button:active {
+    background-color: rgba(240, 255, 255, 0.168);
+    box-shadow: 0 0 15px -3px lightblue;
+}
+
+.rounded {
+    box-shadow: 0px 0px 15px -5px lightgray;
+}
+
+icon-button img {
+    width: 30px;
+}
+
+.invert-color {
+    filter: invert(0.5);
+}

@@ -1,6 +1,9 @@
-class SearchBar extends HTMLElement {
+import { BindableHTMLElement } from "./bindable-element.js"
+class SearchBar extends BindableHTMLElement {
 
     #alreadyRendered = false
+    #background = null
+    isActive = false
 
     constructor() {
         super()
@@ -9,35 +12,63 @@ class SearchBar extends HTMLElement {
     connectedCallback() {        
         this.render()
         this.#alreadyRendered = true
+        this.#background = document.querySelector('#background')
     }
 
     animate() {
-        this.className = this.isActive ? '' : 'active'
-        document.getElementById('app-background').className = this.isActive ? '' : 'active'
+        if (this.isActive) {
+
+            this.className = ''
+            this.#background.className = ''
+            document.onclick = null
+        } 
+        else {
+            
+            this.className = 'active'
+            this.#background.className = 'active'
+            this.#waitForhideSearchBar()
+        }
         
         this.isActive = !this.isActive
+    }
+
+    muto() {
+        this.style.backgroundColor = 'white'
+    }
+
+    #waitForhideSearchBar() {
+        document.onclick = (event) => {
+            if (this.contains(event.target)) return
+            
+            this.animate()
+            document.onclick = null
+        }
+    }
+
+    get content() {
+        return this.querySelector('input').value
     }
 
     render() {
 
         const div = document.createElement('div')
-        div.id = 'app-background'
+        div.id = 'background'
         div.innerHTML = `
         <style>
-            #app-background {
+            #background {
                 display: block;
                 position: fixed;
                 top: 0;
                 left: 0;
                 width: 100vw;
                 height: 100vh;
-                background-color: gray;
+                background-color: #0f0f0f;
                 opacity: 0;
                 z-index: 0;
                 transition: 0.5s ease-out;
             }
-            #app-background.active {
-                opacity: 0.2;
+            #background.active {
+                opacity: 0.8;
                 z-index: 39;
             }
         </style>
@@ -62,7 +93,7 @@ class SearchBar extends HTMLElement {
             }
 
             search-bar.active {
-                transform: translateY(88px);
+                transform: translateY(90px);
                 opacity: 1;
             }
 
@@ -93,14 +124,14 @@ class SearchBar extends HTMLElement {
             }
 
             input[type="text"]::placeholder {
-                color: lightgrey;
+                color: dimgray;
                 font-family: inherit;
                 opacity: 0.6;
             }
         </style>
         <div>
             <img src="assets/search.png" class="invert-color">
-            <input type="text" placeholder="Buscar ...">
+            <input type="text" placeholder="Buscar">
         </div>
         `
     }

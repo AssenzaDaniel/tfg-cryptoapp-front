@@ -5,6 +5,7 @@ class AppBar extends HTMLElement {
 
     #src = ''
     #__img__ = null
+    #__searchBar__ = null
     #alreadyRendered = false
 
     constructor() {
@@ -21,31 +22,34 @@ class AppBar extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['src'];
+        return ['src']
     }
 
     connectedCallback() {
         this.#src = this.getAttribute('src')
-        
+
         this.render()
 
         this.#__img__ = this.querySelector('img')
         this.#alreadyRendered = true
+        
+        this.#__searchBar__ = new SearchBar()
+        this.#__searchBar__.id = 'search-bar'
+        this.appendChild(this.#__searchBar__)
 
         const searchBtn = this.querySelector('#search-btn')
-        const searchBar = this.querySelector('#search-bar')
-
-        searchBtn.bind('click', searchBar, searchBar.animate)
-
         const profileBtn = this.querySelector('#login-btn')
-        profileBtn.onClick = function() {
-            window.location.href = 'https://google.es'
-        }
+        
+        searchBtn.bind('click', this.#__searchBar__, this.#__searchBar__.animate)
+        profileBtn.onEvent('click', () => {
+            const modal = document.querySelector("modal-box")
+            modal.className = "active"
+        })
     }
 
     attributeChangedCallback(attribute, oldValue, newValue = '') {
 
-        if (this.#alreadyRendered && newValue !== oldValue) 
+        if (this.#alreadyRendered && newValue !== oldValue)
             this[attribute] = newValue
     }
 
@@ -73,11 +77,17 @@ class AppBar extends HTMLElement {
                 align-items: center;
                 max-height: 100%;
             }
+            #login-btn {
+            }
+            #login-btn img {
+                width: 23px;
+            }
             .app-bar > * {
                 height: 100%;
             }
             .float--right {
                 display: flex;
+                gap: 10px;
                 margin-left: auto;
             }
         </style>
@@ -85,10 +95,9 @@ class AppBar extends HTMLElement {
             <img src="${ this.#src }" alt="logo">
             <div class="float--right">                
                 <icon-button src="assets/search.png" id="search-btn" class="invert-color"></icon-button>
-                <icon-button src="assets/google.png" id="login-btn"></icon-button>
+                <icon-button src="assets/user.svg" id="login-btn" class="invert-color rounded"></icon-button>
             </div>
         </div>
-        <search-bar id="search-bar"></search-bar>
         `
     }
 }

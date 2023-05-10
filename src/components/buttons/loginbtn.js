@@ -1,13 +1,16 @@
 import { BindableHTMLElement } from "../bindable-element.js"
 
-class IconButton extends BindableHTMLElement {
+class Button extends BindableHTMLElement {
 
     #src = ''
+    #href = ''
+    #socialName = ''
     #__img__ = null
     #alreadyRendered = false
 
     constructor(iconSrc) {
         super()
+
         this.#src = iconSrc
     }
 
@@ -21,12 +24,14 @@ class IconButton extends BindableHTMLElement {
     }
 
     static get observedAttributes() {
-        return ['src'];
+        return ['src']
     }
 
     connectedCallback() {
         this.#src = this.getAttribute('src')
-        
+        this.#socialName = this.getAttribute('alt')
+        this.#href = this.getAttribute('href')
+
         this.render()
         this.#__img__ = this.querySelector('img')
         this.#alreadyRendered = true
@@ -38,17 +43,16 @@ class IconButton extends BindableHTMLElement {
             this[attribute] = newValue
     }
 
-    test() {
-        this.style.backgroundColor = 'white'
-    }
-
     render() {
 
         this.innerHTML = `
-        <img src="${ this.#src }" alt="search">
+        <button type="button" class="mybtn">
+            <img src="${ this.#src }" alt="${ this.#socialName }">
+            <a>Signup using ${ this.#socialName }</a>
+        </button>
         `
     }
 }
 
-window.customElements.define('icon-button', IconButton)
-export default IconButton
+window.customElements.define('input-button', Button)
+export default Button
