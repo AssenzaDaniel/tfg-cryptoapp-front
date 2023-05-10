@@ -72,9 +72,6 @@ function getData(responseString) {
     const pairs = objResult.map(pair => pair.symbol.replace('USDT', ''))
     let euroPrice = obj.find(pair => pair.symbol.startsWith('EURUSDT')).lastPrice
 
-    console.log(pairs)
-    console.log(euroPrice)
-
     objResult.forEach(pair => console.log(`${pair.symbol} - € ${pair.lastPrice / euroPrice} $ ${pair.lastPrice}`))
 
     return objResult

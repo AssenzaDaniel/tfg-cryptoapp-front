@@ -1,20 +1,17 @@
 const express = require('express')
-const config = require('./config.js');
-const { log } = require('console');
+const config = require('./config.js')
 
-require("dotenv").config()
 const passport = require("passport")
-require("./passportConfig")(passport)
 const jwt = require("jsonwebtoken")
+require("dotenv").config()
+require("./passportConfig")(passport)
 
-const cors = require('cors')
+const hostname = config.app.hostname
+const port = config.app.port
 
-const hostname = config.app.hostname;
-const port = config.app.port;
 const app = express()
 
-app.use(express.static(`${__dirname}/src/`));
-app.use(cors());
+app.use(express.static(`${__dirname}/src/`))
 app.listen(port, hostname)
 
 // app.listen(port, () => {
@@ -24,10 +21,6 @@ app.listen(port, hostname)
 app.get('/', (request, response) => {
     response.sendFile(`${__dirname}/src/table.html`)
 })
-
-
-
-
 
 app.get(
     '/login/google',
@@ -47,7 +40,8 @@ app.get(
                     return response.status(400).send({msg : 'Error'})
                 }
                 // response.json({ token })
-                console.log(token)
+                console.log(response.req.user)
+                sessionStorage.setItem('user', response.req.user.name)
                 response.redirect('/')
                 return token
             }

@@ -32,10 +32,11 @@ class ModalBox extends HTMLElement {
         this.#alreadyRendered = true
 
         const closeBtn = this.querySelector('#modal-close-btn')
-        closeBtn.onClick = function() {
+
+        closeBtn.onEvent('click', () => {
             const modal = document.getElementById('modal')
             modal.className = ''
-        }
+        })
     }
 
     attributeChangedCallback(attribute, oldValue, newValue = '') {

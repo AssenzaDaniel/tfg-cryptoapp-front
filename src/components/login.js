@@ -1,25 +1,12 @@
+import { BindableHTMLElement } from './bindable-element.js'
 import Button from '/components/buttons/loginbtn.js'
 
-class Login extends HTMLElement {
+class Login extends BindableHTMLElement {
 
     #alreadyRendered = false
-    #bindedElement = null
-    #onEvent = null
 
     constructor() {
         super()
-    }
-
-    /**
-     * @param { String } event Event to add listener
-     * @param { HTMLElement } element Element to bind action
-     * @param { Function } action Action to bind
-     */
-    bind(event, element, action) {
-        this.#bindedElement = element
-        this.#onEvent = action.bind(element)
-
-        this.addEventListener(event, this.#onEvent)
     }
 
     connectedCallback() {
@@ -28,14 +15,18 @@ class Login extends HTMLElement {
         this.#alreadyRendered = true
         const google = this.querySelector("#google")
 
-        google.onClick = () => {
+        google
 
-            const petition_http = new XMLHttpRequest()
-            petition_http.open("GET", "/login/google", false)
-            petition_http.setRequestHeader("Access-Control-Allow-Origin", '*')
-            petition_http.send()
-            console.log(petition_http.response)
-        }
+        google.onEvent('click' ,() => {
+
+            window.open('/login/google', '_self')
+
+            // const petition_http = new XMLHttpRequest()
+            // petition_http.open("GET", "/login/google", false)
+            // petition_http.setRequestHeader("Access-Control-Allow-Origin", ['*'])
+            // petition_http.send()
+            // console.log(petition_http.response)
+        })
     }
 
     attributeChangedCallback(attribute, oldValue, newValue) {

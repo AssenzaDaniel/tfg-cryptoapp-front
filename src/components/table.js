@@ -4,6 +4,7 @@ import { searchSymbols } from '/services/searchSymbols.js'
 class Table extends HTMLElement {
 
     #__table__ = null
+    #__title__ = null
     #alreadyRendered = false
     #auxData = [
         {
@@ -27,7 +28,9 @@ class Table extends HTMLElement {
         this.render()
         this.#alreadyRendered = true
 
-        this.#__table__ = this.querySelector(".table")
+        this.#__table__ = this.querySelector(".content")
+        this.#__title__ = this.querySelector(".title")
+
         this.#insertData(this.#auxData)
 
         const searchBar = document.getElementById('search-bar')
@@ -41,6 +44,7 @@ class Table extends HTMLElement {
     }
 
     #updateTable(search) {
+        search = search.toUpperCase()
         const filteredData = this.#auxData.filter(elemento => elemento.symbol.startsWith(search))
         this.#insertData(filteredData)
     }
@@ -67,9 +71,7 @@ class Table extends HTMLElement {
         if (response.length === 0) return
 
         this.#__table__.innerHTML = ''
-        const h2 = document.createElement('h2')
-        h2.innerText = 'Hottest'
-        this.#__table__.appendChild(h2)
+        this.#__title__.innerText = 'Hottest'
 
         response.forEach(symbol => {
             const row = document.createElement("div")
@@ -104,9 +106,8 @@ class Table extends HTMLElement {
     render() {
 
         this.innerHTML = `
-        <div class="table">
-            <h2>Hottest</h2>
-        </div>
+            <h2 class="title">Hottest</h2>
+            <div class="content"></div>
         `
     }
 }

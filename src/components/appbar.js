@@ -41,10 +41,10 @@ class AppBar extends HTMLElement {
         const profileBtn = this.querySelector('#login-btn')
         
         searchBtn.bind('click', this.#__searchBar__, this.#__searchBar__.animate)
-        profileBtn.onClick = function() {
-            const modal = document.getElementById("modal")
+        profileBtn.onEvent('click', () => {
+            const modal = document.querySelector("modal-box")
             modal.className = "active"
-        }
+        })
     }
 
     attributeChangedCallback(attribute, oldValue, newValue = '') {

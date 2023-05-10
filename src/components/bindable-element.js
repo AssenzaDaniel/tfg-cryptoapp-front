@@ -21,7 +21,6 @@ export class BindableHTMLElement extends HTMLElement {
      */
     bind(event, element, action) {
         action = action.name || action
-        console.log(element);
         this.addEventListener(event, (event) => {
             element[action]()
             event.stopPropagation()

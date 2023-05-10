@@ -45,42 +45,7 @@ class IconButton extends BindableHTMLElement {
     render() {
 
         this.innerHTML = `
-        <style>
-            icon-button {
-                position: relative;
-                height: 50px;
-                width: 50px;
-                border-radius: 100px;
-                margin: 0 auto;
-            }
-
-            icon-button:active {
-                background-color: azure;
-                box-shadow: 0 0 15px -3px lightblue;
-            }
-
-            .icon-btn {
-                display: flex;
-                height: inherit;
-                justify-content: center;
-            }
-
-            .rounded {
-                box-shadow: 0px 0px 15px -5px lightgray;
-            }
-            
-            icon-button img {
-                width: 30px;
-                height: 30px;
-            }
-
-            .invert-color {
-                filter: invert(0.5);
-            }
-        </style>
-        <div class="icon-btn">
-            <img src="${ this.#src }" alt="search">
-        </div>
+        <img src="${ this.#src }" alt="search">
         `
     }
 }
