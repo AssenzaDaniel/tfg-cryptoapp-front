@@ -33,8 +33,8 @@ class ModalBox extends HTMLElement {
 
         const closeBtn = this.querySelector('#modal-close-btn')
         closeBtn.onClick = function() {
-            const modal = document.getElementById("modal")
-            modal.className = "inactive"
+            const modal = document.getElementById('modal')
+            modal.className = ''
         }
     }
 

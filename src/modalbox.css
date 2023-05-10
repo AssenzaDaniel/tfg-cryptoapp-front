@@ -12,11 +12,6 @@
     opacity: 1;
 }
 
-#modal.inactive {
-    visibility: hidden;
-    opacity: 0;
-}
-
 #bckg {
     width: 100vw;
     height: 100vh;
