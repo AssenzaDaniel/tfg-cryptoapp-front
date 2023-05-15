@@ -23,7 +23,7 @@ class Table extends HTMLElement {
         super()
     }
 
-    connectedCallback() {
+    async connectedCallback() {
 
         this.render()
         this.#alreadyRendered = true
@@ -31,6 +31,7 @@ class Table extends HTMLElement {
         this.#__table__ = this.querySelector(".content")
         this.#__title__ = this.querySelector(".title")
 
+        await this.#fetchData()
         this.#insertData(this.#auxData)
 
         const searchBar = document.getElementById('search-bar')
@@ -54,10 +55,10 @@ class Table extends HTMLElement {
         this.#updateTable(search)
     }
 
-    #fetchData() {
-        //get24Hrs()
-        //    .then(res => console.log(res))
-        //    .catch(error => console.error(error))
+    async #fetchData() {
+        this.#auxData =
+            await get24Hrs()
+                .catch(error => console.error(error))
 
         //searchSymbols('BTC', aux)
         //    .then(res => console.log(res))
@@ -81,10 +82,21 @@ class Table extends HTMLElement {
 
             const coinName = symbol.symbol.replace("USDT", "")
 
-            coin.innerHTML = `
-                <img src="${`assets/icons/color/${coinName.toLowerCase()}.svg`}">
-                <div id="coin">${coinName}</div>
-            `
+            const xhr = new XMLHttpRequest()
+            xhr.open("GET", `assets/icons/color/${coinName.toLowerCase()}.svg`, false)
+            xhr.send()
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                coin.innerHTML = `
+                    <img src="${`assets/icons/color/${coinName.toLowerCase()}.svg`}">
+                    <div id="coin">${coinName}</div>
+                `
+            } else {
+                coin.innerHTML = `
+                    <img src="${`assets/icons/generic-crypto.png`}">
+                    <div id="coin">${coinName}</div>
+                `
+            }
+
             const price = document.createElement("div")
             price.id = "price"
             const str = ""
