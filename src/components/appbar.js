@@ -40,10 +40,15 @@ class AppBar extends HTMLElement {
         const searchBtn = this.querySelector('#search-btn')
         const profileBtn = this.querySelector('#login-btn')
         
-        searchBtn.bind('click', this.#__searchBar__, this.#__searchBar__.animate)
-        profileBtn.onEvent('click', () => {
-            const modal = document.querySelector("modal-box")
-            modal.className = "active"
+        //searchBtn.bind('click', this.#__searchBar__, this.#__searchBar__.animate)
+        searchBtn.addEventListener('click', (event) => {
+            this.#__searchBar__.animate()
+            event.stopPropagation()
+        })
+
+        profileBtn.addEventListener('click', () => {
+            const modal = document.querySelector('modal-box')
+            modal.className = 'active'
         })
     }
 
@@ -56,41 +61,6 @@ class AppBar extends HTMLElement {
     render() {
 
         this.innerHTML = `
-        <style>
-            .app-bar {
-                position: fixed;
-                display: flex;
-                align-items: center;
-                top: 10px;
-                left: 2.5vw;
-                width: 95vw;
-                height: 70px;
-                background-color: var(--primary-color);
-                box-sizing: border-box;
-                border-radius: 50px;
-                padding: 10px 15px;
-                box-shadow: 0px 1px 10px -2px var(--shadow-color);
-                //box-shadow: 0px 1px 10px -2px lightsteelblue;
-                z-index: 100;
-            }
-            .app-bar * {
-                align-items: center;
-                max-height: 100%;
-            }
-            #login-btn {
-            }
-            #login-btn img {
-                width: 23px;
-            }
-            .app-bar > * {
-                height: 100%;
-            }
-            .float--right {
-                display: flex;
-                gap: 10px;
-                margin-left: auto;
-            }
-        </style>
         <div class="app-bar">
             <img src="${ this.#src }" alt="logo">
             <div class="float--right">                

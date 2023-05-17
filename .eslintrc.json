@@ -12,7 +12,23 @@
         "sourceType": "module"
     },
     "rules": {
-        "semi": ["warn", "never"],
+        "indent": [
+            "error",
+            4
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "single",
+            { "allowTemplateLiterals": true }
+        ],
+        "semi": [
+            "error",
+            "never"
+        ],
         "no-unused-vars": "warn"
     }
 }

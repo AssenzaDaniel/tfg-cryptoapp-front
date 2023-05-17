@@ -6,7 +6,7 @@ class IconButton extends BindableHTMLElement {
     #__img__ = null
     #alreadyRendered = false
 
-    constructor(iconSrc) {
+    constructor(iconSrc = null) {
         super()
         this.#src = iconSrc
     }
@@ -21,7 +21,7 @@ class IconButton extends BindableHTMLElement {
     }
 
     static get observedAttributes() {
-        return ['src'];
+        return ['src']
     }
 
     connectedCallback() {

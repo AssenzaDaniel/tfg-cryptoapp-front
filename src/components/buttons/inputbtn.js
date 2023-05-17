@@ -1,4 +1,4 @@
-import { BindableHTMLElement } from "../bindable-element.js"
+import { BindableHTMLElement } from '../bindable-element.js'
 
 class Button extends BindableHTMLElement {
 
@@ -8,9 +8,8 @@ class Button extends BindableHTMLElement {
     #__img__ = null
     #alreadyRendered = false
 
-    constructor(iconSrc) {
+    constructor(iconSrc = null) {
         super()
-
         this.#src = iconSrc
     }
 
@@ -23,9 +22,9 @@ class Button extends BindableHTMLElement {
         this.#__img__.src = value
     }
 
-    static get observedAttributes() {
-        return ['src']
-    }
+    // static get observedAttributes() {
+    //     return ['src']
+    // }
 
     connectedCallback() {
         this.#src = this.getAttribute('src')

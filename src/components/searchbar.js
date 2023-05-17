@@ -1,8 +1,8 @@
-import { BindableHTMLElement } from "./bindable-element.js"
-class SearchBar extends BindableHTMLElement {
+class SearchBar extends HTMLElement {
 
     #alreadyRendered = false
     #background = null
+    #_input = null
     isActive = false
 
     constructor() {
@@ -12,7 +12,9 @@ class SearchBar extends BindableHTMLElement {
     connectedCallback() {        
         this.render()
         this.#alreadyRendered = true
+
         this.#background = document.querySelector('#background')
+        this.#_input = document.querySelector('input')
     }
 
     animate() {
@@ -26,14 +28,11 @@ class SearchBar extends BindableHTMLElement {
             
             this.className = 'active'
             this.#background.className = 'active'
+            this.#_input.focus()
             this.#waitForhideSearchBar()
         }
         
         this.isActive = !this.isActive
-    }
-
-    muto() {
-        this.style.backgroundColor = 'white'
     }
 
     #waitForhideSearchBar() {
@@ -46,7 +45,7 @@ class SearchBar extends BindableHTMLElement {
     }
 
     get content() {
-        return this.querySelector('input').value
+        return this.#_input.value
     }
 
     render() {
@@ -76,59 +75,6 @@ class SearchBar extends BindableHTMLElement {
         this.parentNode.appendChild(div)
 
         this.innerHTML = `
-        <style>
-            search-bar {
-                position: fixed;
-                display: block;
-                background-color: var(--primary-color);
-                width: 85%;
-                left: 7.5%;
-                border-radius: 15px;
-                box-shadow: 0px 5px 15px -6px var(--shadow-color);
-                box-sizing: border-box;
-                z-index: 40;
-                padding: 15px;
-                transition: 0.7s cubic-bezier(0.08, 1.14, 0.68, 0.98), opacity 0.2s;
-                opacity: 0;
-            }
-
-            search-bar.active {
-                transform: translateY(90px);
-                opacity: 1;
-            }
-
-            search-bar div {
-                display: flex;
-                gap: 15px;
-            }
-
-            search-bar div img {
-                height: 25px;
-            }
-
-            search-bar div input {
-                width: 100%;
-                margin-left: 10rpx;
-            }
-
-            input[type="text"] {
-                background-color: inherit;
-                color: inherit;
-                height: inherit;
-                font-family: inherit;
-                padding: 0;
-                box-sizing: border-box;
-                outline: none;
-                border: none;
-                font-size: 1.1rem;
-            }
-
-            input[type="text"]::placeholder {
-                color: dimgray;
-                font-family: inherit;
-                opacity: 0.6;
-            }
-        </style>
         <div>
             <img src="assets/search.png" class="invert-color">
             <input type="text" placeholder="Buscar">

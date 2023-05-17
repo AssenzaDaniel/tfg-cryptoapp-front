@@ -1,4 +1,5 @@
 import IconButton from './buttons/iconbtn.js'
+import Overlay from './overlay.js'
 
 class ModalBox extends HTMLElement {
 
@@ -20,7 +21,7 @@ class ModalBox extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['src'];
+        return ['src']
     }
 
     connectedCallback() {
@@ -33,9 +34,8 @@ class ModalBox extends HTMLElement {
 
         const closeBtn = this.querySelector('#modal-close-btn')
 
-        closeBtn.onEvent('click', () => {
-            const modal = document.getElementById('modal')
-            modal.className = ''
+        closeBtn.addEventListener('click', () => {
+            this.className = ''
         })
     }
 
@@ -48,7 +48,7 @@ class ModalBox extends HTMLElement {
     render() {
 
         this.innerHTML = `
-        <div id="bckg"></div>
+        <c-overlay active></c-overlay>
         <div class="modal--window floating">
             <icon-button src="assets/close-icon.svg" id="modal-close-btn"></icon-button>
             <div id="modal--content">

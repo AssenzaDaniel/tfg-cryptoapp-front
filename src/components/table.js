@@ -1,6 +1,3 @@
-import { get24Hrs, getPrice } from '/services/getSymbols.js'
-import { searchSymbols } from '/services/searchSymbols.js'
-
 class Table extends HTMLElement {
 
     #__table__ = null
@@ -31,11 +28,18 @@ class Table extends HTMLElement {
         this.#__table__ = this.querySelector(".content")
         this.#__title__ = this.querySelector(".title")
 
-        await this.#fetchData()
-        this.#insertData(this.#auxData)
+        const res = await this.#fetchData()
+        this.#insertData(res)
 
-        const searchBar = document.getElementById('search-bar')
-        searchBar.bind('keyup', this, this.update)
+        setInterval(async () => {
+            const response = await this.#fetchData()
+            this.#insertData(response)
+
+        }, 5000)
+
+        const searchBar = document.querySelector('search-bar')
+        //searchBar.bind('keyup', this, this.update)
+        //searchBar.addEventListener('keyup', () => this.update())
     }
 
     attributeChangedCallback(attribute, oldValue, newValue) {
@@ -46,7 +50,7 @@ class Table extends HTMLElement {
 
     #updateTable(search) {
         search = search.toUpperCase()
-        const filteredData = this.#auxData.filter(elemento => elemento.symbol.startsWith(search))
+        const filteredData = this.#auxData.filter(elemento => elemento.symbol.match(search))
         this.#insertData(filteredData)
     }
 
@@ -56,15 +60,18 @@ class Table extends HTMLElement {
     }
 
     async #fetchData() {
-        this.#auxData =
-            await get24Hrs()
-                .catch(error => console.error(error))
+        //return await get24Hrs()
 
         //searchSymbols('BTC', aux)
         //    .then(res => console.log(res))
         //    .catch(error => console.error(error))
 
         //console.log(res);
+
+        const conn = new XMLHttpRequest()
+        conn.open('GET', 'http://localhost:1717/api/24hrsChanges', false)
+        conn.send(null)
+        return JSON.parse(conn.responseText)
     }
 
     #insertData(response) {
