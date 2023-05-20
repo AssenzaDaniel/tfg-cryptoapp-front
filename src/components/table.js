@@ -3,18 +3,6 @@ class Table extends HTMLElement {
     #__table__ = null
     #__title__ = null
     #alreadyRendered = false
-    #auxData = [
-        {
-            symbol: 'BTC',
-            lastPrice: '30200.17',
-            priceChangePercent: '13.2'
-        },
-        {
-            symbol: 'ETH',
-            lastPrice: '300.1700',
-            priceChangePercent: '-0.2'
-        }
-    ]
 
     constructor() {
         super()
@@ -37,26 +25,13 @@ class Table extends HTMLElement {
 
         }, 5000)
 
-        const searchBar = document.querySelector('search-bar')
-        //searchBar.bind('keyup', this, this.update)
-        //searchBar.addEventListener('keyup', () => this.update())
+        //const searchBar = document.querySelector('search-bar')
     }
 
     attributeChangedCallback(attribute, oldValue, newValue) {
 
         if (this.#alreadyRendered && newValue !== oldValue) 
             this[attribute] = newValue
-    }
-
-    #updateTable(search) {
-        search = search.toUpperCase()
-        const filteredData = this.#auxData.filter(elemento => elemento.symbol.match(search))
-        this.#insertData(filteredData)
-    }
-
-    update() {
-        const search = document.getElementById('search-bar').content
-        this.#updateTable(search)
     }
 
     async #fetchData() {
@@ -70,7 +45,10 @@ class Table extends HTMLElement {
 
         const conn = new XMLHttpRequest()
         conn.open('GET', 'http://localhost:1717/api/24hrsChanges', false)
-        conn.send(null)
+        //conn.open('POST', 'http://localhost:1717/api/24hrsChanges', false)
+        //conn.setRequestHeader('Content-Type', 'application/json')
+        //conn.send(JSON.stringify({ symbols: ['BTCUSDT', 'ETHUSDT'] }))
+        conn.send()
         return JSON.parse(conn.responseText)
     }
 

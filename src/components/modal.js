@@ -1,48 +1,27 @@
 import IconButton from './buttons/iconbtn.js'
 import Overlay from './overlay.js'
+import Login from './login.js'
 
 class ModalBox extends HTMLElement {
 
-    #src = ''
-    #__img__ = null
-    #alreadyRendered = false
+    #closeBtn = null
 
     constructor() {
         super()
     }
 
-    get src() {
-        return this.#src
-    }
-
-    set src(value) {
-        this.#src = value
-        this.#__img__.src = value
-    }
-
-    static get observedAttributes() {
-        return ['src']
+    set src(source) {
+        this.#closeBtn.src = source
     }
 
     connectedCallback() {
-        this.#src = this.getAttribute('src')
-
         this.render()
 
-        this.#__img__ = this.querySelector('img')
-        this.#alreadyRendered = true
+        this.#closeBtn = this.querySelector('#modal-close-btn')
 
-        const closeBtn = this.querySelector('#modal-close-btn')
-
-        closeBtn.addEventListener('click', () => {
+        this.#closeBtn.addEventListener('click', () => {
             this.className = ''
         })
-    }
-
-    attributeChangedCallback(attribute, oldValue, newValue = '') {
-
-        if (this.#alreadyRendered && newValue !== oldValue)
-            this[attribute] = newValue
     }
 
     render() {

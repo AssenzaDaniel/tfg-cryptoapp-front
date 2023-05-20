@@ -1,8 +1,6 @@
 const div = document.createElement('div')
 div.id = 'app-wrapper'
 
-document.body.appendChild(div)
-
 export default {
 
     wrapper: div,

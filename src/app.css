@@ -33,12 +33,14 @@ body {
     height: 100vh;
 }
 
-#app-wrapper {
+app-wrapper {
+    display: block;
     position: relative;
     top: 90px;
     width: 100%;
-    padding-bottom: 20px;
+    padding-bottom: calc(65px + 4vw);
     box-sizing: border-box;
+    z-index: 0;
 }
 
 data-table {
@@ -165,7 +167,7 @@ search-bar {
     border-radius: 15px;
     box-shadow: 0px 5px 15px -6px var(--shadow-color);
     box-sizing: border-box;
-    z-index: 40;
+    z-index: 99;
     padding: 15px;
     transition: 0.7s cubic-bezier(0.08, 1.14, 0.68, 0.98), opacity 0.2s;
     opacity: 0;
@@ -219,8 +221,9 @@ app-bar {
     top: 0;
     width: 100%;
     height: 100px;
-    z-index: 1;
-    background: linear-gradient(180deg, var(--background-color) 70%, transparent 100%);}
+    z-index: 10;
+    background: linear-gradient(180deg, var(--background-color) 70%, transparent 100%);
+}
 
 .app-bar {
     position: fixed;
@@ -255,6 +258,60 @@ app-bar {
     display: flex;
     gap: 10px;
     margin-left: auto;
+}
+
+/* ---------------------------------------------------
+* tab-bar
+* ----------------------------------------------------
+*/
+
+menu-button {
+    width: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+menu-button > :first-child {
+    overflow: overlay;
+    width: auto;
+}
+
+menu-button div.button-text {
+    width: auto;
+    margin-top: 2px;
+    text-align: center;
+    font-size: 0.7rem;
+    letter-spacing: 0;
+    font-variant-caps: all-petite-caps;
+}
+
+tab-bar .bar {
+    background-color: var(--primary-color);
+    display: flex;
+    position: fixed;
+    bottom: 8px;
+    width: calc(100vw - 16px);
+    left: 8px;
+    justify-content: space-evenly;
+    padding: 10px 0 5px 0;
+    box-sizing: border-box;
+    height: 60px;
+    border-radius: 15px;
+    z-index: 2;
+}
+
+tab-bar .bar menu-button[selected] {
+    color: #6cb3e0;
+}
+
+tab-bar .--overlay {
+    background: linear-gradient(360deg, var(--background-color) 80%, transparent 100%);
+    position: fixed;
+    bottom: -1px;
+    width: 100vw;
+    height: calc(60px + 20px);
+    z-index: 1;
 }
 
 /* ---------------------------------------------------

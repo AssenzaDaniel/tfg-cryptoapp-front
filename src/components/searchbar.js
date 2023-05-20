@@ -55,7 +55,7 @@ class SearchBar extends HTMLElement {
         div.innerHTML = `
         <style>
             #background {
-                display: block;
+                display: none;
                 position: fixed;
                 top: 0;
                 left: 0;
@@ -63,12 +63,12 @@ class SearchBar extends HTMLElement {
                 height: 100vh;
                 background-color: #0f0f0f;
                 opacity: 0;
-                z-index: 0;
+                z-index: -1;
                 transition: 0.5s ease-out;
             }
             #background.active {
                 opacity: 0.8;
-                z-index: 39;
+                z-index: 98;
             }
         </style>
         `

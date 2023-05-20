@@ -18,10 +18,6 @@ app.listen(port, hostname)
 //     console.info(`\n>> server running at http://${hostname}:${port}/`)
 // })
 
-app.get('/', (request, response) => {
-    response.sendFile(`${__dirname}/src/table.html`)
-})
-
 app.get(
     '/login/google',
     passport.authenticate('auth-google', { scope: [ 'profile', 'email' ] })

@@ -1,6 +1,4 @@
-import { BindableHTMLElement } from "../bindable-element.js"
-
-class IconButton extends BindableHTMLElement {
+class IconButton extends HTMLElement {
 
     #src = ''
     #__img__ = null
@@ -36,10 +34,6 @@ class IconButton extends BindableHTMLElement {
 
         if (this.#alreadyRendered && newValue !== oldValue) 
             this[attribute] = newValue
-    }
-
-    test() {
-        this.style.backgroundColor = 'white'
     }
 
     render() {

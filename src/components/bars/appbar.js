@@ -1,5 +1,5 @@
-import IconButton from './buttons/iconbtn.js'
-import SearchBar from './searchbar.js'
+import IconButton from '/components/buttons/iconbtn.js'
+import SearchBar from '/components/searchbar.js'
 
 class AppBar extends HTMLElement {
 
@@ -40,7 +40,6 @@ class AppBar extends HTMLElement {
         const searchBtn = this.querySelector('#search-btn')
         const profileBtn = this.querySelector('#login-btn')
         
-        //searchBtn.bind('click', this.#__searchBar__, this.#__searchBar__.animate)
         searchBtn.addEventListener('click', (event) => {
             this.#__searchBar__.animate()
             event.stopPropagation()
