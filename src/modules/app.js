@@ -5,36 +5,67 @@ import AppWrapper from '/components/appwrapper.js'
 
 import Table from '/components/table.js'
 
-function App() {
+class App {
 
-    const appBar = new AppBar()
-    const tabBar = new TabBar()
-    const table = new Table()
-    const modal = new Modal()
-    const appWrapper = new AppWrapper()
+    #appBar
+    #tabBar
+    #table
+    #modal
+    #appWrapper
 
-    const components = [appBar, tabBar, table, modal]
+    #views
+    
+    constructor() {
+        
+        this.#appBar = new AppBar()
+        this.#tabBar = new TabBar()
+        this.#table = new Table()
+        this.#modal = new Modal()
+        this.#appWrapper = new AppWrapper()
+        
+        this.#render()
+        this.#initializeElements()
 
-    function render() {
+        const a = document.createElement('p')
+        a.innerText = 'Espacio 2'
+        a.id = 'wallet'
+
+        const b = document.createElement('p')
+        b.innerText = 'Espacio 3'
+        b.id = 'favs'
+        
+        this.#views = [
+            this.#table,
+            a, b
+        ]
+    }
+
+    #render() {
         const app = document.createElement('div')
         app.id = 'app'
 
-        app.appendChild(appBar)
-        app.appendChild(tabBar)
-        app.appendChild(modal)
-        app.appendChild(appWrapper)
+        app.appendChild(this.#appBar)
+        app.appendChild(this.#tabBar)
+        app.appendChild(this.#modal)
+        app.appendChild(this.#appWrapper)
         
         document.body.appendChild(app)
-        
-        appBar.src = 'assets/logo.png'
-        appWrapper.content = table
     }
 
-    return {
-        render
+    #initializeElements() {
+        this.#table.id = 'home'
+
+        this.#appBar.src = 'assets/logo.png'
+        this.#appWrapper.content = this.#table
+        this.#tabBar.addEventListener('change', () => this.#updateWrapper())
+    }
+
+    #updateWrapper() {
+        const selectedTab = this.#tabBar.selectedTab
+        const view = this.#views.find(view => view.id === selectedTab)
+
+        this.#appWrapper.content = view
     }
 }
 
 const app = new App()
-
-app.render()

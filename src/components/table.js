@@ -1,3 +1,5 @@
+import { getHottestCrypto } from '../services/index.js'
+
 class Table extends HTMLElement {
 
     #__table__ = null
@@ -10,20 +12,17 @@ class Table extends HTMLElement {
 
     async connectedCallback() {
 
+        if (this.#alreadyRendered) return
+
         this.render()
         this.#alreadyRendered = true
 
         this.#__table__ = this.querySelector(".content")
         this.#__title__ = this.querySelector(".title")
 
-        const res = await this.#fetchData()
-        this.#insertData(res)
+        this.#insertData()
 
-        setInterval(async () => {
-            const response = await this.#fetchData()
-            this.#insertData(response)
-
-        }, 5000)
+        setInterval(() => this.#insertData(), 5000)
 
         //const searchBar = document.querySelector('search-bar')
     }
@@ -34,27 +33,19 @@ class Table extends HTMLElement {
             this[attribute] = newValue
     }
 
-    async #fetchData() {
-        //return await get24Hrs()
+    async #insertData() {
 
-        //searchSymbols('BTC', aux)
-        //    .then(res => console.log(res))
-        //    .catch(error => console.error(error))
+        let response
 
-        //console.log(res);
+        try {
+            response = await getHottestCrypto()
 
-        const conn = new XMLHttpRequest()
-        conn.open('GET', 'http://localhost:1717/api/24hrsChanges', false)
-        //conn.open('POST', 'http://localhost:1717/api/24hrsChanges', false)
-        //conn.setRequestHeader('Content-Type', 'application/json')
-        //conn.send(JSON.stringify({ symbols: ['BTCUSDT', 'ETHUSDT'] }))
-        conn.send()
-        return JSON.parse(conn.responseText)
-    }
-
-    #insertData(response) {
-
-        if (response.length === 0) return
+        } catch {
+            this.#__table__.innerHTML = `
+            <p>No hay conexión con la api</p>
+            `
+            return
+        }
 
         this.#__table__.innerHTML = ''
         this.#__title__.innerText = 'Hottest'

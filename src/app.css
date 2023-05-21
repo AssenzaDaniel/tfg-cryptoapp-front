@@ -38,6 +38,7 @@ app-wrapper {
     position: relative;
     top: 90px;
     width: 100%;
+    padding: 0 18px;
     padding-bottom: calc(65px + 4vw);
     box-sizing: border-box;
     z-index: 0;
@@ -45,8 +46,7 @@ app-wrapper {
 
 data-table {
     display: block;
-    width: 90%;
-    margin: 0 auto;
+    width: 100%;
 }
 
 user-login {
@@ -302,7 +302,8 @@ tab-bar .bar {
 }
 
 tab-bar .bar menu-button[selected] {
-    color: #6cb3e0;
+    color: #48a2dc;
+    filter: drop-shadow(10px);
 }
 
 tab-bar .--overlay {
