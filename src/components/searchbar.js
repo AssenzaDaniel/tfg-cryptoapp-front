@@ -1,9 +1,12 @@
 class SearchBar extends HTMLElement {
 
     #alreadyRendered = false
-    #background = null
-    #_input = null
     isActive = false
+    #isWritting = false
+    
+    #background = null
+    #input = null
+    #onInputChange = null
 
     constructor() {
         super()
@@ -13,8 +16,22 @@ class SearchBar extends HTMLElement {
         this.render()
         this.#alreadyRendered = true
 
+        this.#onInputChange = new Event('change')
+
         this.#background = document.querySelector('#background')
-        this.#_input = document.querySelector('input')
+        this.#input = document.querySelector('input')
+        this.#input.addEventListener('input', () => this.#handleInputChange())
+    }
+
+    #handleInputChange() {
+        if (this.#isWritting) return
+
+        this.#isWritting = true
+
+        setTimeout(() => {
+            this.dispatchEvent(this.#onInputChange)
+            this.#isWritting = false
+        }, 500)
     }
 
     animate() {
@@ -28,7 +45,7 @@ class SearchBar extends HTMLElement {
             
             this.className = 'active'
             this.#background.className = 'active'
-            this.#_input.focus()
+            this.#input.focus()
             this.#waitForhideSearchBar()
         }
         
@@ -44,8 +61,8 @@ class SearchBar extends HTMLElement {
         }
     }
 
-    get content() {
-        return this.#_input.value
+    get text() {
+        return this.#input.value
     }
 
     render() {
@@ -63,12 +80,20 @@ class SearchBar extends HTMLElement {
                 height: 100vh;
                 background-color: #0f0f0f;
                 opacity: 0;
-                z-index: -1;
-                transition: 0.5s ease-out;
+                animation: hideOverlay 0.8s;
             }
             #background.active {
-                opacity: 0.8;
-                z-index: 98;
+                display: block;
+                animation: showOverlay 0.8s forwards;
+            }
+
+            @keyframes showOverlay {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 0.8;
+                }
             }
         </style>
         `

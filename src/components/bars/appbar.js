@@ -5,7 +5,7 @@ class AppBar extends HTMLElement {
 
     #src = ''
     #__img__ = null
-    #__searchBar__ = null
+    #searchBar = null
     #alreadyRendered = false
 
     constructor() {
@@ -33,15 +33,16 @@ class AppBar extends HTMLElement {
         this.#__img__ = this.querySelector('img')
         this.#alreadyRendered = true
         
-        this.#__searchBar__ = new SearchBar()
-        this.#__searchBar__.id = 'search-bar'
-        this.appendChild(this.#__searchBar__)
+        this.#searchBar = new SearchBar()
+        this.appendChild(this.#searchBar)
+
+        this.#searchBar.addEventListener('change', () => console.log(this.#searchBar.text))
 
         const searchBtn = this.querySelector('#search-btn')
         const profileBtn = this.querySelector('#login-btn')
         
         searchBtn.addEventListener('click', (event) => {
-            this.#__searchBar__.animate()
+            this.#searchBar.animate()
             event.stopPropagation()
         })
 

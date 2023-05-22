@@ -26,7 +26,6 @@ class TabBar extends HTMLElement {
     }
 
     #changeSelection(selectedButton) {
-
         if (selectedButton === this.#selectedTab) return
 
         selectedButton.setAttribute('selected', '')
