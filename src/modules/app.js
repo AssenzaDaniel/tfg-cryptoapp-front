@@ -2,6 +2,7 @@ import AppBar from '/components/bars/appbar.js'
 import TabBar from '/components/bars/tabbar.js'
 import Modal from '/components/modal.js'
 import AppWrapper from '/components/appwrapper.js'
+import Search from '/components/search.js'
 
 import Table from '/components/table.js'
 
@@ -12,6 +13,7 @@ class App {
     #table
     #modal
     #appWrapper
+    #search
 
     #views
     
@@ -19,9 +21,10 @@ class App {
         
         this.#appBar = new AppBar()
         this.#tabBar = new TabBar()
-        this.#table = new Table()
+        this.#table = new Table('Hottest')
         this.#modal = new Modal()
         this.#appWrapper = new AppWrapper()
+        this.#search = new Search()
         
         this.#render()
         this.#initializeElements()
@@ -48,6 +51,7 @@ class App {
         app.appendChild(this.#tabBar)
         app.appendChild(this.#modal)
         app.appendChild(this.#appWrapper)
+        app.appendChild(this.#search)
         
         document.body.appendChild(app)
     }
@@ -58,6 +62,14 @@ class App {
         this.#appBar.src = 'assets/logo.png'
         this.#appWrapper.content = this.#table
         this.#tabBar.addEventListener('change', () => this.#updateWrapper())
+
+        this.#appBar.addEventListener('opensearch', () => {
+            this.#search.show()
+        })
+
+        this.#appBar.addEventListener('openuser', () => {
+            this.#modal.className = 'active'
+        })
     }
 
     #updateWrapper() {

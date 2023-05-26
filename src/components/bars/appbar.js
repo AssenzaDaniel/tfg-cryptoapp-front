@@ -1,70 +1,43 @@
 import IconButton from '/components/buttons/iconbtn.js'
-import SearchBar from '/components/searchbar.js'
 
 class AppBar extends HTMLElement {
 
-    #src = ''
-    #__img__ = null
-    #searchBar = null
-    #alreadyRendered = false
+    #logoSrc = ''
+    #searchBtnOnClick = null
+    #perfilBtnOnClick = null
 
     constructor() {
         super()
     }
 
-    get src() {
-        return this.#src
-    }
-
-    set src(value) {
-        this.#src = value
-        this.#__img__.src = value
-    }
-
-    static get observedAttributes() {
-        return ['src']
+    set src(src) {
+        this.querySelector('#logo').srcset = src
     }
 
     connectedCallback() {
-        this.#src = this.getAttribute('src')
-
         this.render()
-
-        this.#__img__ = this.querySelector('img')
-        this.#alreadyRendered = true
         
-        this.#searchBar = new SearchBar()
-        this.appendChild(this.#searchBar)
-
-        this.#searchBar.addEventListener('change', () => console.log(this.#searchBar.text))
-
+        this.#searchBtnOnClick = new CustomEvent('opensearch')
+        this.#perfilBtnOnClick = new CustomEvent('openuser')
+        
         const searchBtn = this.querySelector('#search-btn')
         const profileBtn = this.querySelector('#login-btn')
         
-        searchBtn.addEventListener('click', (event) => {
-            this.#searchBar.animate()
-            event.stopPropagation()
+        searchBtn.addEventListener('click', () => {
+            this.dispatchEvent(this.#searchBtnOnClick)
         })
 
         profileBtn.addEventListener('click', () => {
-            const modal = document.querySelector('modal-box')
-            modal.className = 'active'
+            this.dispatchEvent(this.#perfilBtnOnClick)
         })
     }
 
-    attributeChangedCallback(attribute, oldValue, newValue = '') {
-
-        if (this.#alreadyRendered && newValue !== oldValue)
-            this[attribute] = newValue
-    }
-
     render() {
-
         this.innerHTML = `
         <div class="app-bar">
-            <img src="${ this.#src }" alt="logo">
+            <img id="logo" alt="logo">
             <div class="float--right">                
-                <icon-button src="assets/search.png" id="search-btn" class="invert-color"></icon-button>
+                <menu-button src="search.svg" id="search-btn"></menu-button>
                 <icon-button src="assets/user.svg" id="login-btn" class="invert-color rounded"></icon-button>
             </div>
         </div>

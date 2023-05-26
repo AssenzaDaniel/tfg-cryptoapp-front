@@ -159,35 +159,23 @@ h2 {
 */
 
 search-bar {
-    position: fixed;
-    display: block;
+    display: flex;
+    gap: 10px;
     background-color: var(--primary-color);
-    width: 85%;
-    left: 7.5%;
-    border-radius: 15px;
+    border-radius: 50px;
     box-shadow: 0px 5px 15px -6px var(--shadow-color);
     box-sizing: border-box;
-    z-index: 99;
-    padding: 15px;
+    padding: 12px 20px;
     transition: 0.7s cubic-bezier(0.08, 1.14, 0.68, 0.98), opacity 0.2s;
-    opacity: 0;
 }
 
-search-bar.active {
-    transform: translateY(90px);
-    opacity: 1;
+search-bar menu-button {
+    height: 30px;
+    width: 30px;
+    color: var(--main-font-color);
 }
 
-search-bar div {
-    display: flex;
-    gap: 15px;
-}
-
-search-bar div img {
-    height: 25px;
-}
-
-search-bar div input {
+search-bar input {
     width: 100%;
     margin-left: 10rpx;
 }
@@ -256,8 +244,13 @@ app-bar {
 
 .float--right {
     display: flex;
-    gap: 10px;
+    gap: 15px;
     margin-left: auto;
+}
+
+app-bar menu-button {
+    width: 30px;
+    height: 100%;
 }
 
 /* ---------------------------------------------------
@@ -270,6 +263,7 @@ menu-button {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 menu-button > :first-child {
@@ -302,7 +296,7 @@ tab-bar .bar {
 }
 
 tab-bar .bar menu-button[selected] {
-    color: #48a2dc;
+    color: #81e27e;
     filter: drop-shadow(10px);
 }
 
@@ -327,7 +321,103 @@ c-overlay {
     left: 0;
     width: 101vw;
     height: 101vh;
-    background-color: #0f0f0f;
+    background-color: var(--background-color);
+    /* background-color: #0f0f0f; */
     opacity: 0.8;
     transition: 0.5s ease-out;
+}
+
+/* ---------------------------------------------------
+* c-search
+* ----------------------------------------------------
+*/
+
+c-search {
+    display: none;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    overflow: auto;
+    scroll-behavior: smooth;
+}
+
+c-search > div.content {
+    box-sizing: border-box;
+    width: 100%;
+    position: absolute;
+    padding: 0 20px 20px 20px;
+}
+
+c-search search-bar {
+    position: fixed;
+    width: 85%;
+    left: 7.5%;
+    z-index: 10;
+}
+
+c-search data-table {
+    width: 100%;
+}
+
+/* c-search data-table .fila {
+    border-radius: 0;
+    margin-bottom: 0 !important;
+}
+
+c-search data-table .content {
+    overflow: auto;
+    border-radius: 10px;
+} */
+
+c-search[active] {
+    display: block;
+}
+
+c-search[active] c-overlay {
+    animation: showSearch 0.6s forwards;
+}
+
+c-search[active] search-bar {
+    animation: animateSearchBar 0.8s forwards;
+}
+
+c-search[active] > div.content {
+    opacity: 0;
+    animation: animateTable 0.8s forwards;
+}
+
+@keyframes showSearch {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 0.9;
+    }
+}
+
+@keyframes animateSearchBar {
+
+    from {
+        top: 120px;
+        opacity: 0;
+    }
+    to {
+        top: 90px;
+        opacity: 1;
+    }
+}
+
+@keyframes animateTable {
+
+    from {
+        top: 170px;
+        opacity: 0;
+    }
+    100% {
+        top: 145px;
+        opacity: 1;
+    }
 }

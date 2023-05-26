@@ -6,10 +6,6 @@ class MenuButton extends HTMLElement {
         super()
     }
 
-    static get observedAttributes() {
-        return ['src']
-    }
-
     async connectedCallback() {
         const source = this.getAttribute('src')
         const text = this.innerText
@@ -20,8 +16,10 @@ class MenuButton extends HTMLElement {
             this.innerHTML = await this.#getSVGIcon(source)
             
             const svg = this.querySelector('svg path')
-            svg.setAttribute('fill', 'currentColor')
-            
+
+            if (!svg.getAttribute('stroke')) 
+                svg.setAttribute('fill', 'currentColor')
+
         } else {
 
             this.innerHTML = `
@@ -29,11 +27,13 @@ class MenuButton extends HTMLElement {
             `
         }
 
-        const buttonText = document.createElement('div')
-        buttonText.className = 'button-text'
-        buttonText.innerText = text
-
-        this.appendChild(buttonText)
+        if (text) {
+            const buttonText = document.createElement('div')
+            buttonText.className = 'button-text'
+            buttonText.innerText = text
+    
+            this.appendChild(buttonText)
+        }
     }
 
     async #getSVGIcon(source) {
@@ -44,11 +44,7 @@ class MenuButton extends HTMLElement {
             conn.open('GET', `assets/${source}`)
             conn.send()
     
-            conn.onreadystatechange = () => {
-                if (conn.readyState === conn.DONE && conn.status === 200) {
-                    resolve(conn.responseText)
-                }
-            }
+            conn.onload = () => resolve(conn.responseText)
         })
     }
 }
