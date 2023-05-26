@@ -19,14 +19,17 @@ class Search extends HTMLElement {
         this.#searchTable = this.querySelector('data-table')
 
         this.#searchBar.addEventListener('change', () => { 
-            const search = this.#searchBar.text
-            const xhr = new XMLHttpRequest()
-
-            xhr.open('GET', `http://localhost:1717/api/search?symbol=${search}`, false)
-            xhr.send()
-
-            console.log(JSON.parse(xhr.responseText))
             this.#searchTable.filter(this.#searchBar.text)
+
+            new Promise((resolve, reject) => {
+                
+                const search = this.#searchBar.text
+                const xhr = new XMLHttpRequest()
+    
+                xhr.open('GET', `http://localhost:1717/api/search?symbol=${search}`)
+                xhr.send()
+                xhr.onload = () => resolve(JSON.parse(xhr.responseText))
+            }).then(response => console.log(response))
         })
     }
 
