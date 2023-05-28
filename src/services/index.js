@@ -1,6 +1,5 @@
-import { get } from './cryptoapi.js'
+import * as api from './cryptoapi.js'
 
 export async function getHottestCrypto() {
-
-    return get('24hrsChanges').then(response => JSON.parse(response))
+    return api.get('/24hrsChanges')
 }

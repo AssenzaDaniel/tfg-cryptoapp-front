@@ -26,9 +26,10 @@ class Search extends HTMLElement {
                 const search = this.#searchBar.text
                 const xhr = new XMLHttpRequest()
     
+                xhr.responseType = 'json'
                 xhr.open('GET', `http://localhost:1717/api/search?symbol=${search}`)
                 xhr.send()
-                xhr.onload = () => resolve(JSON.parse(xhr.responseText))
+                xhr.onload = () => resolve(xhr.response)
             }).then(response => console.log(response))
         })
     }

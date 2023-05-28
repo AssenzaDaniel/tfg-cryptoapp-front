@@ -5,16 +5,13 @@ const url = 'http://localhost:1717/api'
 export function get(endpoint) {
 
     return new Promise((resolve, reject) => {
-        const conn = new XMLHttpRequest()
-        conn.open('GET', `${url}/${endpoint}`)
-        conn.send()
+        const xhr = new XMLHttpRequest()
+        
+        xhr.responseType = 'json'
+        xhr.open('GET', `${url}${endpoint}`)
+        xhr.send()
 
-        conn.onreadystatechange = () => {
-            if (conn.readyState === conn.DONE && conn.status === HTTP_STATUS.OK) {
-                resolve(conn.responseText)
-            } else if (conn.readyState === conn.DONE) (
-                reject(conn.response)
-            )
-        }
+        xhr.onload = () => resolve(xhr.response)
+        xhr.onerror = () => reject(xhr.responseText)
     })
 }
