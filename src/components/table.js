@@ -1,4 +1,4 @@
-import { getHottestCrypto } from '../services/index.js'
+import { getSymbols } from '../services/index.js'
 
 class Table extends HTMLElement {
 
@@ -33,7 +33,7 @@ class Table extends HTMLElement {
         let response
 
         try {
-            response = await getHottestCrypto()
+            response = await getSymbols()
 
         } catch {
             this.#__table__.innerHTML = `

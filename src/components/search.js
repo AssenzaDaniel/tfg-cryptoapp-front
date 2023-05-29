@@ -1,4 +1,4 @@
-import { subscribeSymbol, search } from '../services/index.js'
+import { subscribeSymbol, search, getSymbols } from '../services/index.js'
 import SearchBar from './bars/searchbar.js'
 
 class Search extends HTMLElement {
@@ -19,16 +19,7 @@ class Search extends HTMLElement {
         this.#searchBar = this.querySelector('search-bar')
         this.#searchTable = this.querySelector('div.search-table')
 
-        const searchResult = new Promise((resolve, reject) => {
-            const xhr = new XMLHttpRequest()
-
-            xhr.responseType = 'json'
-            xhr.open('GET', `http://localhost:1717/api/24hrsChanges`)
-            xhr.send()
-            xhr.onload = () => resolve(xhr.response)
-        })
-
-        searchResult.then(symbols => this.#updateTable(symbols))
+        getSymbols().then(symbols => this.#updateTable(symbols))
 
         this.#searchBar.addEventListener('inputChange', () => { 
             const symbol = this.#searchBar.text
