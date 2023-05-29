@@ -1,6 +1,7 @@
 class SearchBar extends HTMLElement {
 
     #isWritting = false
+    #lastSearch = ''
     
     #input = null
     #onInputChange = null
@@ -12,7 +13,7 @@ class SearchBar extends HTMLElement {
     connectedCallback() {        
         this.render()
         
-        this.#onInputChange = new Event('change')
+        this.#onInputChange = new CustomEvent('inputChange')
         
         this.#input = document.querySelector('input')
         this.#input.addEventListener('input', () => this.#handleInputChange())        
@@ -23,12 +24,13 @@ class SearchBar extends HTMLElement {
     }
 
     #handleInputChange() {
-        if (this.#isWritting) return
+        if (this.#isWritting || this.text === this.#lastSearch) return
 
         this.#isWritting = true
-
+        
         setTimeout(() => {
             this.dispatchEvent(this.#onInputChange)
+            this.#lastSearch = this.text
             this.#isWritting = false
         }, 500)
     }
@@ -40,7 +42,7 @@ class SearchBar extends HTMLElement {
     render() {
         this.innerHTML = `
         <menu-button src="search.svg"></menu-button>
-        <input type="text" placeholder="Buscar">
+        <input type="text" placeholder="Symbol">
         `
     }
 }

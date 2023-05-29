@@ -9,9 +9,27 @@
     <link rel="stylesheet" href="app.css">
     <link rel="stylesheet" href="login.css">
     <link rel="stylesheet" href="modalbox.css">
-
+    
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="modules/app.js" type="module"></script>
 </head>
 <body>
 </body>
+    <script>
+        function test(response) {
+            const responsePayload = window.atob(response.credential.split('.')[1]);
+
+            console.log(responsePayload)
+        }
+        
+        window.onload = function () {
+          google.accounts.id.initialize({
+            client_id: '582817307575-qv7bdvjmd84r1vjnb8gj4p5k5gm7ara6.apps.googleusercontent.com',
+            ux_mode: 'popup',
+            callback: test
+          });
+          google.accounts.id.prompt();
+        };
+
+      </script>
 </html>

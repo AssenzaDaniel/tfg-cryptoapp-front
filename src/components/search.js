@@ -1,3 +1,4 @@
+import { subscribeSymbol, search } from '../services/index.js'
 import SearchBar from './bars/searchbar.js'
 
 class Search extends HTMLElement {
@@ -16,21 +17,24 @@ class Search extends HTMLElement {
         this.render()
 
         this.#searchBar = this.querySelector('search-bar')
-        this.#searchTable = this.querySelector('data-table')
+        this.#searchTable = this.querySelector('div.search-table')
 
-        this.#searchBar.addEventListener('change', () => { 
-            this.#searchTable.filter(this.#searchBar.text)
+        const searchResult = new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest()
 
-            new Promise((resolve, reject) => {
-                
-                const search = this.#searchBar.text
-                const xhr = new XMLHttpRequest()
-    
-                xhr.responseType = 'json'
-                xhr.open('GET', `http://localhost:1717/api/search?symbol=${search}`)
-                xhr.send()
-                xhr.onload = () => resolve(xhr.response)
-            }).then(response => console.log(response))
+            xhr.responseType = 'json'
+            xhr.open('GET', `http://localhost:1717/api/24hrsChanges`)
+            xhr.send()
+            xhr.onload = () => resolve(xhr.response)
+        })
+
+        searchResult.then(symbols => this.#updateTable(symbols))
+
+        this.#searchBar.addEventListener('inputChange', () => { 
+            const symbol = this.#searchBar.text
+            this.#searchTable.innerHTML = ''
+
+            search('assenzadaniel@gmail.com', symbol).then(symbols => this.#updateTable(symbols))
         })
     }
 
@@ -47,12 +51,57 @@ class Search extends HTMLElement {
         this.#isActive = !this.#isActive
     }
 
+    #updateTable(symbols) {
+        symbols.forEach(symbol => {                    
+            const div = document.createElement('div')
+            div.className = 'symbol'
+            div.id = symbol.symbol
+
+            const changeType = symbol.priceChangePercent >= 0 
+                ? 'positive'
+                : 'negative'
+    
+            div.innerHTML = `
+            <div class="symbol-data">
+                ${ window.atob(symbol.icon) }
+                <span class="symbol">${ symbol.symbol }</span>
+            </div>
+            <div class="price">
+                <div>${ symbol.lastPrice }</div>
+                <div class="${ changeType }">${ symbol.priceChangePercent }%</div>
+            </div>
+            <menu-button src="search-fav.svg"></menu-button>
+            `
+
+            div.addEventListener('click', async () => {
+
+                const symbol = div.querySelector('span.symbol').textContent
+                const subscribe = subscribeSymbol({ email: 'assenzadaniel@gmail.com', symbol })
+
+                subscribe.then(() => {
+
+                    div.getAttribute('selected') !== null
+                        ? div.removeAttribute('selected')
+                        : div.setAttribute('selected', '')
+                })
+            })
+
+            if (symbol.favorite) {
+                div.setAttribute('selected', '')
+            }
+
+            this.#searchTable.appendChild(div)
+        })
+    }
+
     render() {
         this.innerHTML = `
         <c-overlay></c-overlay>
         <search-bar></search-bar>
         <div class="content">
-            <data-table></data-table>
+            <h2>Search</h2>
+            <div class="search-table">
+            </div>
         </div>
         `
     }

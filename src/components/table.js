@@ -49,15 +49,17 @@ class Table extends HTMLElement {
             row.className = 'fila'
 
             row.innerHTML = `
-            <div id="coin">
+            <div class="coin">
                 ${window.atob(symbol.icon)}
-                <div id="coin">${symbol.symbol}</div>
+                <div class="name">${symbol.name}</div>
             </div>
-            <div id="price">
-                $ ${symbol.lastPrice.substring(0, 8)}
-            </div>
-            <div id="change" class="${symbol.priceChangePercent >= 0 ? 'positive' : 'negative'}">
-                ${symbol.priceChangePercent.substring(0, symbol.priceChangePercent.indexOf('.') + 2)} %
+            <div class="price">
+                <div>
+                    $ ${symbol.lastPrice}
+                </div>
+                <div class="${symbol.priceChangePercent >= 0 ? 'positive' : 'negative'}">
+                    ${symbol.priceChangePercent} %
+                </div>
             </div>
             `
 
