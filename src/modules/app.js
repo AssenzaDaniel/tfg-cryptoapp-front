@@ -4,7 +4,8 @@ import Modal from '/components/modal.js'
 import AppWrapper from '/components/appwrapper.js'
 import Search from '/components/search.js'
 
-import Table from '/components/table.js'
+import Table from '/components/tables/list-table.js'
+import { getSymbols } from '/services/index.js'
 
 class App {
 
@@ -21,7 +22,7 @@ class App {
         
         this.#appBar = new AppBar()
         this.#tabBar = new TabBar()
-        this.#table = new Table('Hottest')
+        this.#table = new Table('Hottest', getSymbols)
         this.#modal = new Modal()
         this.#appWrapper = new AppWrapper()
         this.#search = new Search()
