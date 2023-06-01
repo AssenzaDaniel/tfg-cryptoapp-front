@@ -4,14 +4,15 @@ import Modal from '/components/modal.js'
 import AppWrapper from '/components/appwrapper.js'
 import Search from '/components/search.js'
 
-import Table from '/components/tables/list-table.js'
-import { getSymbols } from '/services/index.js'
+import Table from '/components/tables/table.js'
+import { getSymbols, getSubscriptionsSymbols } from '/services/index.js'
 
 class App {
 
     #appBar
     #tabBar
     #table
+    #favs
     #modal
     #appWrapper
     #search
@@ -22,26 +23,25 @@ class App {
         
         this.#appBar = new AppBar()
         this.#tabBar = new TabBar()
-        this.#table = new Table('Hottest', getSymbols)
+        this.#table = new Table('Hottest', getSymbols, false, 'list')
+        this.#favs = new Table('Favs', getSubscriptionsSymbols, true, 'cards')
         this.#modal = new Modal()
         this.#appWrapper = new AppWrapper()
         this.#search = new Search()
+
+        const b = document.createElement('p')
+        b.innerText = 'Espacio 2'
+        b.id = 'wallet'
+
+        this.#views = [
+            this.#table,
+            this.#favs, 
+            b
+        ]
         
         this.#render()
         this.#initializeElements()
-
-        const a = document.createElement('p')
-        a.innerText = 'Espacio 2'
-        a.id = 'wallet'
-
-        const b = document.createElement('p')
-        b.innerText = 'Espacio 3'
-        b.id = 'favs'
-        
-        this.#views = [
-            this.#table,
-            a, b
-        ]
+        this.#updateWrapper()
     }
 
     #render() {
@@ -59,9 +59,11 @@ class App {
 
     #initializeElements() {
         this.#table.id = 'home'
+        this.#favs.id = 'favs'
+        this.#favs.add('click', () => console.log('ok'))
 
         this.#appBar.src = 'assets/logo.png'
-        this.#appWrapper.content = this.#table
+
         this.#tabBar.addEventListener('change', () => this.#updateWrapper())
 
         this.#appBar.addEventListener('opensearch', () => {
@@ -74,11 +76,12 @@ class App {
     }
 
     #updateWrapper() {
-        const selectedTab = this.#tabBar.selectedTab
+        const selectedTab = this.#tabBar.selectedTabId
         const view = this.#views.find(view => view.id === selectedTab)
 
         this.#appWrapper.content = view
     }
 }
 
+sessionStorage.setItem('email', 'assenzadaniel@gmail.com')
 const app = new App()

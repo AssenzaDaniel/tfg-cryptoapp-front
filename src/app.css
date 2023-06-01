@@ -90,15 +90,21 @@ icon-button img {
 }
 
 /* ---------------------------------------------------
-        * list-table
-        * ----------------------------------------------------
-        */
+* c-table.list
+* ----------------------------------------------------
+*/
 
 h2 {
     margin: 8px 5px 10px 5px;
 }
 
-list-table table-symbol {
+c-table.list .content {
+    display: flex;
+    flex-flow: column;
+    gap: 10px;
+}
+
+c-table.list table-content {
     min-width: 280px;
     display: flex;
     justify-content: space-between;
@@ -107,25 +113,27 @@ list-table table-symbol {
     border-radius: 10px;
     background-color: var(--primary-color);
     padding: 10px 15px;
+    gap: 10px;
 }
 
-list-table .coin {
+c-table.list .coin {
     display: inline-flex;
     gap: 0 10px;
     flex-shrink: 0;
     align-items: center;
+    margin-right: auto;
 }
 
-list-table .coin svg {
+c-table.list .coin svg {
     height: 30px;
     width: 30px;
 }
 
-list-table .coin .name {
+c-table.list .coin .name {
     font-size: 1rem;
 }
 
-list-table .price {
+c-table.list .price {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -134,16 +142,73 @@ list-table .price {
     gap: 5px;
 }
 
-list-table table-symbol:not(:last-child) {
-    margin-bottom: 10px;
+c-table menu-button {
+    width: 18px;
 }
 
-.negative {
+c-table table-content[selected] menu-button svg {
+    color: #e7c76f;
+}
+
+c-table .negative {
     color: palevioletred;
 }
 
-.positive {
+c-table .positive {
     color: seagreen;
+}
+
+/*
+* c-table.cards
+*/
+
+c-table.cards .content {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 5px;
+    box-sizing: border-box;
+}
+
+c-table.cards table-content {
+    display: grid;
+    grid-template-columns: calc(100% - 22px) 18px;
+    grid-template-rows: repeat(2, auto);
+    background-color: var(--primary-color);
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    grid-template-areas:
+        "symbol icon"
+        "price .";
+    align-items: center;
+    width: calc(50% - 2.5px);
+    gap: 10px 5px;
+}
+
+c-table.cards .coin {
+    display: flex;
+    grid-area: symbol;
+    align-items: center;
+    gap: 6px;
+    overflow: hidden;
+}
+
+c-table.cards .coin svg {
+    height: 22px;
+    width: 22px;
+    flex-shrink: 0;
+}
+
+c-table.cards .coin .name {
+    font-size: 1rem;
+}
+
+c-table.cards .price {
+    grid-area: price;
+    font-size: 0.85rem;
+    padding-left: 3px;
+    width: 100%;
 }
 
 /* ---------------------------------------------------

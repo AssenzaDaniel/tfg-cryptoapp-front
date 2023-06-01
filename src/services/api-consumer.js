@@ -39,6 +39,7 @@ export const get = (endpoint) => {
 export const post = (endpoint, data) => {
     return request('POST', endpoint, data)
 }
+
 export const put = (endpoint, data) => {
     return request('PUT', endpoint, data)
 }

@@ -67,7 +67,7 @@ class Search extends HTMLElement {
             div.addEventListener('click', async () => {
 
                 const symbol = div.querySelector('span.symbol').textContent
-                const subscribe = subscribeSymbol({ email: 'assenzadaniel@gmail.com', symbol })
+                const subscribe = subscribeSymbol('assenzadaniel@gmail.com', symbol)
 
                 subscribe.then(() => {
 

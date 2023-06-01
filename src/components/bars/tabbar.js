@@ -2,16 +2,19 @@ import MenuButton from '../buttons/menubtn.js'
 
 class TabBar extends HTMLElement {
 
-    #menuButtons = null
-    #selectedTab = null
-    #onChangedSelection = null
+    #menuButtons
+    #onChangedSelection
 
     constructor() {
         super()
     }
 
     get selectedTab() {
-        return this.#selectedTab.getAttribute('option')
+        return this.querySelector('[selected]')
+    }
+
+    get selectedTabId() {
+        return this.querySelector('[selected]').getAttribute('option')
     }
 
     connectedCallback() {
@@ -26,15 +29,11 @@ class TabBar extends HTMLElement {
     }
 
     #changeSelection(selectedButton) {
-        if (selectedButton === this.#selectedTab) return
+        if (selectedButton === this.selectedTab) return
 
+        this.selectedTab.removeAttribute('selected')
         selectedButton.setAttribute('selected', '')
-        this.#selectedTab = selectedButton
         this.dispatchEvent(this.#onChangedSelection)
-
-        this.#menuButtons.forEach(button => {
-            if (button !== selectedButton) button.removeAttribute('selected')
-        })
     }
 
     render() {

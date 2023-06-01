@@ -1,7 +1,5 @@
 class AppWrapper extends HTMLElement {
 
-    #alreadyRendered = false
-
     constructor() {
         super()
     }
