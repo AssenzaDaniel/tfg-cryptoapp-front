@@ -4,19 +4,16 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon --ignore src/ app.js",
-    "app": "node app.js"
+    "predev": "rm -r ./node_modules && npm i",
+    "dev": "NODE_ENV=dev nodemon --ignore src/ app.js",
+    "preserver": "rm -r ./node_modules && npm i --omit=dev",
+    "server": "NODE_ENV=prod node app.js"
   },
   "author": "Daniel Assenza, Mario Gozalo",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.0.3",
-    "express": "^4.18.2",
-    "jsonwebtoken": "^9.0.0",
-    "passport": "^0.6.0",
-    "passport-google-oauth2": "^0.2.0",
-    "passport-google-oauth20": "^2.0.0",
-    "passport-jwt": "^4.0.1"
+    "express": "^4.18.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.22",

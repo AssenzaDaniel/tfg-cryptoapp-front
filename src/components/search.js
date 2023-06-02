@@ -1,5 +1,6 @@
 import { subscribeSymbol, search, getSymbols } from '../services/index.js'
 import SearchBar from './bars/searchbar.js'
+import Table from './tables/table.js'
 
 class Search extends HTMLElement {
 
@@ -18,8 +19,12 @@ class Search extends HTMLElement {
 
         this.#searchBar = this.querySelector('search-bar')
         this.#searchTable = this.querySelector('div.search-table')
+        const content = this.querySelector('.content')
 
-        getSymbols().then(symbols => this.#updateTable(symbols))
+        const table = new Table('Search', getSymbols, true, 'cards')
+        content.appendChild(table)
+
+        //getSymbols().then(symbols => this.#updateTable(symbols))
 
         this.#searchBar.addEventListener('inputChange', () => { 
             const symbol = this.#searchBar.text
@@ -89,11 +94,7 @@ class Search extends HTMLElement {
         this.innerHTML = `
         <c-overlay></c-overlay>
         <search-bar></search-bar>
-        <div class="content">
-            <h2>Search</h2>
-            <div class="search-table">
-            </div>
-        </div>
+        <div class="content"></div>
         `
     }
 }

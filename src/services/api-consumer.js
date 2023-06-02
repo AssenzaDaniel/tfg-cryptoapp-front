@@ -1,6 +1,7 @@
+import config from '/config.js';
 import { HTTP_STATUS } from '../constants.js'
 
-const url = 'http://localhost:1717/api'
+const url = config.api.url
 
 /**
  * 
