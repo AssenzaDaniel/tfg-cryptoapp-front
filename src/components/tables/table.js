@@ -20,9 +20,6 @@ class Table extends HTMLElement {
         this.#alreadyRendered = false
         this.#onCreate = onCreate
         this.#title = title
-        this.#symbols = []
-        this.#_symbols = []
-
     }
     
     async connectedCallback() {
@@ -35,18 +32,7 @@ class Table extends HTMLElement {
         this.querySelector('h2').innerText = this.getAttribute('title') || this.#title
 
         this.#onCreate()
-            .then(symbols => {
-
-            symbols.forEach(symbol => {
-                const content = new TableContent(symbol, this.#favoritesTable)
-
-                this.#symbols.push(symbol.symbol)
-                this.#_symbols.push(content)
-                this.#table.appendChild(content)
-            })
-
-            this.#update()
-            })
+            .then(symbols => this.updateContent(symbols))
             .catch(error => this.#table.innerText = 'Sin conexión con el servidor')
     }
     
@@ -65,6 +51,22 @@ class Table extends HTMLElement {
         updates.addEventListener('error', event => {
             console.info('Lost connection with server, retry in 10s')
         })
+    }
+
+    updateContent(symbols) {
+        this.#symbols = []
+        this.#_symbols = []
+        this.#table.innerHTML = ''
+
+        symbols.forEach(symbol => {
+            const content = new TableContent(symbol, this.#favoritesTable)
+
+            this.#symbols.push(symbol.symbol)
+            this.#_symbols.push(content)
+            this.#table.appendChild(content)
+        })
+
+        //this.#update()
     }
 
     add(event, action) {

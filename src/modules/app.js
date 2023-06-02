@@ -60,7 +60,7 @@ class App {
     #initializeElements() {
         this.#table.id = 'home'
         this.#favs.id = 'favs'
-        this.#favs.add('click', () => console.log('ok'))
+        //this.#favs.add('click', () => console.log('ok'))
 
         this.#appBar.src = 'assets/logo.png'
 

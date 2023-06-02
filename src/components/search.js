@@ -18,19 +18,15 @@ class Search extends HTMLElement {
         this.render()
 
         this.#searchBar = this.querySelector('search-bar')
-        this.#searchTable = this.querySelector('div.search-table')
         const content = this.querySelector('.content')
 
-        const table = new Table('Search', getSymbols, true, 'cards')
-        content.appendChild(table)
+        this.#searchTable = new Table('Search', getSymbols, true, 'cards')
+        content.appendChild(this.#searchTable)
 
-        //getSymbols().then(symbols => this.#updateTable(symbols))
-
-        this.#searchBar.addEventListener('inputChange', () => { 
+        this.#searchBar.addEventListener('inputChange', () => {
             const symbol = this.#searchBar.text
-            this.#searchTable.innerHTML = ''
-
-            search('assenzadaniel@gmail.com', symbol).then(symbols => this.#updateTable(symbols))
+            
+            search('assenzadaniel@gmail.com', symbol).then(symbols => this.#searchTable.updateContent(symbols))
         })
     }
 
@@ -40,6 +36,7 @@ class Search extends HTMLElement {
             document.body.style.overflow = 'scroll'
         } else {
             document.body.style.overflow = 'hidden'
+            window.scroll(0, 1)
             this.querySelector('search-bar').focus()
             this.setAttribute('active', '')
         }
