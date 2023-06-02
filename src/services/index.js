@@ -5,7 +5,7 @@ export async function getSymbols() {
 }
 
 export async function getUpdates(symbols) {
-    return api.get(`/symbols/updates?symbols=${JSON.stringify(symbols)}`)
+    return api.event(`/symbols/updates?symbols=${JSON.stringify(symbols)}`)
 }
 
 export async function search(email, symbol) {

@@ -43,3 +43,7 @@ export const post = (endpoint, data) => {
 export const put = (endpoint, data) => {
     return request('PUT', endpoint, data)
 }
+
+export const event = (endpoint) => {
+    return new EventSource(`${url}${endpoint}`)
+}

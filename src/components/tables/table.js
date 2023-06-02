@@ -34,7 +34,8 @@ class Table extends HTMLElement {
         this.#table = this.querySelector('.content')
         this.querySelector('h2').innerText = this.getAttribute('title') || this.#title
 
-        this.#onCreate().then(symbols => {
+        this.#onCreate()
+            .then(symbols => {
 
             symbols.forEach(symbol => {
                 const content = new TableContent(symbol, this.#favoritesTable)
@@ -43,23 +44,27 @@ class Table extends HTMLElement {
                 this.#_symbols.push(content)
                 this.#table.appendChild(content)
             })
-        })
-        
-        setInterval(() => this.#update(), 3000)
-    }
 
-    async #update() {
-        try {
-            const updates = getUpdates(this.#symbols)
-
-            updates.then(symbols => {
-                
-                symbols.forEach(symbol => {
-                    const element = this.#_symbols.find(element => element.id === symbol.symbol)
-                    element.update(symbol)
-                })
+            this.#update()
             })
-        } catch(error) { console.log(error) }
+            .catch(error => this.#table.innerText = 'Sin conexión con el servidor')
+    }
+    
+    async #update() {
+        const updates = await getUpdates(this.#symbols)
+            
+        updates.addEventListener('message', event => {
+            const symbols = JSON.parse(event.data)
+            
+            symbols.forEach(symbol => {
+                const element = this.#_symbols.find(element => element.id === symbol.symbol)
+                element.update(symbol)
+            })
+        })
+
+        updates.addEventListener('error', event => {
+            console.info('Lost connection with server, retry in 10s')
+        })
     }
 
     add(event, action) {
