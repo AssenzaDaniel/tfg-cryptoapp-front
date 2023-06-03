@@ -1,7 +1,7 @@
 {
   "name": "tfg-cryptoapp-front",
   "version": "1.0.0",
-  "description": "",
+  "description": "front for cryptoapp",
   "main": "app.js",
   "scripts": {
     "predev": "rm -r ./node_modules && npm i",
