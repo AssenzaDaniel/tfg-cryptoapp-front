@@ -66,7 +66,7 @@ class Table extends HTMLElement {
             this.#table.appendChild(content)
         })
 
-        //this.#update()
+        this.#update()
     }
 
     add(event, action) {
