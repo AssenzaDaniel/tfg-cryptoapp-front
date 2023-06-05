@@ -9,6 +9,7 @@ class TableContent extends HTMLElement {
     #change
     #onClick
     #clickable
+    #alreadyRendered
 
     #_price
     #_change
@@ -24,9 +25,12 @@ class TableContent extends HTMLElement {
         this.#name = symbol.name || symbol.symbol
         this.#price = symbol.lastPrice
         this.#change = symbol.priceChangePercent
+        this.#alreadyRendered = false
     }
 
     connectedCallback() {
+        if (this.#alreadyRendered) return
+
         this.render()
 
         this.#_price = this.querySelector('#price')
@@ -40,6 +44,8 @@ class TableContent extends HTMLElement {
             this.#checkIfAlreadySubscribed()
             this.#_favButton.addEventListener('click', () => this.#subscribe())
         }
+
+        this.#alreadyRendered = true
     }
 
     async #checkIfAlreadySubscribed() {

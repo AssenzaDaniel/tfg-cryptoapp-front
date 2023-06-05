@@ -8,6 +8,7 @@ class Table extends HTMLElement {
     #tableStyle
     #favoritesTable
     #alreadyRendered
+    #updatesEvent
     #onCreate
     #onClick
     #symbols
@@ -38,19 +39,21 @@ class Table extends HTMLElement {
     }
     
     async #update() {
-        const updates = await getUpdates(this.#symbols)
+        if (this.#updatesEvent) this.#updatesEvent.close()
+
+        this.#updatesEvent = await getUpdates(this.#symbols)
             
-        updates.addEventListener('message', event => {
+        this.#updatesEvent.addEventListener('message', event => {
             const symbols = JSON.parse(event.data)
-            
+                        
             symbols.forEach(symbol => {
                 const element = this.#_symbols.find(element => element.id === symbol.symbol)
-                element.update(symbol)
+                if (element) element.update(symbol)
             })
         })
 
-        updates.addEventListener('error', event => {
-            console.info('Lost connection with server, retry in 10s')
+        this.#updatesEvent.addEventListener('error', event => {
+            console.info(`Lost connection with server, retry in ${event.retry}`)
         })
     }
 

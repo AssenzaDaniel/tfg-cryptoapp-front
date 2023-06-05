@@ -1,12 +1,16 @@
 class MenuButton extends HTMLElement {
 
-    #alreadyRendered = false
+    #alreadyRendered
 
     constructor() {
         super()
+
+        this.#alreadyRendered = false
     }
 
     async connectedCallback() {
+        if (this.#alreadyRendered) return
+
         const source = this.getAttribute('src')
         const text = this.innerText
 
@@ -19,6 +23,9 @@ class MenuButton extends HTMLElement {
 
             if (!svg.getAttribute('stroke')) 
                 svg.setAttribute('fill', 'currentColor')
+            else
+                svg.setAttribute('stroke', 'currentColor')
+
 
         } else {
 
@@ -34,18 +41,14 @@ class MenuButton extends HTMLElement {
     
             this.appendChild(buttonText)
         }
+
+        this.#alreadyRendered = true
     }
 
     async #getSVGIcon(source) {
-
-        return new Promise(resolve => {
-            
-            const conn = new XMLHttpRequest()
-            conn.open('GET', `assets/${source}`)
-            conn.send()
+        const response = await fetch(`assets/${source}`, { method: 'GET'})
     
-            conn.onload = () => resolve(conn.responseText)
-        })
+        return response.text()
     }
 }
 

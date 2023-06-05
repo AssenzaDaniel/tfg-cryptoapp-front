@@ -24,7 +24,9 @@ class Search extends HTMLElement {
 
         this.#searchBar.addEventListener('inputChange', () => {
             const symbol = this.#searchBar.text
-            
+
+            if (symbol.length === 0) return
+
             search('assenzadaniel@gmail.com', symbol).then(symbols => this.#searchTable.updateContent(symbols))
         })
     }

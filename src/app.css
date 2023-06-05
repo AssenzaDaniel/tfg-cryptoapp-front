@@ -31,6 +31,7 @@ body {
     margin: 0;
     width: 100vw;
     height: 100%;
+    overflow-x: hidden;
 }
 
 app-wrapper {
@@ -401,7 +402,7 @@ c-search {
     top: 0;
     left: 0;
     z-index: 5;
-    overflow: auto;
+    overflow-y: auto;
     scroll-behavior: smooth;
 }
 
@@ -423,16 +424,6 @@ c-search search-bar {
 c-search data-table {
     width: 100%;
 }
-
-/* c-search data-table .fila {
-    border-radius: 0;
-    margin-bottom: 0 !important;
-}
-
-c-search data-table .content {
-    overflow: auto;
-    border-radius: 10px;
-} */
 
 c-search[active] {
     display: block;

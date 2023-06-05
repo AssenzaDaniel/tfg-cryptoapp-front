@@ -10,27 +10,19 @@ const url = config.api.url
  * @param { JSON | null } data Object to send in case of any
  * @returns 
  */
-const request = (method, endpoint, data = null) => {
-    return new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest()
+const request = async (method, endpoint, data = null) => {
 
-        if (data) {
-            data = JSON.stringify(data)
-        }
-        
-        xhr.open(method, `${url}${endpoint}`)
-        xhr.setRequestHeader('Content-type', 'application/json')
-        xhr.responseType = 'json'
-        xhr.send(data)
+    const options = {
+        method,
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: data ? JSON.stringify(data) : null
+    }
 
-        xhr.onload = () => {
-            xhr.status === HTTP_STATUS.OK
-                ? resolve(xhr.response)
-                : reject(xhr.status)
-        }
+    const response = await fetch(`${url}${endpoint}`, options)
 
-        xhr.onerror = () => reject(xhr.status)
-    })
+    return response.json()
 }
 
 export const get = (endpoint) => {
