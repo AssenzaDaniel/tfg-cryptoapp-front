@@ -7,6 +7,7 @@ class TableContent extends HTMLElement {
     #name
     #price
     #change
+    #onClick
     #clickable
 
     #_price
@@ -34,7 +35,8 @@ class TableContent extends HTMLElement {
         this.#_favButton = this.querySelector('menu-button')
         
         if (this.#clickable) {
-            
+            this.#onClick = new CustomEvent('fav:click')
+
             this.#checkIfAlreadySubscribed()
             this.#_favButton.addEventListener('click', () => this.#subscribe())
         }
@@ -54,10 +56,12 @@ class TableContent extends HTMLElement {
         const subscribe = subscribeSymbol('assenzadaniel@gmail.com', this.#symbol)
 
         subscribe.then(() => {
-
+        
             this.getAttribute('selected') !== null
                 ? this.removeAttribute('selected')
                 : this.setAttribute('selected', '')
+                
+            this.dispatchEvent(this.#onClick)
         })
     }
 
@@ -65,6 +69,10 @@ class TableContent extends HTMLElement {
         this.#_price.innerText = symbol.lastPrice
         this.#_change.innerText = symbol.priceChangePercent
         this.#_changeClass.className = symbol.priceChangePercent >= 0 ? 'positive' : 'negative'
+    }
+
+    get isActive() {
+        return this.getAttribute('selected') !== null
     }
 
     render() {

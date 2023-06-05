@@ -24,13 +24,31 @@ class App {
         this.#appBar = new AppBar()
         this.#tabBar = new TabBar()
         this.#table = new Table('Hottest', getSymbols, false, 'list')
-        this.#favs = new Table('Favs', getSubscriptionsSymbols, true, 'cards')
+        this.#favs = new Table('Favs', getSubscriptionsSymbols, true, 'list')
         this.#modal = new Modal()
         this.#appWrapper = new AppWrapper()
         this.#search = new Search()
 
-        const b = document.createElement('p')
-        b.innerText = 'Espacio 2'
+        const b = document.createElement('div')
+        b.innerHTML = `
+        <div class="resume">
+            <div class="balance">
+                <span>Total balance</span>
+                <span>$ 0.00</span>
+            </div>
+            <div class="total">
+                <span>Total Earnings</span>
+                <span>$ 0.00</span>
+            </div>
+            <div class="add-btn">
+                <div class="btn">Add</div>
+            </div>
+            <div class="del-btn">
+                <div class="btn">Delete</div>
+            </div>
+        </div>
+        `
+        b.className = 'wallet'
         b.id = 'wallet'
 
         this.#views = [
@@ -60,7 +78,11 @@ class App {
     #initializeElements() {
         this.#table.id = 'home'
         this.#favs.id = 'favs'
-        //this.#favs.add('click', () => console.log('ok'))
+        this.#favs.onClick = (event) => {
+            const symbol = event.target
+
+            if (!symbol.isActive) symbol.remove()
+        }
 
         this.#appBar.src = 'assets/logo.png'
 

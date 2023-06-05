@@ -21,7 +21,7 @@ html {
     width: 100vw;
     color: var(--main-font-color);
     font-family: 'Rubik', 'Lato', sans-serif;
-    letter-spacing: 0.8px;
+    letter-spacing: 0.3px;
     user-select: none;
     scroll-behavior: smooth !important;
 }
@@ -38,7 +38,7 @@ app-wrapper {
     position: relative;
     top: 90px;
     width: 100%;
-    padding: 0 18px;
+    padding: 0 14px;
     padding-bottom: calc(65px + 4vw);
     box-sizing: border-box;
     z-index: 0;
@@ -95,6 +95,7 @@ icon-button img {
 */
 
 h2 {
+    font-size: 1.3rem;
     margin: 8px 5px 10px 5px;
 }
 
@@ -112,7 +113,7 @@ c-table.list table-content {
     box-shadow: 0px 10px 10px -10px var(--shadow-color);
     border-radius: 10px;
     background-color: var(--primary-color);
-    padding: 10px 15px;
+    padding: 10px 12px;
     gap: 10px;
 }
 
@@ -139,15 +140,15 @@ c-table.list .price {
     justify-content: center;
     align-items: flex-end;
     font-size: 0.95rem;
-    gap: 5px;
+    gap: 3px;
 }
 
 c-table menu-button {
-    width: 18px;
+    width: 15px;
 }
 
 c-table table-content[selected] menu-button svg {
-    color: #e7c76f;
+    color: #e7bb41;
 }
 
 c-table .negative {
@@ -172,7 +173,7 @@ c-table.cards .content {
 
 c-table.cards table-content {
     display: grid;
-    grid-template-columns: calc(100% - 22px) 18px;
+    grid-template-columns: calc(100% - 20px) auto;
     grid-template-rows: repeat(2, auto);
     background-color: var(--primary-color);
     padding: 10px;
@@ -345,18 +346,18 @@ tab-bar .bar {
     display: flex;
     position: fixed;
     bottom: 8px;
-    width: calc(100vw - 16px);
-    left: 8px;
+    width: calc(100vw - 18px);
+    left: 9px;
     justify-content: space-evenly;
     padding: 10px 0 5px 0;
     box-sizing: border-box;
-    height: 60px;
+    height: 55px;
     border-radius: 15px;
     z-index: 2;
 }
 
 tab-bar .bar menu-button[selected] {
-    color: #81e27e;
+    color: #59b9e9;
     filter: drop-shadow(10px);
 }
 
@@ -365,7 +366,7 @@ tab-bar .--overlay {
     position: fixed;
     bottom: -1px;
     width: 100vw;
-    height: calc(60px + 20px);
+    height: calc(55px + 20px);
     z-index: 1;
 }
 
@@ -486,63 +487,59 @@ c-search[active]>div.content {
     }
 }
 
-/* ---------------------------------------------------
-* search-table
-* ----------------------------------------------------
-*/
+/**
+ * --------------------- DEVELOPING ----------------------------
+ */
 
-.search-table {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px 5px;
-    box-sizing: border-box;
-}
+ .wallet {
+    margin-top: 10px;
+ }
 
-.search-table div.symbol {
+ .wallet .resume {
     display: grid;
-    grid-template-columns: calc(100% - 22px) 18px;
-    grid-template-rows: repeat(2, auto);
+    grid-template-columns: repeat(2, calc((100% - 10px) / 2));
+    grid-template-rows: 65px 40px;
+    grid-template-areas: 
+        "balance total"
+        "add-btn del-btn";
     background-color: var(--primary-color);
-    padding: 10px;
     box-sizing: border-box;
-    border-radius: 10px;
-    grid-template-areas:
-        "symbol icon"
-        "price .";
-    align-items: center;
-    width: calc(50% - 2.5px);
-    gap: 10px 5px;
+    border-radius: 15px;
+    padding: 15px;
+    gap: 20px 10px;
 }
 
-.search-table div.symbol div.symbol-data {
+.wallet .resume .total,
+.wallet .resume .balance {
     display: flex;
-    grid-area: symbol;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.wallet .resume .balance {
+    grid-area: balance;
+}
+
+.wallet .resume .total {
+    grid-area: total;
+}
+.wallet .resume .add-btn {
+    grid-area: add-btn;
+}
+.wallet .resume .del-btn {
+    grid-area: del-btn;
+}
+
+.wallet .resume .add-btn *,
+.wallet .resume .del-btn * {
+    width: 100%;
+    height: 100%;
+}
+
+.btn {
+    background-color: rgb(51, 53, 66);
+    display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 6px;
-    overflow: hidden;
-}
-
-.search-table .symbol div.symbol-data svg {
-    width: 22px;
-}
-
-.search-table div.symbol .price {
-    grid-area: price;
-    font-size: 0.85rem;
-    padding-left: 3px;
-    width: 100%;
-}
-
-.search-table img {
-    width: 100%;
-    grid-area: icon;
-}
-
-.search-table menu-button {
-    width: 100%;
-}
-
-.search-table .symbol[selected] svg {
-    color: #ffbb3f;
+    border-radius: 30px;
 }

@@ -15,7 +15,28 @@
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="modules/app.js" type="module" async defer></script>
 </head>
+<style>
+  .modal--floating {
+    display: block;
+    position: fixed;
+    background-color: black;
+    top: 100%;
+    width: 100vw;
+    height: calc(100% - 100px);
+    z-index: 100;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    transition: 0.5s ease-in-out;
+  }
+
+  .modal--floating[active] {
+    transform: translateY(-100%);
+    box-shadow: 0 3px 20px -5px darkgray;
+  }
+</style>
 <body>
+  <!-- <div class="modal--floating">
+  </div> -->
 </body>
     <script>
         function test(response) {

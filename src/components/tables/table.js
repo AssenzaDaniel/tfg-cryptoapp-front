@@ -9,6 +9,7 @@ class Table extends HTMLElement {
     #favoritesTable
     #alreadyRendered
     #onCreate
+    #onClick
     #symbols
     #_symbols
 
@@ -64,16 +65,17 @@ class Table extends HTMLElement {
             this.#symbols.push(symbol.symbol)
             this.#_symbols.push(content)
             this.#table.appendChild(content)
+
+            if (!this.#favoritesTable || !this.#onClick) return
+
+            content.addEventListener('fav:click', this.#onClick)
         })
 
         this.#update()
     }
 
-    add(event, action) {
-        console.log(this.#_symbols)
-        this.#_symbols.forEach(symbol => {
-            symbol.element.addEventListener(event, action)
-        })
+    set onClick(event) {
+        this.#onClick = event
     }
 
     render() {
