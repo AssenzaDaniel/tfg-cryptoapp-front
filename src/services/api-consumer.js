@@ -22,7 +22,17 @@ const request = async (method, endpoint, data = null) => {
 
     const response = await fetch(`${url}${endpoint}`, options)
 
-    return response.json()
+    if (response.ok) {
+
+        console.log(...response.headers);
+        const responseType = response.headers.get('content-type')
+
+        return responseType && responseType.includes('application/json')
+            ? response.json()
+            : response.text()
+    }
+
+    throw new Error(response.text)
 }
 
 export const get = (endpoint) => {
