@@ -4,6 +4,8 @@
   "description": "front for cryptoapp",
   "main": "app.js",
   "scripts": {
+    "predev:windows": "del /s /q .\\node_modules && npm install",
+    "dev:windows": "set \"NODE_ENV=dev\" && node app.js",
     "predev": "rm -r ./node_modules && npm i",
     "dev": "NODE_ENV=dev nodemon --ignore src/ app.js",
     "preserver": "rm -r ./node_modules && npm i --omit=dev",

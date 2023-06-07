@@ -1,4 +1,4 @@
-import config from '/config.js';
+import config from '/config.js'
 import { HTTP_STATUS } from '../constants.js'
 
 const url = config.api.url
@@ -15,7 +15,7 @@ const request = async (method, endpoint, data = null) => {
     const options = {
         method,
         headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
         },
         body: data ? JSON.stringify(data) : null
     }
@@ -24,7 +24,7 @@ const request = async (method, endpoint, data = null) => {
 
     if (response.ok) {
 
-        console.log(...response.headers);
+        console.log(...response.headers)
         const responseType = response.headers.get('content-type')
 
         return responseType && responseType.includes('application/json')
