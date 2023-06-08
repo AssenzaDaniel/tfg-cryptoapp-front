@@ -2,6 +2,9 @@ import { search, getSymbols } from '../services/index.js'
 import SearchBar from './bars/searchbar.js'
 import Table from './tables/table.js'
 
+/**
+ * Componente HTML Search, representa a la pantalla de búsqueda
+ */
 class Search extends HTMLElement {
 
     #isActive = false
@@ -13,6 +16,12 @@ class Search extends HTMLElement {
         super()
     }
 
+    /**
+     * Método que se ejecuta al renderizarse el componente en el DOM,
+     * define los elementos que usa el componente como la searchBar, la tabla
+     * y añade un event listener al cambiar el contenido de la searchBar, pide
+     * al api rest los resultados y le dice a la tabla que se actualice con el resultado
+     */
     connectedCallback() {
         this.render()
 
@@ -31,6 +40,10 @@ class Search extends HTMLElement {
         })
     }
 
+    /**
+     * Método que muestra y oculta este componente, es manejado
+     * por el componente app
+     */
     show() {
         if (this.#isActive) {
             this.removeAttribute('active')
@@ -44,9 +57,12 @@ class Search extends HTMLElement {
         this.#isActive = !this.#isActive
     }
 
+    /**
+     * Método que renderiza los elementos del componente en el DOM
+     */
     render() {
         this.innerHTML = `
-        <c-overlay></c-overlay>
+        <div class="--overlay"></div>
         <search-bar></search-bar>
         <div class="content"></div>
         `

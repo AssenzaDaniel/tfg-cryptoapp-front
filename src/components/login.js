@@ -1,7 +1,6 @@
-import { BindableHTMLElement } from './bindable-element.js'
 import Button from '/components/buttons/inputbtn.js'
 
-class Login extends BindableHTMLElement {
+class Login extends HTMLElement {
 
     #alreadyRendered = false
 
@@ -14,8 +13,6 @@ class Login extends BindableHTMLElement {
         this.render()
         this.#alreadyRendered = true
         const google = this.querySelector('#google')
-
-        google
 
         google.addEventListener('click' ,() => {
 

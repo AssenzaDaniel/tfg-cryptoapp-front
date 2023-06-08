@@ -5,6 +5,11 @@ dotenv.config({
     path: path.resolve(`${process.env.NODE_ENV}.env`)
 })
 
+/**
+ * @module
+ * Modulo con las configuraciones de la app segun el entorno 
+ * de desarrollo, para ello hace uso de los archivos de entorno .env
+ */
 const config = {
     app: {
         hostname: process.env.HOST,

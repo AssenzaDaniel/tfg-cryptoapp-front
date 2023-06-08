@@ -7,6 +7,9 @@ import Search from '/components/search.js'
 import Table from '/components/tables/table.js'
 import { getSymbols, getSubscriptionsSymbols } from '/services/index.js'
 
+/**
+ * Clase que funciona como controlador de la aplicación
+ */
 class App {
 
     #appBar
@@ -16,9 +19,11 @@ class App {
     #modal
     #appWrapper
     #search
-
     #views
     
+    /**
+     * Crea todos los componentes que usa la aplicación
+     */
     constructor() {
         
         this.#appBar = new AppBar()
@@ -62,6 +67,9 @@ class App {
         this.#updateWrapper()
     }
 
+    /**
+     * Método que renderiza este componente en el DOM
+     */
     #render() {
         const app = document.createElement('div')
         app.id = 'app'
@@ -75,30 +83,32 @@ class App {
         document.body.appendChild(app)
     }
 
+    /**
+     * Método que inicializa los componentes que usa app
+     * una vez que se han renderizado en el DOM, se añade
+     * lógica a los componentes que lo requieran
+     */
     #initializeElements() {
         this.#table.id = 'home'
         this.#favs.id = 'favs'
+
         this.#favs.onClick = (event) => {
             const symbol = event.target
 
             if (!symbol.isActive) symbol.remove()
         }
 
-        this.#appBar.src = 'assets/logo.png'
-
         this.#tabBar.addEventListener('change', () => this.#updateWrapper())
-
-        this.#appBar.addEventListener('opensearch', () => {
-            this.#search.show()
-        })
-
-        this.#appBar.addEventListener('openuser', () => {
-            this.#modal.className = 'active'
-        })
+        this.#appBar.addEventListener('opensearch', () => this.#search.show())
+        this.#appBar.addEventListener('openuser', () => this.#modal.className = 'active')
     }
 
+    /**
+     * Método que actualiza el componente appWrapper una vez que
+     * el usuario selecciona otra pestaña de la barra de navegación
+     */
     #updateWrapper() {
-        const selectedTab = this.#tabBar.selectedTabId
+        const selectedTab = this.#tabBar.selectedTab
         const view = this.#views.find(view => view.id === selectedTab)
 
         this.#appWrapper.content = view

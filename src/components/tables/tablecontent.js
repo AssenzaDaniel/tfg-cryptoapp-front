@@ -1,5 +1,8 @@
 import { subscribeSymbol, getSubscriptions } from '/services/index.js'
 
+/**
+ * Componente TableContent que representa al contenido de la tabla
+ */
 class TableContent extends HTMLElement {
 
     #icon
@@ -16,6 +19,10 @@ class TableContent extends HTMLElement {
     #_changeClass
     #_favButton
 
+    /**
+     * @param {JSON} symbol Es el JSON con los datos del símbolo
+     * @param {Boolean} clickable Indica si el contenido puede ser marcado como favorito
+     */
     constructor(symbol, clickable) {
         super()
 
@@ -28,6 +35,12 @@ class TableContent extends HTMLElement {
         this.#alreadyRendered = false
     }
 
+    /**
+     * Método que se ejecuta al renderizarse el componente en el DOM,
+     * Se encarga de guardar los elementos del DOM que van a actulizarse,
+     * y añade el comportamiento que al ser clickeado el icono de favorito,
+     * realiza una petición a la api para subscribirse/desuscribirse del simbolo
+     */
     connectedCallback() {
         if (this.#alreadyRendered) return
 
@@ -36,7 +49,7 @@ class TableContent extends HTMLElement {
         this.#_price = this.querySelector('#price')
         this.#_change = this.querySelector('#change')
         this.#_changeClass = this.querySelector('#percentage')
-        this.#_favButton = this.querySelector('menu-button')
+        this.#_favButton = this.querySelector('icon-button')
         
         if (this.#clickable) {
             this.#onClick = new CustomEvent('fav:click')
@@ -48,6 +61,9 @@ class TableContent extends HTMLElement {
         this.#alreadyRendered = true
     }
 
+    /**
+     * Método que verifica si el usuario esta suscrito al simbolo para marcarlo como activo
+     */
     async #checkIfAlreadySubscribed() {
         const subscriptions = getSubscriptions('assenzadaniel@gmail.com')
 
@@ -58,6 +74,11 @@ class TableContent extends HTMLElement {
         })
     }
 
+    /**
+     * Método que se ejecuta al hacer click en el ícono de favorito, intenta 
+     * hacer la subscripción a través de la api y si no hay fallo marca el componente
+     * como selected, también lanza el custom event fav:click
+     */
     async #subscribe() {
         const subscribe = subscribeSymbol('assenzadaniel@gmail.com', this.#symbol)
 
@@ -71,12 +92,19 @@ class TableContent extends HTMLElement {
         })
     }
 
+    /**
+     * Recibe un objeto tipo Symbol con la información con la que va a actualizar el componente
+     * @param {JSON} symbol Objeto Symbol
+     */
     update(symbol) {
         this.#_price.innerText = symbol.lastPrice
         this.#_change.innerText = symbol.priceChangePercent
         this.#_changeClass.className = symbol.priceChangePercent >= 0 ? 'positive' : 'negative'
     }
 
+    /**
+     * Devuelve si el componente se encuentra como seleccionado
+     */
     get isActive() {
         return this.getAttribute('selected') !== null
     }
@@ -96,7 +124,7 @@ class TableContent extends HTMLElement {
                 <span id="change">${this.#change}</span> %
             </div>
         </div>
-        ${this.#clickable ? '<menu-button src="search-fav.svg"></menu-button>' : ''}
+        ${this.#clickable ? '<icon-button src="search-fav.svg"></icon-button>' : ''}
         `
     }
 }

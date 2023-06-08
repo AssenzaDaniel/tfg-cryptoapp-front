@@ -1,35 +1,37 @@
-import IconButton from './buttons/iconbtn.js'
-import Overlay from './overlay.js'
 import Login from './login.js'
 
+/**
+ * Componente modal, se encarga de crear un elemento modal para viusalizar
+ * contenido adicional flotante en la aplicación
+ */
 class ModalBox extends HTMLElement {
 
+    #alreadyRendered = false
     #closeBtn = null
 
     constructor() {
         super()
     }
 
-    set src(source) {
-        this.#closeBtn.src = source
-    }
-
+    /**
+     * Método que se ejecuta al renderizar el compontente en el DOM,
+     * indica que al ser clickeado el closeBtn se cierre la modal
+     */
     connectedCallback() {
+        if (this.#alreadyRendered) return
+        
         this.render()
+        this.#alreadyRendered = true
 
-        this.#closeBtn = this.querySelector('#modal-close-btn')
-
-        this.#closeBtn.addEventListener('click', () => {
-            this.className = ''
-        })
+        this.#closeBtn = this.querySelector('.--close-btn')
+        this.#closeBtn.addEventListener('click', () => this.className = '')
     }
 
     render() {
-
         this.innerHTML = `
-        <c-overlay active></c-overlay>
+        <div class="--overlay" active></div>
         <div class="modal--window floating">
-            <icon-button src="assets/close-icon.svg" id="modal-close-btn"></icon-button>
+            <icon-button src="close-icon.svg" class="--close-btn"></icon-button>
             <div id="modal--content">
                 <user-login></user-login>
             </div>

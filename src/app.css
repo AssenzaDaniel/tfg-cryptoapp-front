@@ -4,7 +4,7 @@
     --background-color: white;
     --primary-color: whitesmoke;
     --shadow: gainsboro;
-    --main-font-color: rgb(70 75 95);
+    --main-font-color: #4b5061;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -59,38 +59,6 @@ user-login {
 }
 
 /* ---------------------------------------------------
-* icon-button
-* ----------------------------------------------------
-*/
-
-icon-button {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    height: 50px;
-    width: 50px;
-    border-radius: 100px;
-    margin: 0 auto;
-}
-
-icon-button:active {
-    background-color: rgba(240, 255, 255, 0.168);
-    box-shadow: 0 0 15px -3px lightblue;
-}
-
-.rounded {
-    box-shadow: 0px 0px 15px -5px lightgray;
-}
-
-icon-button img {
-    width: 30px;
-}
-
-.invert-color {
-    filter: invert(0.5);
-}
-
-/* ---------------------------------------------------
 * c-table.list
 * ----------------------------------------------------
 */
@@ -103,7 +71,7 @@ h2 {
 c-table.list .content {
     display: flex;
     flex-flow: column;
-    gap: 10px;
+    gap: 8px;
 }
 
 c-table.list table-content {
@@ -112,7 +80,7 @@ c-table.list table-content {
     justify-content: space-between;
     align-items: center;
     box-shadow: 0px 10px 10px -10px var(--shadow-color);
-    border-radius: 10px;
+    border-radius: 15px;
     background-color: var(--primary-color);
     padding: 10px 12px;
     gap: 10px;
@@ -144,12 +112,12 @@ c-table.list .price {
     gap: 3px;
 }
 
-c-table menu-button {
+c-table icon-button {
     width: 15px;
 }
 
-c-table table-content[selected] menu-button svg {
-    color: #e7bb41;
+c-table table-content[selected] icon-button svg {
+    color: #ffd467;
 }
 
 c-table .negative {
@@ -179,7 +147,7 @@ c-table.cards table-content {
     background-color: var(--primary-color);
     padding: 10px;
     box-sizing: border-box;
-    border-radius: 10px;
+    border-radius: 15px;
     grid-template-areas:
         "symbol icon"
         "price .";
@@ -222,14 +190,14 @@ search-bar {
     display: flex;
     gap: 10px;
     background-color: var(--primary-color);
-    border-radius: 50px;
+    border-radius: 20px;
     box-shadow: 0px 5px 15px -6px var(--shadow-color);
     box-sizing: border-box;
     padding: 10px 20px;
     transition: 0.7s cubic-bezier(0.08, 1.14, 0.68, 0.98), opacity 0.2s;
 }
 
-search-bar menu-button {
+search-bar icon-button {
     height: 30px;
     width: 30px;
     color: var(--main-font-color);
@@ -294,23 +262,16 @@ app-bar {
     max-height: 100%;
 }
 
-#login-btn img {
-    width: 23px;
-}
-
-.app-bar>* {
-    height: 100%;
-}
-
 .float--right {
     display: flex;
     gap: 15px;
     margin-left: auto;
+    margin-right: 10px;
 }
 
-app-bar menu-button {
-    width: 30px;
-    height: 100%;
+app-bar icon-button {
+    width: 28px;
+    height: 28px;
 }
 
 /* ---------------------------------------------------
@@ -318,7 +279,7 @@ app-bar menu-button {
 * ----------------------------------------------------
 */
 
-menu-button {
+icon-button {
     width: 50px;
     display: flex;
     flex-direction: column;
@@ -326,14 +287,14 @@ menu-button {
     justify-content: center;
 }
 
-menu-button> :first-child {
+icon-button> :first-child {
     overflow: overlay;
     width: 100%;
     height: 100%;
     transition: 0.2s ease-in-out;
 }
 
-menu-button div.button-text {
+icon-button div.button-text {
     width: auto;
     margin-top: 2px;
     text-align: center;
@@ -357,12 +318,12 @@ tab-bar .bar {
     z-index: 2;
 }
 
-tab-bar .bar menu-button[selected] {
+tab-bar .bar icon-button[selected] {
     color: #59b9e9;
     filter: drop-shadow(10px);
 }
 
-tab-bar .--overlay {
+tab-bar .tab-bar--overlay {
     background: linear-gradient(360deg, var(--background-color) 80%, transparent 100%);
     position: fixed;
     bottom: -1px;
@@ -372,11 +333,11 @@ tab-bar .--overlay {
 }
 
 /* ---------------------------------------------------
-* c-overlay
+* div.--overlay
 * ----------------------------------------------------
 */
 
-c-overlay {
+div.--overlay {
     display: block;
     position: fixed;
     top: 0;
@@ -384,7 +345,6 @@ c-overlay {
     width: 101vw;
     height: 101vh;
     background-color: var(--background-color);
-    /* background-color: #0f0f0f; */
     opacity: 0.8;
     transition: 0.5s ease-out;
 }
@@ -415,8 +375,8 @@ c-search>div.content {
 
 c-search search-bar {
     position: fixed;
-    width: 85%;
-    left: 7.5%;
+    width: 90%;
+    left: 5%;
     z-index: 10;
     box-shadow: 0 0 20px var(--background-color);
 }
@@ -429,7 +389,7 @@ c-search[active] {
     display: block;
 }
 
-c-search[active] c-overlay {
+c-search[active] .--overlay {
     animation: showSearch 0.6s forwards;
 }
 

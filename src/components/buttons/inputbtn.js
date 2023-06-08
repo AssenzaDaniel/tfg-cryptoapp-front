@@ -1,49 +1,38 @@
-import { BindableHTMLElement } from '../bindable-element.js'
-
-class Button extends BindableHTMLElement {
+/**
+ * Componente tipo botón utilizado para el login, se pudo
+ * haber hecho más genérico para ser reutilizable
+ */
+class Button extends HTMLElement {
 
     #src = ''
-    #href = ''
     #socialName = ''
     #__img__ = null
     #alreadyRendered = false
 
+    /**
+     * @param {String} iconSrc ubicación o path del ícono para el botón
+     */
     constructor(iconSrc = null) {
         super()
         this.#src = iconSrc
     }
 
-    get src() {
-        return this.#src
-    }
-
-    set src(value) {
-        this.#src = value
-        this.#__img__.src = value
-    }
-
-    // static get observedAttributes() {
-    //     return ['src']
-    // }
-
+    /**
+     * Método que se ejecuta al rendirzarse el componente en el DOM,
+     * inyecta los atributos que recibe este componente a sus elementos HTML
+     */
     connectedCallback() {
+        if (this.#alreadyRendered) return
+
         this.#src = this.getAttribute('src')
         this.#socialName = this.getAttribute('alt')
-        this.#href = this.getAttribute('href')
+        this.#__img__ = this.querySelector('img')
 
         this.render()
-        this.#__img__ = this.querySelector('img')
         this.#alreadyRendered = true
     }
 
-    attributeChangedCallback(attribute, oldValue, newValue) {
-
-        if (this.#alreadyRendered && newValue !== oldValue) 
-            this[attribute] = newValue
-    }
-
     render() {
-
         this.innerHTML = `
         <button type="button" class="mybtn">
             <img src="${ this.#src }" alt="${ this.#socialName }">

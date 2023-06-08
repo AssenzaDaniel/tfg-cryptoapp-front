@@ -1,5 +1,8 @@
 import IconButton from '/components/buttons/iconbtn.js'
 
+/**
+ * Componente que corresponde a la barra de la aplicación
+ */
 class AppBar extends HTMLElement {
 
     #logoSrc = ''
@@ -10,10 +13,12 @@ class AppBar extends HTMLElement {
         super()
     }
 
-    set src(src) {
-        this.querySelector('#logo').srcset = src
-    }
-
+    /**
+     * Método que se ejecuta al renderizar el componente en el DOM,
+     * crea los custom events para los botones búsqueda y perfíl, luego 
+     * cuando el botón recibe el evento onClick, la app bar lanza el
+     * custom event correspondiente para que la app lo pueda gestionar
+     */
     connectedCallback() {
         this.render()
         
@@ -21,7 +26,7 @@ class AppBar extends HTMLElement {
         this.#perfilBtnOnClick = new CustomEvent('openuser')
         
         const searchBtn = this.querySelector('#search-btn')
-        const profileBtn = this.querySelector('#login-btn')
+        const profileBtn = this.querySelector('#user-btn')
         
         searchBtn.addEventListener('click', () => {
             this.dispatchEvent(this.#searchBtnOnClick)
@@ -35,10 +40,10 @@ class AppBar extends HTMLElement {
     render() {
         this.innerHTML = `
         <div class="app-bar">
-            <img id="logo" alt="logo">
+            <img id="logo" alt="logo" src="assets/logo.png">
             <div class="float--right">                
-                <menu-button src="search.svg" id="search-btn"></menu-button>
-                <icon-button src="assets/user.svg" id="login-btn" class="invert-color rounded"></icon-button>
+                <icon-button src="search.svg" id="search-btn"></icon-button>
+                <icon-button src="user.svg" id="user-btn"></icon-button>
             </div>
         </div>
         `

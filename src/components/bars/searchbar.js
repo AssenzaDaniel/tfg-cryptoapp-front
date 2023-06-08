@@ -1,3 +1,6 @@
+/**
+ * Componente barra de búsqueda
+ */
 class SearchBar extends HTMLElement {
 
     #isWritting = false
@@ -10,6 +13,10 @@ class SearchBar extends HTMLElement {
         super()
     }
 
+    /**
+     * Método que se ejecuta al renderizarse el componente en el DOM,
+     * lanza un custom event al el contenido del campo de búsqueda cambia
+     */
     connectedCallback() {        
         this.render()
         
@@ -19,10 +26,18 @@ class SearchBar extends HTMLElement {
         this.#input.addEventListener('input', () => this.#handleInputChange())        
     }
 
+    /**
+     * Método para darle el foco al campo de búsqueda
+     */
     focus() {
         setTimeout(() => this.#input.focus(), 500)
     }
 
+    /**
+     * Método que maneja el cambio de contenido del campo de búsqueda, 
+     * funciona como un debounce y así hace que se lance el custom event
+     * cada 500ms y sólo si el contenido del campo ha cambiado
+     */
     #handleInputChange() {
         if (this.#isWritting || this.text === this.#lastSearch) return
 
@@ -35,13 +50,16 @@ class SearchBar extends HTMLElement {
         }, 500)
     }
 
+    /**
+     * Contenido del campo de búsqueda
+     */
     get text() {
         return this.#input.value
     }
 
     render() {
         this.innerHTML = `
-        <menu-button src="search.svg"></menu-button>
+        <icon-button src="search.svg"></icon-button>
         <input type="text" placeholder="Symbol">
         `
     }
