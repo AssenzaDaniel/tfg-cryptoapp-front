@@ -7,10 +7,12 @@
             "src": "assets/app-icon.png",
             "sizes": "296x296",
             "type": "image/png",
-            "purpose": "maskable"
+            "purpose": "any maskable"
         }
     ],
     "start_url": "/index.html",
     "display": "standalone",
-    "orientation": "portrait-primary"
+    "orientation": "portrait-primary",
+    "background_color": "#101115",
+    "theme_color": "red"
 }
