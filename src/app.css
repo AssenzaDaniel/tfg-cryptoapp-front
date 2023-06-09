@@ -1,10 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&family=Rubik&display=swap');
 
-:root {
-    --background-color: white;
-    --primary-color: whitesmoke;
-    --shadow: gainsboro;
-    --main-font-color: #4b5061;
+@media (prefers-color-scheme: light) {
+    :root {
+        --background-color: white;
+        --primary-color: whitesmoke;
+        --shadow: gainsboro;
+        --main-font-color: #4b5061;
+    }
 }
 
 @media (prefers-color-scheme: dark) {

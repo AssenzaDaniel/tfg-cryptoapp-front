@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Circle</title>
-    
-    <link rel="manifest" href="manifest.json"/>
-    <link rel="icon" type="image/x-icon" href="assets/app-icon.png">
 
-    <link rel="stylesheet" href="app.css">
-    <link rel="stylesheet" href="login.css">
-    <link rel="stylesheet" href="modalbox.css">
-    
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <script src="modules/app.js" type="module" async defer></script>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Circle</title>
+
+  <meta name="theme-color" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)">
+
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/x-icon" href="assets/app-icon.png">
+
+  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="login.css">
+  <link rel="stylesheet" href="modalbox.css">
+
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="modules/app.js" type="module" async defer></script>
 </head>
 <style>
   .modal--floating {
@@ -35,25 +39,27 @@
     box-shadow: 0 3px 20px -5px darkgray;
   }
 </style>
+
 <body>
   <!-- <div class="modal--floating">
   </div> -->
 </body>
-    <script>
-        function test(response) {
-            const responsePayload = window.atob(response.credential.split('.')[1]);
+<script>
+  function test(response) {
+    const responsePayload = window.atob(response.credential.split('.')[1]);
 
-            console.log(responsePayload)
-        }
-        
-        window.onload = function () {
-          google.accounts.id.initialize({
-            client_id: '582817307575-qv7bdvjmd84r1vjnb8gj4p5k5gm7ara6.apps.googleusercontent.com',
-            ux_mode: 'popup',
-            callback: test
-          });
-          google.accounts.id.prompt();
-        };
+    console.log(responsePayload)
+  }
 
-      </script>
+  window.onload = function () {
+    google.accounts.id.initialize({
+      client_id: '582817307575-qv7bdvjmd84r1vjnb8gj4p5k5gm7ara6.apps.googleusercontent.com',
+      ux_mode: 'popup',
+      callback: test
+    });
+    google.accounts.id.prompt();
+  };
+
+</script>
+
 </html>
