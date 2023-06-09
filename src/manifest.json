@@ -1,0 +1,16 @@
+{
+    "name": "Circle Crypto App",
+    "short_name": "Circle",
+    "description": "Aplicación PWA para la gestión de criptos",
+    "icons": [
+      {
+        "src": "assets/app-icon.png",
+        "sizes": "296x296",
+        "type": "image/png"
+      }
+    ],
+    "start_url": "index.html",
+    "display": "fullscreen",
+    "theme_color": "#B12A34",
+    "background_color": "#B12A34"
+}
