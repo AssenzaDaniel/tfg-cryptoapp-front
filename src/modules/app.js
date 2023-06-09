@@ -5,7 +5,7 @@ import AppWrapper from '/components/appwrapper.js'
 import Search from '/components/search.js'
 
 import Table from '/components/tables/table.js'
-import { getSymbols, getSubscriptionsSymbols } from '/services/index.js'
+import { getSymbols ,getSubscriptionsSymbols } from '/services/index.js'
 
 /**
  * Clase que funciona como controlador de la aplicación
@@ -94,9 +94,17 @@ class App {
 
         this.#favs.onClick = (event) => {
             const symbol = event.target
+            symbol.remove()
 
-            if (!symbol.isActive) symbol.remove()
+            this.#search.unmarkSymbol(symbol.id)
         }
+        
+        this.#search.addEventListener('table:change', (event) => {
+            const symbol = event.detail.symbol
+            const favorite = event.detail.favorite
+
+            favorite ? this.#favs.addElement(symbol) : this.#favs.removeElement(symbol)
+        })
 
         this.#tabBar.addEventListener('change', () => this.#updateWrapper())
         this.#appBar.addEventListener('opensearch', () => this.#search.show())

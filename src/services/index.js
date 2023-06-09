@@ -8,6 +8,13 @@ export async function getSymbols() {
 }
 
 /**
+ * @returns Datos del simbolo solicitado
+ */
+export async function getSymbol(symbol) {
+    return api.get(`/symbols/${symbol}`)
+}
+
+/**
  * @param {Array<String>} symbols simbolos de los que solicitar datos
  * @returns datos de los simbolos solicitados
  */

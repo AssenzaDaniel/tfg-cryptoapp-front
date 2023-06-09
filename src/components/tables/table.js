@@ -1,5 +1,5 @@
 import TableContent from './tablecontent.js'
-import { getUpdates } from '/services/index.js'
+import { getUpdates, getSymbol } from '/services/index.js'
 
 /**
  * Componente Tabla
@@ -64,17 +64,40 @@ class Table extends HTMLElement {
         this.#_symbols = []
         this.#table.innerHTML = ''
 
-        symbols.forEach(symbol => {
-            const content = new TableContent(symbol, this.#favoritesTable)
+        symbols.forEach(symbol => this.#addElement(symbol))
 
-            this.#symbols.push(symbol.symbol)
-            this.#_symbols.push(content)
-            this.#table.appendChild(content)
+        this.#update()
+    }
 
-            if (!this.#favoritesTable || !this.#onClick) return
+    #addElement(symbol) {
+        const content = new TableContent(symbol, this.#favoritesTable)
 
-            content.addEventListener('fav:click', this.#onClick)
-        })
+        this.#symbols.push(symbol.symbol)
+        this.#_symbols.push(content)
+        this.#table.appendChild(content)
+
+        if (!this.#favoritesTable || !this.#onClick) return
+
+        content.addEventListener('fav:click', this.#onClick)
+    }
+
+    async addElement(symbol) {
+        if (!this.#alreadyRendered) return
+
+        const data = await getSymbol(symbol)
+
+        this.#addElement(data)
+        this.#update()
+    }
+
+    removeElement(symbol) {
+        if (!this.#alreadyRendered) return
+
+        const elementToDelete = this.#_symbols.find(element => element.id === symbol)
+        elementToDelete.remove()
+        
+        this.#_symbols = this.#_symbols.filter(element => element !== elementToDelete)
+        this.#symbols = this.#symbols.filter(element => element !== symbol)
 
         this.#update()
     }
@@ -111,6 +134,12 @@ class Table extends HTMLElement {
      */
     set onClick(event) {
         this.#onClick = event
+    }
+
+    unmarkSymbol(symbol) {
+        const element = this.#_symbols.find(element => element.id === symbol)
+        
+        if (element) element.unmark()
     }
 
     render() {

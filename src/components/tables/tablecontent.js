@@ -84,10 +84,10 @@ class TableContent extends HTMLElement {
 
         subscribe.then(() => {
         
-            this.getAttribute('selected') !== null
+            this.isActive
                 ? this.removeAttribute('selected')
                 : this.setAttribute('selected', '')
-                
+
             this.dispatchEvent(this.#onClick)
         })
     }
@@ -107,6 +107,10 @@ class TableContent extends HTMLElement {
      */
     get isActive() {
         return this.getAttribute('selected') !== null
+    }
+
+    unmark() {
+        this.removeAttribute('selected')
     }
 
     render() {
