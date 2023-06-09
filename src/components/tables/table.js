@@ -48,9 +48,7 @@ class Table extends HTMLElement {
         this.#table = this.querySelector('.content')
         this.querySelector('h2').innerText = this.getAttribute('title') || this.#title
 
-        this.#onCreate()
-            .then(symbols => this.updateContent(symbols))
-            .catch(error => this.#table.innerText = 'Sin conexión con el servidor')
+        this.#generateContent()
     }
     
     /**
@@ -69,6 +67,10 @@ class Table extends HTMLElement {
         this.#update()
     }
 
+    /**
+     * Añade el símbolo a la tabla
+     * @param {JSON} symbol
+     */
     #addElement(symbol) {
         const content = new TableContent(symbol, this.#favoritesTable)
 
@@ -81,15 +83,21 @@ class Table extends HTMLElement {
         content.addEventListener('fav:click', this.#onClick)
     }
 
-    async addElement(symbol) {
+    /**
+     * Añade un símbolo a la tabla y actualiza el server event
+     * @param {JSON} symbol Simbolo a añadir a la tabla
+     */
+    addElement(symbol) {
         if (!this.#alreadyRendered) return
 
-        const data = await getSymbol(symbol)
-
-        this.#addElement(data)
+        this.#addElement(symbol)
         this.#update()
     }
 
+    /**
+     * Elimina un símbolo de la tabla y actualiza el server event
+     * @param {String} symbol Símbolo a eliminar
+     */
     removeElement(symbol) {
         if (!this.#alreadyRendered) return
 
@@ -136,10 +144,31 @@ class Table extends HTMLElement {
         this.#onClick = event
     }
 
+    /**
+     * @param {String} symbol Símbolo a desmarcar como favorito
+     */
     unmarkSymbol(symbol) {
         const element = this.#_symbols.find(element => element.id === symbol)
         
         if (element) element.unmark()
+    }
+
+    /**
+     * Actualiza la tabla, se utiliza al realizarse el login del usuario
+     */
+    updateTable() {
+        if (!this.#alreadyRendered) return
+        
+        this.#generateContent()
+    }
+
+    /**
+     * Vuelve a generar el contenido de la tabla con la funcion de creación
+     */
+    #generateContent() {
+        this.#onCreate()
+            .then(symbols => this.updateContent(symbols))
+            .catch(error => this.#table.innerText = 'Sin conexión con el servidor')
     }
 
     render() {

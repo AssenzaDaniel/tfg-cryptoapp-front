@@ -64,7 +64,7 @@ class Search extends HTMLElement {
 
         if (symbol.length === 0) return
 
-        search('assenzadaniel@gmail.com', symbol).then(symbols => this.#searchTable.updateContent(symbols))
+        search(symbol).then(symbols => this.#searchTable.updateContent(symbols))
     }
 
     /**
@@ -73,20 +73,29 @@ class Search extends HTMLElement {
      */
     #onFavoriteClick(event) {
         const symbol = event.target
-        const isFavorite = symbol.isActive
         
         const details = {
             detail: {
-                symbol: symbol.id,
-                favorite: isFavorite
+                symbol: symbol.data,
+                favorite: symbol.isActive
             }
         }
 
         this.dispatchEvent(new CustomEvent('table:change', details))
     }
 
+    /**
+     * @param {String} symbol Simbolo a desmarcar como favorito
+     */
     unmarkSymbol(symbol) {
         this.#searchTable.unmarkSymbol(symbol)
+    }
+
+    /**
+     * Actualiza la tabla de búsqueda, se utiliza cuando se loga un usuario
+     */
+    updateTable() {
+        this.#searchTable.updateTable()
     }
 
     /**

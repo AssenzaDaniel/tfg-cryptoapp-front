@@ -27,7 +27,7 @@ class TableContent extends HTMLElement {
         super()
 
         this.#clickable = clickable
-        this.#icon = window.atob(symbol.icon)
+        this.#icon = symbol.svg ? symbol.svg : window.atob(symbol.icon)
         this.#symbol = symbol.symbol
         this.#name = symbol.name || symbol.symbol
         this.#price = symbol.lastPrice
@@ -65,7 +65,7 @@ class TableContent extends HTMLElement {
      * Método que verifica si el usuario esta suscrito al simbolo para marcarlo como activo
      */
     async #checkIfAlreadySubscribed() {
-        const subscriptions = getSubscriptions('assenzadaniel@gmail.com')
+        const subscriptions = getSubscriptions()
 
         subscriptions.then((list) => {
 
@@ -80,7 +80,7 @@ class TableContent extends HTMLElement {
      * como selected, también lanza el custom event fav:click
      */
     async #subscribe() {
-        const subscribe = subscribeSymbol('assenzadaniel@gmail.com', this.#symbol)
+        const subscribe = subscribeSymbol(this.#symbol)
 
         subscribe.then(() => {
         
@@ -109,8 +109,23 @@ class TableContent extends HTMLElement {
         return this.getAttribute('selected') !== null
     }
 
+    /**
+     * Desmarca un símbolo como favorito
+     */
     unmark() {
         this.removeAttribute('selected')
+    }
+
+    /**
+     * Devuelve los datos actualizados del simbolo formateados como JSON
+     */
+    get data() {
+        return {
+            symbol: this.#symbol,
+            svg: this.#icon,
+            lastPrice: this.#_price.innerText,
+            priceChangePercent: this.#_change.innerText
+        }
     }
 
     render() {

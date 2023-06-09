@@ -3,9 +3,11 @@ import TabBar from '/components/bars/tabbar.js'
 import Modal from '/components/modal.js'
 import AppWrapper from '/components/appwrapper.js'
 import Search from '/components/search.js'
-
 import Table from '/components/tables/table.js'
+
 import { getSymbols ,getSubscriptionsSymbols } from '/services/index.js'
+import { handleGoogleLogin, getUserData } from './login.js'
+import { logUser } from '../services/index.js'
 
 /**
  * Clase que funciona como controlador de la aplicación
@@ -34,8 +36,8 @@ class App {
         this.#appWrapper = new AppWrapper()
         this.#search = new Search()
 
-        const b = document.createElement('div')
-        b.innerHTML = `
+        const wallet = document.createElement('div')
+        wallet.innerHTML = `
         <div class="resume">
             <div class="balance">
                 <span>Total balance</span>
@@ -53,13 +55,13 @@ class App {
             </div>
         </div>
         `
-        b.className = 'wallet'
-        b.id = 'wallet'
+        wallet.className = 'wallet'
+        wallet.id = 'wallet'
 
         this.#views = [
             this.#table,
             this.#favs, 
-            b
+            wallet
         ]
         
         this.#render()
@@ -71,16 +73,13 @@ class App {
      * Método que renderiza este componente en el DOM
      */
     #render() {
-        const app = document.createElement('main')
-        app.id = 'app'
+        const app = document.getElementById('app')
 
         app.appendChild(this.#appBar)
         app.appendChild(this.#tabBar)
         app.appendChild(this.#modal)
         app.appendChild(this.#appWrapper)
-        app.appendChild(this.#search)
-        
-        document.body.appendChild(app)
+        app.appendChild(this.#search)        
     }
 
     /**
@@ -93,17 +92,17 @@ class App {
         this.#favs.id = 'favs'
 
         this.#favs.onClick = (event) => {
-            const symbol = event.target
-            symbol.remove()
+            const symbol = event.target.id
 
-            this.#search.unmarkSymbol(symbol.id)
+            this.#favs.removeElement(symbol)
+            this.#search.unmarkSymbol(symbol)
         }
         
         this.#search.addEventListener('table:change', (event) => {
             const symbol = event.detail.symbol
             const favorite = event.detail.favorite
 
-            favorite ? this.#favs.addElement(symbol) : this.#favs.removeElement(symbol)
+            favorite ? this.#favs.addElement(symbol) : this.#favs.removeElement(symbol.symbol)
         })
 
         this.#tabBar.addEventListener('change', () => this.#updateWrapper())
@@ -121,7 +120,35 @@ class App {
 
         this.#appWrapper.content = view
     }
+
+    /**
+     * Funcion callback cuando se ejecuta el login de Google, obtiene los datos
+     * y procede a añadir el usuario en la base de datos, una vez realizado actualiza
+     * las tablas con datos de usuario y actualiza el icono del usuario en la app bar
+     * @param {String} data Datos recibidos por google al realizar el login
+     */
+    async onLogin(data) {
+        const userData = getUserData(data)
+
+        if (!userData) return 
+
+        const login = logUser(userData)
+
+        login.then(user => {
+            sessionStorage.setItem('email', userData.email)
+
+            this.#appBar.updateUserImage(userData.picture)
+            this.#favs.updateTable()
+            this.#search.updateTable()
+        })
+    }
 }
 
-sessionStorage.setItem('email', 'assenzadaniel@gmail.com')
-const app = new App()
+const main = () => {
+    sessionStorage.setItem('email', 'assenzadaniel@gmail.com')
+    const app = new App()
+    
+    handleGoogleLogin(userData => app.onLogin(userData))
+}
+
+window.onload = main

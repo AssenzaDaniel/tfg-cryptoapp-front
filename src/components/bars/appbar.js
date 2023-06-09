@@ -37,6 +37,17 @@ class AppBar extends HTMLElement {
         })
     }
 
+    /**
+     * Actualiza el ícono de usuario con la imagen al realizar login
+     * @param {URL} image URL de la imagen del usuario
+     */
+    updateUserImage(image) {
+        const user = this.querySelector('#user-btn')
+        user.className = 'user-image'
+
+        user.innerHTML = `<img src="${image}"></img>`
+    }
+
     render() {
         this.innerHTML = `
         <div class="app-bar">

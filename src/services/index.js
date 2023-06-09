@@ -27,8 +27,10 @@ export async function getUpdates(symbols) {
  * @param {String} symbol simbolo a buscar
  * @returns simbolos que retorna la búsqueda
  */
-export async function search(email, symbol) {
+export async function search(symbol) {
+    const email = sessionStorage.getItem('email')
     symbol = symbol.toUpperCase()
+
     return api.post('/search', { email, symbol })
 }
 
@@ -38,7 +40,9 @@ export async function search(email, symbol) {
  * @returns promesa con la petición, si devuelve error la subscripcion
  * no se ha realizado correctamente
  */
-export async function subscribeSymbol(email, symbol) {
+export async function subscribeSymbol(symbol) {
+    const email = sessionStorage.getItem('email')
+
     return api.put('/subscriptions', { email, symbol })
 }
 
@@ -46,7 +50,9 @@ export async function subscribeSymbol(email, symbol) {
  * @param {String} email email del usuario
  * @returns nombre de los simbolos a los que el usuario está suscrito como array
  */
-export async function getSubscriptions(email) {
+export async function getSubscriptions() {
+    const email = sessionStorage.getItem('email')
+
     return api.post('/subscriptions/list', { email })
 }
 
@@ -57,4 +63,8 @@ export async function getSubscriptionsSymbols() {
     const email = sessionStorage.getItem('email')
 
     return api.post('/subscriptions/symbols', { email })
+}
+
+export async function logUser(userData) {
+    return api.post('/user/login', userData)
 }
