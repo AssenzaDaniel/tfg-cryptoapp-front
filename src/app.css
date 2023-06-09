@@ -18,19 +18,20 @@
     }
 }
 
+* {
+    user-select: none;
+}
+
 html {
-    padding-bottom: env(safe-area-inset-bottom);
     background-color: var(--background-color);
-    width: 100vw;
     color: var(--main-font-color);
+    width: 100vw;
     font-family: 'Rubik', 'Lato', sans-serif;
     letter-spacing: 0.3px;
-    user-select: none;
     scroll-behavior: smooth !important;
 }
 
 body {
-    position: absolute;
     margin: 0;
     width: 100vw;
     height: 100%;
@@ -306,33 +307,34 @@ icon-button div.button-text {
     font-variant-caps: all-petite-caps;
 }
 
+tab-bar {
+    position: fixed;
+    bottom: -1px;
+    width: 100vw;
+    z-index: 5;
+}
+
 tab-bar .bar {
     background-color: var(--primary-color);
     display: flex;
-    position: fixed;
+    position: absolute;
     bottom: 8px;
-    width: calc(100vw - 18px);
+    width: calc(100% - 18px);
     left: 9px;
     justify-content: space-evenly;
     padding: 10px 0 5px 0;
     box-sizing: border-box;
     height: 55px;
     border-radius: 15px;
-    z-index: 2;
-}
-
-tab-bar .bar icon-button[selected] {
-    color: #59b9e9;
-    filter: drop-shadow(10px);
 }
 
 tab-bar .tab-bar--overlay {
     background: linear-gradient(360deg, var(--background-color) 80%, transparent 100%);
-    position: fixed;
-    bottom: -1px;
-    width: 100vw;
     height: calc(55px + 20px);
-    z-index: 1;
+}
+
+tab-bar .bar icon-button[selected] {
+    color: #59b9e9;
 }
 
 /* ---------------------------------------------------
