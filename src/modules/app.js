@@ -71,7 +71,7 @@ class App {
      * Método que renderiza este componente en el DOM
      */
     #render() {
-        const app = document.createElement('div')
+        const app = document.createElement('main')
         app.id = 'app'
 
         app.appendChild(this.#appBar)

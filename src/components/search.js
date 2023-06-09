@@ -43,7 +43,7 @@ class Search extends HTMLElement {
     show() {
         if (this.#isActive) {
             this.removeAttribute('active')
-            document.body.style.overflow = 'scroll'
+            document.body.style.overflow = ''
 
         } else {
             

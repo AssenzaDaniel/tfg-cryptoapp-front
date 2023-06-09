@@ -1,15 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&family=Rubik&display=swap');
 
-:root {
-    --background-color: white;
-    --primary-color: whitesmoke;
-    --shadow: gainsboro;
-    --main-font-color: #4b5061;
+@media (prefers-color-scheme: light) {
+    :root {
+        --background-color: white;
+        --primary-color: whitesmoke;
+        --shadow: gainsboro;
+        --main-font-color: #4b5061;
+    }
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --background-color: rgb(16 17 21);
+        --background-color: #101115;
         --primary-color: rgb(29 31 38);
         --shadow-color: none;
         --main-font-color: rgb(139 143 155);
@@ -18,16 +20,15 @@
 
 html {
     background-color: var(--background-color);
-    width: 100vw;
     color: var(--main-font-color);
+    width: 100vw;
     font-family: 'Rubik', 'Lato', sans-serif;
-    letter-spacing: 0.3px;
+    letter-spacing: 0.1px;
     user-select: none;
     scroll-behavior: smooth !important;
 }
 
 body {
-    position: absolute;
     margin: 0;
     width: 100vw;
     height: 100%;
@@ -37,7 +38,7 @@ body {
 app-wrapper {
     display: block;
     position: relative;
-    top: 90px;
+    top: 85px;
     width: 100%;
     padding: 0 14px;
     padding-bottom: calc(65px + 4vw);
@@ -236,7 +237,7 @@ app-bar {
     position: fixed;
     top: 0;
     width: 100%;
-    height: 100px;
+    height: 90px;
     z-index: 10;
     background: linear-gradient(180deg, var(--background-color) 70%, transparent 100%);
 }
@@ -245,9 +246,9 @@ app-bar {
     position: fixed;
     display: flex;
     align-items: center;
-    top: 10px;
-    left: 2.5vw;
-    width: 95vw;
+    top: 8px;
+    left: 2.5%;
+    width: 95%;
     height: 70px;
     background-color: var(--primary-color);
     box-sizing: border-box;
@@ -303,33 +304,34 @@ icon-button div.button-text {
     font-variant-caps: all-petite-caps;
 }
 
+tab-bar {
+    position: fixed;
+    bottom: -1px;
+    width: 100vw;
+    z-index: 5;
+}
+
 tab-bar .bar {
     background-color: var(--primary-color);
     display: flex;
-    position: fixed;
+    position: absolute;
     bottom: 8px;
-    width: calc(100vw - 18px);
+    width: calc(100% - 18px);
     left: 9px;
     justify-content: space-evenly;
     padding: 10px 0 5px 0;
     box-sizing: border-box;
     height: 55px;
     border-radius: 15px;
-    z-index: 2;
-}
-
-tab-bar .bar icon-button[selected] {
-    color: #59b9e9;
-    filter: drop-shadow(10px);
 }
 
 tab-bar .tab-bar--overlay {
     background: linear-gradient(360deg, var(--background-color) 80%, transparent 100%);
-    position: fixed;
-    bottom: -1px;
-    width: 100vw;
     height: calc(55px + 20px);
-    z-index: 1;
+}
+
+tab-bar .bar icon-button[selected] {
+    color: #59b9e9;
 }
 
 /* ---------------------------------------------------

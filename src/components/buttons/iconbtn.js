@@ -21,35 +21,15 @@ class IconButton extends HTMLElement {
         if (this.#alreadyRendered) return
 
         const source = this.getAttribute('src')
+
         const text = this.innerText
-
         const isSVG = source.endsWith('.svg')
+
+        const icon = isSVG 
+            ? await this.#getSVGIcon(source) 
+            : `<img src="assets/${source}" alt="${text}">`
         
-        if (isSVG) {
-            this.innerHTML = await this.#getSVGIcon(source)
-            
-            const svg = this.querySelector('svg path')
-
-            if (!svg.getAttribute('stroke')) 
-                svg.setAttribute('fill', 'currentColor')
-            else
-                svg.setAttribute('stroke', 'currentColor')
-
-
-        } else {
-
-            this.innerHTML = `
-            <img src="assets/${source}" alt="${text}">
-            `
-        }
-
-        if (text) {
-            const buttonText = document.createElement('div')
-            buttonText.className = 'button-text'
-            buttonText.innerText = text
-    
-            this.appendChild(buttonText)
-        }
+        this.#render(icon, text)
 
         this.#alreadyRendered = true
     }
@@ -64,6 +44,20 @@ class IconButton extends HTMLElement {
         const response = await fetch(`assets/${source}`, { method: 'GET'})
     
         return response.text()
+    }
+
+    #render(icon, text) {
+        this.innerHTML = `
+        ${icon}
+        ${text !== '' ? `<div class="button-text">${text}</div>` : ''}
+        `
+
+        const svg = this.querySelector('svg path')
+
+        if (!svg.getAttribute('stroke')) 
+            svg.setAttribute('fill', 'currentColor')
+        else
+            svg.setAttribute('stroke', 'currentColor')
     }
 }
 
