@@ -328,7 +328,7 @@ tab-bar .bar {
     background-color: var(--primary-color);
     display: flex;
     position: absolute;
-    bottom: 8px;
+    bottom: 10px;
     width: calc(100% - 18px);
     left: 9px;
     justify-content: space-evenly;

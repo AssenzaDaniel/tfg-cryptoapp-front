@@ -1,3 +1,5 @@
+import { assets } from '/assets/assets.js'
+
 /**
  * Componente IconButton, hace como botón con un icono
  */
@@ -20,14 +22,15 @@ class IconButton extends HTMLElement {
     async connectedCallback() {
         if (this.#alreadyRendered) return
 
-        const source = this.getAttribute('src')
-
+        const source = this.getAttribute('src').toLowerCase()
+        const asset = this.#getIcon(source)
         const text = this.innerText
+
         const isSVG = source.endsWith('.svg')
 
         const icon = isSVG 
-            ? await this.#getSVGIcon(source) 
-            : `<img src="assets/${source}" alt="${text}">`
+            ? asset
+            : `<img src="assets/${window.atob(source)}" alt="${text}">`
         
         this.#render(icon, text)
 
@@ -40,10 +43,8 @@ class IconButton extends HTMLElement {
      * @param {URL} source path o ubicación de la imagen a solicitar
      * @returns SVG data as text
      */
-    async #getSVGIcon(source) {
-        const response = await fetch(`assets/${source}`, { method: 'GET'})
-    
-        return response.text()
+    #getIcon(source) {
+        return assets.find(asset => asset.file === source).data
     }
 
     #render(icon, text) {

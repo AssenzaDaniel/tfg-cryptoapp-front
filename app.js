@@ -1,6 +1,7 @@
 const express = require('express')
 const config = require('./config.js')
 const fs = require('fs')
+const generateAssets = require('./assets-generator.js')
 
 const hostname = config.app.hostname
 const port = config.app.port
@@ -10,6 +11,8 @@ fs.writeFileSync(
     `${__dirname}/src/config.js`, 
     `export default ${JSON.stringify(config)}`
 )
+
+generateAssets()
 
 app.use(express.static(`${__dirname}/src/`))
 
